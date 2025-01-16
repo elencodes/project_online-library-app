@@ -1,6 +1,6 @@
-@import "../src/styles/normalize.scss";
-@import "../src/styles/fonts.scss";
-@import "../src/styles/variables.scss";
+@use "../src/styles/normalize.scss";
+@use "../src/styles/fonts.scss";
+@use "../src/styles/variables.scss"as variables;
 
 /* :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -19,7 +19,7 @@
 
 body {
 	min-height: 100vh;
-	font-family: $mainFont;
+	font-family: variables.$descriptionFont;
 	font-weight: 400;
 	line-height: 1.5;
 	background-color: #1C161E;

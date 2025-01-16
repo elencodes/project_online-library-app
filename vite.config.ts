@@ -5,4 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
 	base: "/project_online-library-app",
 	plugins: [react()],
+	css: {
+		preprocessorOptions: {
+			scss: {
+				api: 'modern-compiler',
+			},
+		},
+	},
 })
