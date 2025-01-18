@@ -4,3 +4,13 @@
 // 	padding: 2rem;
 // 	text-align: center;
 // }
+
+.container {
+	margin: 0 auto;
+	display: flex;
+}
+
+.header__inner {
+	max-width: 12.625rem;
+	margin: 0 auto;
+}

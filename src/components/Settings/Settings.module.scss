@@ -1,0 +1,33 @@
+@use "../../styles/variables.scss"as variables;
+
+.settings__container {
+	display: flex;
+	width: 12.625rem;
+	height: 3.125rem;
+	margin-bottom: 1.5rem;
+	padding: .75rem 2rem;
+	border-radius: .3125rem;
+	color: variables.$font-color;
+
+	&:hover {
+		cursor: pointer;
+		background-color: variables.$button-color;
+		color: variables.$dark-font-color;
+		transition: background-color .2s linear, color .2s linear;
+	}
+
+	&:active {
+		background-color: variables.$active-button-color;
+		color: variables.$dark-font-color;
+		transition: background-color .1s linear, color .1s linear;
+	}
+}
+
+.settings__icon {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.settings__text {
+	margin-left: .625rem;
+}
