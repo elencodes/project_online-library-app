@@ -1,0 +1,34 @@
+@use "../../styles/variables.scss"as variables;
+
+.search__container {
+	width: 31.25rem;
+	padding: .625rem 0.875rem;
+	display: flex;
+	align-items: center;
+	border: 2px solid variables.$placeholder-color;
+	border-radius: 1.375rem;
+	background-color: variables.$input-color;
+}
+
+.search__item {
+	background: transparent;
+	flex: 1;
+	font-size: .875rem;
+	font-weight: 500;
+	color: variables.$font-color;
+
+	&::placeholder {
+		font-family: variables.$accentFont;
+		font-size: 1.25rem;
+		color: variables.$placeholder-color;
+	}
+}
+
+.search__icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-left: 0.25rem;
+	margin-right: 0.875rem;
+	transition: transform 0.2s linear;
+	content: url("../../assets/icons/search/search.svg");
+}

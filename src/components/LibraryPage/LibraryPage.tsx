@@ -1,17 +1,57 @@
+import { SearchForm } from "../SearchForm/SearchForm";
 import styles from "./LibraryPage.module.scss";
 
 export function LibraryPage() {
 	return (
 		<>
-			<div className={styles.title}>
-				<h1 className={styles.title}>Library</h1>
-				<input type="text" />
-			</div>
-			<div className={styles.filters__box}>
-				<button></button>
-				<button></button>
-				<button></button>
-				<button></button>
+			<div className="container">
+				<main>
+					<div className={styles.search__container}>
+						<h1 className={styles.title}>Library</h1>
+						<SearchForm />
+					</div>
+					<div className={styles.filters__box}>
+						<button className={styles.filter__button}>
+							<p className={styles.filter__button_text}>All books</p>
+						</button>
+						<button className={styles.filter__button}>
+							<p className={styles.filter__button_text}>Favourites</p>
+						</button>
+						<button className={styles.filter__button}>
+							<p className={styles.filter__button_text}>Fantasy</p>
+						</button>
+						<button className={styles.filter__button}>
+							<p className={styles.filter__button_text}>Classic</p>
+						</button>
+					</div>
+					<h2 className={styles.subtitle}>Book List</h2>
+					<div className={styles.card__container}></div>
+				</main>
+				<footer className={styles.footer}>
+					<div className={styles.footer__text}>
+						<span className={styles.footer__text_total}>
+							Total books:{" "}
+						</span>
+						<span className={styles.footer__counter}>1</span>
+					</div>
+					<ul className={styles.pagination__list}>
+						<li className={styles.list__item}>
+							<a className={styles.item__link_page} href="#">
+								1
+							</a>
+						</li>
+						<li className={styles.list__item}>
+							<a className={styles.item__link_page} href="#">
+								2
+							</a>
+						</li>
+						<li className={styles.list__item}>
+							<a className={styles.item__link_page} href="#">
+								3
+							</a>
+						</li>
+					</ul>
+				</footer>
 			</div>
 		</>
 	);

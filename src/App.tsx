@@ -8,14 +8,12 @@ function App() {
 		<>
 			<Router basename="/project_online-library-app">
 				<div className="app">
-					<div className="container">
-						<Header />
-						<Routes>
-							<Route path="/" element={<LibraryPage />} />
-							{/* <Route path="/addbook" element={<AddBook />} />
+					<Header />
+					<Routes>
+						<Route path="/" element={<LibraryPage />} />
+						{/* <Route path="/addbook" element={<AddBook />} />
 					<Route path="*" element={<MissingPage />} /> */}
-						</Routes>
-					</div>
+					</Routes>
 				</div>
 			</Router>
 		</>

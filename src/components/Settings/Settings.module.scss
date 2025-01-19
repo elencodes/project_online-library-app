@@ -2,6 +2,7 @@
 
 .settings__container {
 	display: flex;
+	align-items: center;
 	width: 12.625rem;
 	height: 3.125rem;
 	margin-bottom: 1.5rem;
@@ -18,8 +19,8 @@
 
 	&:active {
 		background-color: variables.$active-button-color;
-		color: variables.$dark-font-color;
-		transition: background-color .1s linear, color .1s linear;
+		color: variables.$font-color;
+		transition: background-color .2s linear, color .2s linear;
 	}
 }
 
@@ -29,5 +30,6 @@
 }
 
 .settings__text {
+	font-size: 1.0625rem;
 	margin-left: .625rem;
 }

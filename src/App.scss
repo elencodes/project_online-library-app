@@ -5,9 +5,14 @@
 // 	text-align: center;
 // }
 
-.container {
-	margin: 0 auto;
+.app {
 	display: flex;
+	margin: 0 auto;
+}
+
+.container {
+	max-width: 85rem;
+	padding: 1.875rem 2.5rem;
 }
 
 .header__inner {
