@@ -1,7 +1,8 @@
 import { SearchForm } from "../SearchForm/SearchForm";
 import styles from "./LibraryPage.module.scss";
+import BookList from "../BookList/BookList";
 
-export function LibraryPage() {
+const LibraryPage = () => {
 	return (
 		<>
 			<div className="container">
@@ -25,7 +26,7 @@ export function LibraryPage() {
 						</button>
 					</div>
 					<h2 className={styles.subtitle}>Book List</h2>
-					<div className={styles.card__container}></div>
+					<BookList />
 				</main>
 				<footer className={styles.footer}>
 					<div className={styles.footer__text}>
@@ -55,4 +56,6 @@ export function LibraryPage() {
 			</div>
 		</>
 	);
-}
+};
+
+export default LibraryPage;
