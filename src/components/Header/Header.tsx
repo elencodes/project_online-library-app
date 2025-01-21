@@ -35,6 +35,14 @@ export function Header() {
 								/>
 								<p className={styles.nav__text}>Add book</p>
 							</Link>
+							<Link className={styles.nav__button} to="/bookpage">
+								<img
+									className={styles.nav__icon}
+									src={addBookIcon}
+									alt="addBook"
+								/>
+								<p className={styles.nav__text}>Book Page</p>
+							</Link>
 						</nav>
 						<Settings />
 					</div>

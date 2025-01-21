@@ -11,8 +11,8 @@ const BookCard = () => {
 					<img className={styles.image} src={poster} alt="poster" />
 				</div>
 				<div className={styles.content}>
-					<h2 className={styles.title}>Title</h2>
-					<p className={styles.subtitle}>Author</p>
+					<h1 className={styles.title}>Title</h1>
+					<h2 className={styles.subtitle}>Author</h2>
 				</div>
 				<div className={styles.button__container}>
 					<button className={styles.button__delete}>
