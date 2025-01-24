@@ -3,6 +3,7 @@ import { Header } from "./components/Header/Header";
 import LibraryPage from "./components/LibraryPage/LibraryPage";
 import "./App.scss";
 import BookPage from "./components/BookPage/BookPage";
+import AddBookForm from "./components/AddBookForm/AddBookForm";
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<LibraryPage />} />
 						<Route path="/bookpage" element={<BookPage />} />
+						<Route path="/addbook" element={<AddBookForm />} />
 						{/* <Route path="/addbook" element={<AddBook />} />
 					<Route path="*" element={<MissingPage />} /> */}
 					</Routes>

@@ -39,7 +39,7 @@ export function Header() {
 								<img
 									className={styles.nav__icon}
 									src={addBookIcon}
-									alt="addBook"
+									alt="bookpage"
 								/>
 								<p className={styles.nav__text}>Book Page</p>
 							</Link>
