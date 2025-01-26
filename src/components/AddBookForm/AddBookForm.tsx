@@ -1,5 +1,6 @@
-import styles from "./AddBookForm.module.scss";
 import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
+import uploadIcon from "../../assets/icons/buttons/upload.svg";
+import styles from "./AddBookForm.module.scss";
 
 const AddBookForm = () => {
 	return (
@@ -10,11 +11,23 @@ const AddBookForm = () => {
 					<form className={styles.form__container}>
 						<div className={styles.input__container}>
 							<label className={styles.input__label}>Cover</label>
-							<input
-								className={styles.input__item}
-								type="file"
-								name="Cover"
-							/>
+							<div
+								className={`${styles.box__input_file} ${styles.input__item}`}
+							>
+								<p className={styles.input__file_placeholder}>
+									Choose a file
+									<img
+										className={styles.placeholder__upload_icon}
+										src={uploadIcon}
+										alt="upload"
+									/>
+								</p>
+								<input
+									className={styles.input__file}
+									type="file"
+									name="Cover"
+								/>
+							</div>
 						</div>
 						<div className={styles.input__container}>
 							<label className={styles.input__label}>Title</label>
@@ -46,9 +59,8 @@ const AddBookForm = () => {
 							</label>
 							<textarea
 								className={`${styles.input__item} ${styles.textarea}`}
-								name=""
-								id=""
-								placeholder="A description of the book"
+								name="description"
+								placeholder="Enter description of the book..."
 							></textarea>
 						</div>
 						<button className={styles.button} type="submit">
