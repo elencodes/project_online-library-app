@@ -1,14 +1,12 @@
-import { Link } from "react-router-dom";
 import styles from "./AddBookForm.module.scss";
+import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
 
 const AddBookForm = () => {
 	return (
 		<>
 			<div className="container">
 				<section className={styles.section}>
-					<Link className={styles.go_back__button} to="/">
-						<p className={styles.button__text}>Back to Library</p>
-					</Link>
+					<GoBackButton text={"Back to Library"} />
 					<form className={styles.form__container}>
 						<div className={styles.input__container}>
 							<label className={styles.input__label}>Cover</label>

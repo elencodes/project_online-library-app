@@ -1,7 +1,7 @@
 import poster from "../../assets/images/promo.svg";
-import deleteIcon from "../../assets/icons/buttons/delete.svg";
-import favouritesIcon from "../../assets/icons/buttons/favourite.svg";
 import styles from "./BookCard.module.scss";
+import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
+import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
 
 const BookCard = () => {
 	return (
@@ -15,20 +15,8 @@ const BookCard = () => {
 					<h2 className={styles.subtitle}>Author</h2>
 				</div>
 				<div className={styles.button__container}>
-					<button className={styles.button__delete}>
-						<img
-							className={styles.button__delete_icon}
-							src={deleteIcon}
-							alt="delete"
-						/>
-					</button>
-					<button className={styles.button__favourites}>
-						<img
-							className={styles.button__favourites_icon}
-							src={favouritesIcon}
-							alt="favourites"
-						/>
-					</button>
+					<DeleteButton />
+					<FavouritesButton />
 				</div>
 			</div>
 		</>

@@ -1,0 +1,17 @@
+@use "../../../styles/variables.scss"as variables;
+
+.button__favourites {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: transparent;
+}
+
+.button__favourites {
+	cursor: pointer;
+}
+
+.button__favourites_icon {
+	width: 1.9375rem;
+	height: 1.75rem;
+}

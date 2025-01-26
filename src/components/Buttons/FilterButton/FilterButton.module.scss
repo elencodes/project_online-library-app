@@ -1,0 +1,29 @@
+@use "../../../styles/variables.scss"as variables;
+
+.filter__button {
+	width: 6.75rem;
+	height: 2.5rem;
+	text-align: center;
+	color: variables.$font-color;
+	background: transparent;
+	border-radius: .625rem;
+	border: .125rem solid variables.$placeholder-color;
+
+	&:hover {
+		cursor: pointer;
+		background-color: variables.$button-color;
+		color: variables.$dark-font-color;
+		transition: background-color .3s linear, color .3s linear;
+	}
+
+	&:active {
+		background-color: variables.$active-button-color;
+		color: variables.$font-color;
+		transition: background-color .3s linear, color .3s linear;
+	}
+}
+
+.filter__button_text {
+	font-family: variables.$accentFont;
+	font-size: 1.125rem;
+}

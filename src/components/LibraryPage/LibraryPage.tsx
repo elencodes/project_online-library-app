@@ -1,6 +1,7 @@
 import { SearchForm } from "../SearchForm/SearchForm";
 import styles from "./LibraryPage.module.scss";
 import BookList from "../BookList/BookList";
+import FilterButton from "../Buttons/FilterButton/FilterButton";
 
 const LibraryPage = () => {
 	return (
@@ -12,18 +13,10 @@ const LibraryPage = () => {
 						<SearchForm />
 					</div>
 					<div className={styles.filters__box}>
-						<button className={styles.filter__button}>
-							<p className={styles.filter__button_text}>All books</p>
-						</button>
-						<button className={styles.filter__button}>
-							<p className={styles.filter__button_text}>Favourites</p>
-						</button>
-						<button className={styles.filter__button}>
-							<p className={styles.filter__button_text}>Fantasy</p>
-						</button>
-						<button className={styles.filter__button}>
-							<p className={styles.filter__button_text}>Classic</p>
-						</button>
+						<FilterButton text={"All books"} />
+						<FilterButton text={"Favourites"} />
+						<FilterButton text={"Fantasy"} />
+						<FilterButton text={"Classic"} />
 					</div>
 					<h2 className={styles.subtitle}>Book List</h2>
 					<BookList />

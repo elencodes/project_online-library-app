@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
+import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
+import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
 import poster from "../../assets/images/promo.svg";
-import deleteIcon from "../../assets/icons/buttons/delete.svg";
-import favouritesIcon from "../../assets/icons/buttons/favourite.svg";
 import styles from "./BookPage.module.scss";
 
 const BookPage = () => {
@@ -9,9 +9,7 @@ const BookPage = () => {
 		<>
 			<div className="container">
 				<section className={styles.section}>
-					<Link className={styles.go_back__button} to="/">
-						<p className={styles.button__text}>Back to Library</p>
-					</Link>
+					<GoBackButton text={"Back to Library"} />
 					<div className={styles.content}>
 						<div className={styles.image__box}>
 							<img className={styles.image} src={poster} alt="poster" />
@@ -22,20 +20,8 @@ const BookPage = () => {
 						<h2 className={styles.subtitle}>J. R. R. Tolkien</h2>
 						<h3 className={styles.genres}>Fantasy ~ Fantasy</h3>
 						<div className={styles.button__container}>
-							<button className={styles.button__delete}>
-								<img
-									className={styles.button__delete_icon}
-									src={deleteIcon}
-									alt="delete"
-								/>
-							</button>
-							<button className={styles.button__favourites}>
-								<img
-									className={styles.button__favourites_icon}
-									src={favouritesIcon}
-									alt="favourites"
-								/>
-							</button>
+							<DeleteButton />
+							<FavouritesButton />
 						</div>
 						<div className={styles.description__box}>
 							<h4 className={styles.description__title}>About book</h4>
