@@ -15,7 +15,7 @@ const DeleteButton = () => {
 			>
 				<img
 					className={styles.button__delete_icon}
-					src={isHovered === true ? deleteActiveIcon : deleteIcon}
+					src={isHovered ? deleteActiveIcon : deleteIcon}
 					alt="delete"
 				/>
 			</button>

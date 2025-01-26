@@ -7,12 +7,12 @@
 	cursor: pointer;
 	transition: transform 0.2s ease-in-out;
 
-	// Добавим небольшой эффект увеличения при клике
+	// Анимация нажатия (немного уменьшается)
 	&:active {
 		transform: scale(0.9);
 	}
 
-	// Сердце создаем через `::before`, чтобы избежать мелькания
+	// Сердце создаем через `::before`
 	.heart {
 		position: relative;
 		display: inline-block;
@@ -21,8 +21,8 @@
 		transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
 
 		&::before {
-			content: "❤️"; // Изначально закрашенное сердце
-			color: transparent; // Делаем его невидимым
+			content: "❤️"; // Закрашенное сердце
+			color: transparent; // По умолчанию НЕ видно
 			text-shadow: 0px 0px 1px variables.$shadow-menu-color,
 				0px 0px 2px variables.$shadow-menu-color,
 				0px 0px 3px variables.$shadow-menu-color;
@@ -30,21 +30,39 @@
 		}
 	}
 
-	// При наведении — появляется цвет, но только если НЕ в избранном
-	&:hover:not(.active) .heart::before {
-		color: variables.$font-color;
-		text-shadow: none;
-	}
-
 	// Если в избранном — сердце остаётся закрашенным
 	&.active .heart::before {
 		color: variables.$font-color;
 	}
-}
 
-@media (hover:hover) {
-	.heart:not(.active) .heart::before {
-		color: variables.$font-color;
-		text-shadow: none;
+	// При наведении цвет появляется **Только на десктопах** (только если НЕ в избранном)
+	@media (hover: hover) {
+		&:not(.active):hover .heart::before {
+			color: variables.$font-color;
+			text-shadow: none;
+		}
+	}
+
+	// Если сняли лайк — сразу возвращаем прозрачное состояние
+	&.inactive .heart::before {
+		color: transparent;
+		text-shadow: 0px 0px 1px variables.$shadow-menu-color,
+			0px 0px 2px variables.$shadow-menu-color,
+			0px 0px 3px variables.$shadow-menu-color;
+	}
+
+	// Временно отключаем `hover` при снятии лайка
+	&.noHover {
+		pointer-events: none;
+	}
+
+	// На мобильных устройствах `hover` вообще убираем
+	@media (hover: none) {
+		&:hover .heart::before {
+			color: transparent;
+			text-shadow: 0px 0px 1px variables.$shadow-menu-color,
+				0px 0px 2px variables.$shadow-menu-color,
+				0px 0px 3px variables.$shadow-menu-color;
+		}
 	}
 }

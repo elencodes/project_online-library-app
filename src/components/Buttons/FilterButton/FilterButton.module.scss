@@ -18,8 +18,7 @@
 
 	&:active {
 		background-color: variables.$active-button-color;
-		color: variables.$font-color;
-		transition: background-color .3s linear, color .3s linear;
+		transition: background-color .2s linear;
 	}
 }
 
