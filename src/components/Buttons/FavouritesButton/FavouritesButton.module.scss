@@ -1,17 +1,30 @@
 @use "../../../styles/variables.scss"as variables;
 
 .button__favourites {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: transparent;
-}
-
-.button__favourites {
 	cursor: pointer;
 }
 
 .button__favourites_icon {
 	width: 1.9375rem;
 	height: 1.75rem;
+	position: absolute;
+	right: 0;
+	transition: opacity 0.2s ease-in-out;
+}
+
+.default {
+	opacity: 1;
+}
+
+.active {
+	opacity: 0;
+}
+
+.active.visible {
+	opacity: 1;
 }
