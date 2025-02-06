@@ -29,12 +29,12 @@ export interface IFetchTopBooksFinishedAction {
 	type: TopBooksActionTypes.FETCH_TOP_BOOKS_FINISHED;
 }
 
-export interface ITopBooksError {
+export interface IFetchTopBooksError {
 	type: TopBooksActionTypes.FETCH_TOP_BOOKS_ERROR;
 	payload: string;
 }
 
-export interface ISetTopBookPage {
+export interface ISetTopBooksPage {
 	type: TopBooksActionTypes.SET_TOP_BOOK_PAGE;
 	payload: number;
 }
@@ -42,6 +42,6 @@ export interface ISetTopBookPage {
 export type TopBookActions =
 	| IFetchTopBooksDataAction
 	| IFetchTopBooksSuccessAction
-	| ISetTopBookPage
-	| ITopBooksError
+	| ISetTopBooksPage
+	| IFetchTopBooksError
 	| IFetchTopBooksFinishedAction;
