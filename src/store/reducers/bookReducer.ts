@@ -1,57 +1,75 @@
-//взаимодействие со списком книг
+// Импортируем необходимые типы для работы с состоянием книги
 import {
-	IBookState,
-	BookActions,
-	BookActionTypes,
+	IBookState, // Интерфейс, описывающий структуру состояния книги
+	BookActions, // Тип всех возможных действий (actions), связанных с книгами
+	BookActionTypes, // Перечисление (enum) всех возможных типов действий
 } from "../../types/booksTypes";
 
-//иициализируем дефолтное состояние в bookReducer
+// Инициализируем начальное состояние (initialState) для книги в bookReducer
 const initialState: IBookState = {
 	book: {
-		//список книг
-		id: "",
+		// Объект, который содержит данные о книге
+		id: "", // Уникальный идентификатор книги
 		volumeInfo: {
-			title: "",
-			authors: [],
-			categories: [],
-			pageCount: 0,
-			description: "",
+			title: "", // Название книги
+			authors: [], // Авторы книги (может быть массивом)
+			categories: [], // Категории, к которым относится книга
+			pageCount: 0, // Количество страниц
+			description: "", // Описание книги
 			imageLinks: {
-				medium: "",
+				medium: "", // Ссылка на изображение обложки книги
 			},
 		},
 	},
-	isLoading: false, //флаг загрузки
+	isLoading: false, // Флаг, указывающий, загружается ли книга в данный момент
 	bookError: null, //поле, которое будет содержать в себе сообщение об ошибке или null
 };
 
+// Создаем сам редьюсер (функция, которая управляет изменением состояния в зависимости от переданного action)
 export const bookReducer = (
-	state = initialState,
-	action: BookActions
+	state = initialState, // Используем initialState как начальное значение
+	action: BookActions // Ожидаем, что action, который обрабатывает редьюсер, будет одного из типов, указанных в BookActions
 ): IBookState => {
 	//создаем конструкцию switch case, которая в зависимости от типа action будет вызывать тот или иной кейс
 	switch (action.type) {
+		// Данный action означает, что началась загрузка книги
 		case BookActionTypes.FETCH_BOOK_DATA: {
-			return { ...state, isLoading: true };
+			return {
+				...state, // Копируем текущее состояние
+				isLoading: true, // Включаем флаг загрузки
+			};
 		}
+		// Данный action означает, что загрузка книги успешно завершена
 		case BookActionTypes.FETCH_BOOK_SUCCESS: {
-			return { ...state, book: action.payload };
+			return {
+				...state, // Копируем текущее состояние
+				book: action.payload,
+			}; // Обновляем книгу, используя данные из action.payload
 		}
+		// Данный action означает, что загрузка книги завершена
 		case BookActionTypes.FETCH_BOOK_DATA_FINISHED: {
-			return { ...state, isLoading: false };
+			return {
+				...state, // Копируем текущее состояние
+				isLoading: false, // Выключаем флаг загрузки
+			};
 		}
+		// Данный action означает, что произошла ошибка при загрузке книги
 		case BookActionTypes.FETCH_BOOK_ERROR: {
-			return { ...state, bookError: action.payload };
+			return {
+				...state, // Копируем текущее состояние
+				bookError: action.payload,
+			}; // Сохраняем текст ошибки в bookError
 		}
+		// Данный action означает, что необходимо сбросить состояние книги к начальному
 		case BookActionTypes.RESET_BOOK_STATE: {
 			return {
-				...initialState,
+				...initialState, // Заменяем состояние на начальное
 				book: {
-					...initialState.book,
+					...initialState.book, // Явно копируем объект book, чтобы избежать мутации состояния
 				},
 			};
 		}
 		default:
-			return state;
+			return state; // Если переданный action не совпадает ни с одним из вышеуказанных типов, возвращаем текущее состояние без изменений
 	}
 };

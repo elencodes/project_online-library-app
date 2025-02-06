@@ -1,5 +1,10 @@
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import { thunk } from "redux-thunk";
-import { bookReducer } from "./reducers/bookReducer";
+import { rootReducer } from "./reducers";
 
-export const store = createStore(bookReducer, applyMiddleware(thunk)); //инициализация Redux store
+//инициализация Redux store
+export const store = createStore(
+	rootReducer,
+	undefined,
+	applyMiddleware(thunk)
+);
