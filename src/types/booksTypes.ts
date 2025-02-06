@@ -35,7 +35,7 @@ export interface IFetchBookDataFinishedAction {
 	type: BookActionTypes.FETCH_BOOK_DATA_FINISHED;
 }
 
-export interface IFetchBookErrorAction {
+export interface IFetchBookError {
 	type: BookActionTypes.FETCH_BOOK_ERROR;
 	payload: string;
 }
@@ -50,7 +50,7 @@ export interface IFetchBookData {
 
 export type BookActions =
 	| IFetchBookSuccessAction
-	| IFetchBookErrorAction
+	| IFetchBookError
 	| IResetBookState
 	| IFetchBookDataFinishedAction
 	| IFetchBookData;

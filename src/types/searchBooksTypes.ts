@@ -24,7 +24,7 @@ export interface ISearchBookSuccessAction {
 	payload: IBook[];
 }
 
-export interface ISearchBookErrorAction {
+export interface ISearchBookError {
 	type: SearchBookActionTypes.SEARCH_BOOK_ERROR;
 	payload: string;
 }
@@ -58,5 +58,5 @@ export type SearchBookActions =
 	| ISetSearchBookPage
 	| ISetSearchKeyword
 	| ISetSearchPagesCount
-	| ISearchBookErrorAction
+	| ISearchBookError
 	| ISearchBookSuccessAction;
