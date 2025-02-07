@@ -1,6 +1,3 @@
-export const BASE_TOP_BOOKS_URL =
-	"https://www.googleapis.com/books/v1/volumes?q=top+100+books";
-
 export const BASE_FETCH_URL = "https://www.googleapis.com/books/v1/volumes";
 
 export const MAX_PAGES_COUNT = 10;

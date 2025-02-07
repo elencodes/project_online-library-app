@@ -26,18 +26,13 @@ import {
 import { BookActions } from "../types/booksTypes";
 import { SearchBookActions } from "../types/searchBooksTypes";
 import { TopBookActions } from "../types/topBooksTypes";
-import {
-	BASE_FETCH_URL,
-	BASE_TOP_BOOKS_URL,
-	FETCH_ERROR_MESSAGE,
-} from "./constants";
+import { BASE_FETCH_URL, FETCH_ERROR_MESSAGE } from "./constants";
+
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 //Настроенный экземпляр axios
 const apiClient = axios.create({
 	baseURL: BASE_FETCH_URL,
-	headers: {
-		"X-API-KEY": import.meta.env.VITE_API_KEY, // API-ключ из переменной окружения
-	},
 });
 
 //Получение списка топовых книг
@@ -46,10 +41,12 @@ const fetchTopBooks = (page = 1) => {
 		try {
 			dispatch(fetchTopBooksDataAction());
 
-			const response = await apiClient.get(BASE_TOP_BOOKS_URL, {
+			const response = await apiClient.get("", {
 				params: {
+					q: "top+100+books", // Обязательно добавляем поисковый запрос
 					startIndex: (page - 1) * 10, // Смещение для пагинации
 					maxResults: 30,
+					key: API_KEY, // Передаем API-ключ как параметр
 				},
 			});
 
@@ -69,7 +66,9 @@ const fetchBook = (id: string) => {
 		try {
 			dispatch(fetchBookDataAction());
 
-			const response = await apiClient.get(`/${id}`);
+			const response = await apiClient.get(`/${id}`, {
+				params: { key: API_KEY }, // Добавляем API-ключ в параметры
+			});
 
 			dispatch(fetchBookSuccessAction(response.data));
 		} catch (error) {
@@ -89,9 +88,10 @@ const searchBooks = (keyword = "", page = 1) => {
 
 			const response = await apiClient.get("", {
 				params: {
-					q: keyword,
+					q: keyword, // Передаем ключевое слов
 					startIndex: (page - 1) * 10, // Смещение для пагинации
 					maxResults: 30,
+					key: API_KEY, // Добавляем API-ключ
 				},
 			});
 
