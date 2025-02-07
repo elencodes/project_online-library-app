@@ -1,9 +1,9 @@
 import { MAX_PAGES_COUNT } from "./constants";
 
 export const handlePagesCounts = (
-	pages: number[],
-	pagesCount: number,
-	currentPage: number
+	pages: number[], // Сюда передается массив, в который будут добавляться номера страниц
+	pagesCount: number, // Общее количество страниц
+	currentPage: number // Текущая страница
 ): void => {
 	if (pagesCount > 5) {
 		if (currentPage >= 3) {

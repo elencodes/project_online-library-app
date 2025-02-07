@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Dispatch } from "redux";
 import {
 	searchBookAction,
@@ -31,74 +32,81 @@ import {
 	FETCH_ERROR_MESSAGE,
 } from "./constants";
 
-const options = {
-	headers: { "X-API-KEY": "*" },
-};
+//Настроенный экземпляр axios
+const apiClient = axios.create({
+	baseURL: BASE_FETCH_URL,
+	headers: {
+		"X-API-KEY": import.meta.env.VITE_API_KEY, // API-ключ из переменной окружения
+	},
+});
 
-const checkResponse = (response: Response) => {
-	return response.ok
-		? response.json()
-		: Promise.reject("Error from the frontend");
-};
-
+//Получение списка топовых книг
 const fetchTopBooks = (page = 1) => {
 	return async (dispatch: Dispatch<TopBookActions>) => {
 		try {
 			dispatch(fetchTopBooksDataAction());
-			const response = await fetch(`${BASE_TOP_BOOKS_URL}${page}`, options);
-			const topBooksData = await checkResponse(response);
-			dispatch(fetchTopBooksSuccessAction(topBooksData.books));
+
+			const response = await apiClient.get(BASE_TOP_BOOKS_URL, {
+				params: {
+					startIndex: (page - 1) * 10, // Смещение для пагинации
+					maxResults: 30,
+				},
+			});
+
+			dispatch(fetchTopBooksSuccessAction(response.data.items || []));
 		} catch (error) {
 			console.log("Error fetching top books:", error);
-			setTimeout(
-				() => dispatch(fetchTopBooksErrorAction(FETCH_ERROR_MESSAGE)),
-				400
-			);
+			dispatch(fetchTopBooksErrorAction(FETCH_ERROR_MESSAGE));
 		} finally {
-			setTimeout(() => dispatch(fetchTopBooksFinishedAction()), 500);
+			dispatch(fetchTopBooksFinishedAction());
 		}
 	};
 };
 
+//Получение данных о конкретной книге
 const fetchBook = (id: string) => {
 	return async (dispatch: Dispatch<BookActions>) => {
 		try {
 			dispatch(fetchBookDataAction());
-			const response = await fetch(`${BASE_FETCH_URL}/${id}`, options);
-			const bookData = await checkResponse(response);
-			dispatch(fetchBookSuccessAction(bookData.data));
+
+			const response = await apiClient.get(`/${id}`);
+
+			dispatch(fetchBookSuccessAction(response.data));
 		} catch (error) {
 			console.log("Error fetching book:", error);
-			setTimeout(
-				() => dispatch(fetchBookErrorAction(FETCH_ERROR_MESSAGE)),
-				400
-			);
+			dispatch(fetchBookErrorAction(FETCH_ERROR_MESSAGE));
 		} finally {
-			setTimeout(() => dispatch(fetchBookDataFinishedAction()), 500);
+			dispatch(fetchBookDataFinishedAction());
 		}
 	};
 };
 
-const searchBooks = (keyword?: string, page = 1) => {
+//Поиск книг по ключевому слову
+const searchBooks = (keyword = "", page = 1) => {
 	return async (dispatch: Dispatch<SearchBookActions>) => {
 		try {
 			dispatch(searchBookAction());
-			const response = await fetch(
-				`${BASE_FETCH_URL}?q=${keyword}$page=${page}`,
-				options
+
+			const response = await apiClient.get("", {
+				params: {
+					q: keyword,
+					startIndex: (page - 1) * 10, // Смещение для пагинации
+					maxResults: 30,
+				},
+			});
+
+			const searchResults = response.data.items || [];
+
+			dispatch(searchBookSuccessAction(searchResults));
+			dispatch(
+				setSearchPagesCountAction(Math.ceil(response.data.totalItems / 10))
 			);
-			const searchResultsData = await checkResponse(response);
-			dispatch(searchBookSuccessAction(searchResultsData.books));
-			dispatch(setSearchPagesCountAction(searchResultsData.pagesCount));
-			dispatch(setSearchKeywordAction(searchResultsData.keyword));
+			dispatch(setSearchKeywordAction(keyword));
 		} catch (error) {
-			setTimeout(
-				() => dispatch(searchBookErrorAction(FETCH_ERROR_MESSAGE)),
-				400
-			);
+			dispatch(searchBookErrorAction(FETCH_ERROR_MESSAGE));
 			console.log("Error searching books:", error);
 		} finally {
-			setTimeout(() => dispatch(searchBookFinishedAction()), 500);
+			dispatch(searchBookFinishedAction());
 		}
 	};
 };
