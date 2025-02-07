@@ -17,7 +17,7 @@ const initialState: IBookState = {
 			pageCount: 0, // Количество страниц
 			description: "", // Описание книги
 			imageLinks: {
-				medium: "", // Ссылка на изображение обложки книги
+				thumbnail: "", // Ссылка на изображение обложки книги
 			},
 		},
 	},
