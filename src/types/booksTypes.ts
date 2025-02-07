@@ -7,7 +7,7 @@ export interface IBook {
 		pageCount: number;
 		description: string;
 		imageLinks: {
-			medium: string;
+			thumbnail: string;
 		};
 	};
 }
