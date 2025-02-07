@@ -4,18 +4,21 @@ import poster from "../../assets/images/promo.svg";
 import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
 import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
 
-const BookCard: React.FC<{ book: IBook }> = ({ book }) => {
+// Определяем пропсы: компонент ожидает объект book типа IBook
+interface BookCardProps {
+	book: IBook;
+}
+
+const BookCard: React.FC<BookCardProps> = ({ book }) => {
+	// Достаем нужные данные из объекта book
 	const { imageLinks, title, authors } = book.volumeInfo;
+	const imageUrl = imageLinks?.thumbnail || poster;
 
 	return (
 		<>
 			<div className={styles.card}>
 				<div className={styles.image__box}>
-					<img
-						className={styles.image}
-						src={imageLinks?.medium || poster}
-						alt="poster"
-					/>
+					<img className={styles.image} src={imageUrl} alt="poster" />
 				</div>
 				<div className={styles.content}>
 					<h1 className={styles.title}>{title}</h1>
