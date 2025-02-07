@@ -1,18 +1,27 @@
-import poster from "../../assets/images/promo.svg";
+import { IBook } from "../../types/booksTypes";
 import styles from "./BookCard.module.scss";
+import poster from "../../assets/images/promo.svg";
 import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
 import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
 
-const BookCard = () => {
+const BookCard: React.FC<{ book: IBook }> = ({ book }) => {
+	const { imageLinks, title, authors } = book.volumeInfo;
+
 	return (
 		<>
 			<div className={styles.card}>
 				<div className={styles.image__box}>
-					<img className={styles.image} src={poster} alt="poster" />
+					<img
+						className={styles.image}
+						src={imageLinks?.medium || poster}
+						alt="poster"
+					/>
 				</div>
 				<div className={styles.content}>
-					<h1 className={styles.title}>Title</h1>
-					<h2 className={styles.subtitle}>Author</h2>
+					<h1 className={styles.title}>{title}</h1>
+					<h2 className={styles.subtitle}>
+						{authors?.join(", ") || "Unknown Author"}
+					</h2>
 				</div>
 				<div className={styles.button__container}>
 					<DeleteButton />
