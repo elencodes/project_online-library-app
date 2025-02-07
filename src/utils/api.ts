@@ -32,7 +32,7 @@ import {
 } from "./constants";
 
 const options = {
-	headers: { "X-API-KEY": "AIzaSyDkICaOnl3dRno_kejdz9uWuVcQyeeZxEM" },
+	headers: { "X-API-KEY": "*" },
 };
 
 const checkResponse = (response: Response) => {
