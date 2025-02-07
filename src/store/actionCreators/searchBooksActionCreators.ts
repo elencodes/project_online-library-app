@@ -16,7 +16,7 @@ import {
 // Экшен для начала поиска книг
 export const searchBookAction = (): ISearchBookAction => {
 	return {
-		type: SearchBookActionTypes.SEARCH_BOOK, // Указываем тип экшена
+		type: SearchBookActionTypes.SEARCH_BOOK, // Указываем тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 	};
 };
 
@@ -25,7 +25,7 @@ export const searchBookSuccessAction = (
 	books: IBook[] // В качестве параметра передаем массив объектов типа IBook (найденные книги)
 ): ISearchBookSuccessAction => {
 	return {
-		type: SearchBookActionTypes.SEARCH_BOOK_SUCCESS, // Тип экшена
+		type: SearchBookActionTypes.SEARCH_BOOK_SUCCESS, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 		payload: books, // Передаем массив книг в поле payload
 	};
 };
@@ -33,7 +33,7 @@ export const searchBookSuccessAction = (
 // Экшен для завершения процесса поиска (например, скрытие спиннера загрузки)
 export const searchBookFinishedAction = (): ISearchBookFinishedAction => {
 	return {
-		type: SearchBookActionTypes.SEARCH_BOOK_FINISHED, // Тип экшена
+		type: SearchBookActionTypes.SEARCH_BOOK_FINISHED, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 	};
 };
 
@@ -42,7 +42,7 @@ export const setSearchPagesCountAction = (
 	page: number // В качестве параметра передаем число (количество страниц)
 ): ISetSearchPagesCount => {
 	return {
-		type: SearchBookActionTypes.SET_SEARCH_PAGES_COUNT, // Тип экшена
+		type: SearchBookActionTypes.SET_SEARCH_PAGES_COUNT, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 		payload: page, // Передаем число страниц в payload
 	};
 };
@@ -50,7 +50,7 @@ export const setSearchPagesCountAction = (
 // Экшен для установки текущей страницы поиска
 export const setSearchPageAction = (page: number): ISetSearchBookPage => {
 	return {
-		type: SearchBookActionTypes.SET_SEARCH_BOOK_PAGE, // Тип экшена
+		type: SearchBookActionTypes.SET_SEARCH_BOOK_PAGE, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 		payload: page, // Передаем текущую страницу в payload
 	};
 };
@@ -58,7 +58,7 @@ export const setSearchPageAction = (page: number): ISetSearchBookPage => {
 // Экшен для установки ключевого слова поиска
 export const setSearchKeywordAction = (keyword: string): ISetSearchKeyword => {
 	return {
-		type: SearchBookActionTypes.SET_SEARCH_KEYWORD, // Тип экшена
+		type: SearchBookActionTypes.SET_SEARCH_KEYWORD, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 		payload: keyword, // Передаем ключевое слово в payload
 	};
 };

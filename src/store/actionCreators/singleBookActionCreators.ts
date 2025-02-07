@@ -14,7 +14,7 @@ export const fetchBookSuccessAction = (
 	bookData: IBook // В качестве параметра передаем объект книги
 ): IFetchBookSuccessAction => {
 	return {
-		type: BookActionTypes.FETCH_BOOK_SUCCESS, // Тип экшена
+		type: BookActionTypes.FETCH_BOOK_SUCCESS, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 		payload: bookData, // Передаем объект книги в payload
 	};
 };
@@ -22,14 +22,14 @@ export const fetchBookSuccessAction = (
 // Экшен для начала загрузки данных книги (например, показываем спиннер)
 export const fetchBookDataAction = (): IFetchBookData => {
 	return {
-		type: BookActionTypes.FETCH_BOOK_DATA, // Тип экшена
+		type: BookActionTypes.FETCH_BOOK_DATA, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 	};
 };
 
 // Экшен для завершения процесса загрузки книги (например, скрываем спиннер)
 export const fetchBookDataFinishedAction = (): IFetchBookDataFinishedAction => {
 	return {
-		type: BookActionTypes.FETCH_BOOK_DATA_FINISHED, // Тип экшена
+		type: BookActionTypes.FETCH_BOOK_DATA_FINISHED, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 	};
 };
 
@@ -38,7 +38,7 @@ export const fetchBookErrorAction = (
 	message: string // В качестве параметра передаем сообщение об ошибке
 ): IFetchBookErrorAction => {
 	return {
-		type: BookActionTypes.FETCH_BOOK_ERROR, // Тип экшена
+		type: BookActionTypes.FETCH_BOOK_ERROR, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 		payload: message, // Передаем текст ошибки в payload
 	};
 };
@@ -46,6 +46,6 @@ export const fetchBookErrorAction = (
 // Экшен для сброса состояния книги (например, при выходе из страницы книги)
 export const resetBookStateAction = (): IResetBookState => {
 	return {
-		type: BookActionTypes.RESET_BOOK_STATE, // Тип экшена
+		type: BookActionTypes.RESET_BOOK_STATE, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 	};
 };
