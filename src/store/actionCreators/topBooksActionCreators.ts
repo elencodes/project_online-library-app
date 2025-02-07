@@ -46,7 +46,7 @@ export const setTopBooksPageAction = (
 };
 
 // Экшен для обработки ошибки при загрузке топ-книг
-export const setTopBooksErrorAction = (
+export const fetchTopBooksErrorAction = (
 	message: string // Передаем текст ошибки
 ): IFetchTopBooksError => {
 	return {
