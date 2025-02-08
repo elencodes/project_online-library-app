@@ -8,3 +8,6 @@ export const store = createStore(
 	undefined,
 	applyMiddleware(thunk)
 );
+
+//Определяем тип для dispatch
+export type AppDispatch = typeof store.dispatch;

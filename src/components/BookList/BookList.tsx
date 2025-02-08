@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { fetchTopBooks } from "../../utils/api";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import BookCard from "../BookCard/BookCard";
@@ -11,7 +11,7 @@ interface BookListProps {
 
 const BookList: React.FC<BookListProps> = ({ currentPage }) => {
 	// Получаем функцию dispatch для отправки экшенов в Redux
-	const dispatch = useDispatch();
+	const dispatch = useTypedDispatch();
 
 	// Достаем из хранилища Redux список книг, статус загрузки и возможную ошибку
 	const { topBooks, isTopBooksLoading, fetchTopBooksError } = useTypedSelector(
@@ -23,7 +23,7 @@ const BookList: React.FC<BookListProps> = ({ currentPage }) => {
 
 	// Загружаем список топовых книг при монтировании компонента (передаем currentPage в API-запрос)
 	useEffect(() => {
-		dispatch(fetchTopBooks(currentPage) as any);
+		dispatch(fetchTopBooks(currentPage));
 	}, [dispatch, currentPage]); // Добавили зависимость currentPage
 
 	// Определяем, какие книги отображать на текущей странице
