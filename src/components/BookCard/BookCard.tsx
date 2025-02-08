@@ -7,16 +7,22 @@ import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
 // Определяем пропсы: компонент ожидает объект book типа IBook
 interface BookCardProps {
 	book: IBook;
+	onHover: () => void;
+	onLeave: () => void;
 }
 
-const BookCard: React.FC<BookCardProps> = ({ book }) => {
+const BookCard: React.FC<BookCardProps> = ({ book, onHover, onLeave }) => {
 	// Достаем нужные данные из объекта book
 	const { imageLinks, title, authors } = book.volumeInfo;
 	const imageUrl = imageLinks?.thumbnail || poster;
 
 	return (
 		<>
-			<div className={styles.card}>
+			<div
+				className={styles.card}
+				onMouseEnter={onHover}
+				onMouseLeave={onLeave}
+			>
 				<div className={styles.image__box}>
 					<img className={styles.image} src={imageUrl} alt="poster" />
 				</div>

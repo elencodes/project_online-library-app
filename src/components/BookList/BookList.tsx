@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTopBooks } from "../../utils/api";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -14,6 +14,9 @@ const BookList = () => {
 		(state) => state.topBooks
 	);
 
+	// Состояние для хранения ID активной карточки
+	const [activeCardId, setActiveCardId] = useState<string | null>(null);
+
 	// Загружаем список топовых книг при монтировании компонента
 	useEffect(() => {
 		dispatch(fetchTopBooks() as any);
@@ -27,8 +30,19 @@ const BookList = () => {
 			<div className={styles.list__container}>
 				<ul className={styles.list}>
 					{topBooks.map((book) => (
-						<li key={book.id} className={styles.list__item}>
-							<BookCard book={book} />
+						<li
+							key={book.id}
+							className={`${styles.list__item} ${
+								activeCardId && activeCardId !== book.id
+									? styles.blurred
+									: ""
+							}`}
+						>
+							<BookCard
+								book={book}
+								onHover={() => setActiveCardId(book.id)}
+								onLeave={() => setActiveCardId(null)}
+							/>
 						</li>
 					))}
 				</ul>
