@@ -63,9 +63,9 @@
 	background: transparent;
 	border-radius: .3125rem;
 	border: .125rem solid variables.$placeholder-color;
+	cursor: pointer;
 
 	&:hover {
-		cursor: pointer;
 		background-color: variables.$button-color;
 		color: variables.$dark-font-color;
 		transition: background-color .3s linear, color .3s linear;
@@ -75,5 +75,11 @@
 		background-color: variables.$active-button-color;
 		color: variables.$font-color;
 		transition: background-color .3s linear, color .3s linear;
+	}
+
+	// Стиль для активной страницы
+	&.active {
+		background-color: variables.$button-color;
+		color: variables.$dark-font-color;
 	}
 }

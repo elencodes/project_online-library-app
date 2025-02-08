@@ -1,9 +1,18 @@
+import { useState } from "react";
 import { SearchForm } from "../SearchForm/SearchForm";
 import styles from "./LibraryPage.module.scss";
 import BookList from "../BookList/BookList";
 import FilterButton from "../Buttons/FilterButton/FilterButton";
+import { handlePagesCounts } from "../../utils/handlePagesCount";
 
 const LibraryPage = () => {
+	// Состояние для текущей страницы
+	const [currentPage, setCurrentPage] = useState(1);
+
+	// Максимум 3 страницы (30 книг в API, по 10 на страницу)
+	const pages: number[] = [];
+	handlePagesCounts(pages, 3, currentPage);
+
 	return (
 		<>
 			<div className="container">
@@ -19,7 +28,7 @@ const LibraryPage = () => {
 						<FilterButton text={"Classic"} />
 					</div>
 					<h2 className={styles.subtitle}>Book List</h2>
-					<BookList />
+					<BookList currentPage={currentPage} />
 				</main>
 				<footer className={styles.footer}>
 					<div className={styles.footer__text}>
@@ -29,21 +38,18 @@ const LibraryPage = () => {
 						<span className={styles.footer__counter}>1</span>
 					</div>
 					<ul className={styles.pagination__list}>
-						<li className={styles.list__item}>
-							<a className={styles.item__link_page} href="#">
-								1
-							</a>
-						</li>
-						<li className={styles.list__item}>
-							<a className={styles.item__link_page} href="#">
-								2
-							</a>
-						</li>
-						<li className={styles.list__item}>
-							<a className={styles.item__link_page} href="#">
-								3
-							</a>
-						</li>
+						{pages.map((page) => (
+							<li key={page} className={styles.list__item}>
+								<button
+									className={`${styles.item__link_page} ${
+										currentPage === page ? styles.active : ""
+									}`}
+									onClick={() => setCurrentPage(page)}
+								>
+									{page}
+								</button>
+							</li>
+						))}
 					</ul>
 				</footer>
 			</div>

@@ -5,7 +5,11 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import BookCard from "../BookCard/BookCard";
 import styles from "./BookList.module.scss";
 
-const BookList = () => {
+interface BookListProps {
+	currentPage: number;
+}
+
+const BookList: React.FC<BookListProps> = ({ currentPage }) => {
 	// Получаем функцию dispatch для отправки экшенов в Redux
 	const dispatch = useDispatch();
 
@@ -17,10 +21,15 @@ const BookList = () => {
 	// Состояние для хранения ID активной карточки
 	const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
-	// Загружаем список топовых книг при монтировании компонента
+	// Загружаем список топовых книг при монтировании компонента (передаем currentPage в API-запрос)
 	useEffect(() => {
-		dispatch(fetchTopBooks() as any);
-	}, [dispatch]);
+		dispatch(fetchTopBooks(currentPage) as any);
+	}, [dispatch, currentPage]); // Добавили зависимость currentPage
+
+	// Определяем, какие книги отображать на текущей странице
+	const booksPerPage = 10;
+	const startIndex = (currentPage - 1) * booksPerPage;
+	const visibleBooks = topBooks.slice(startIndex, startIndex + booksPerPage);
 
 	if (isTopBooksLoading) return <p>Загрузка...</p>;
 	if (fetchTopBooksError) return <p>{fetchTopBooksError}</p>;
@@ -29,7 +38,7 @@ const BookList = () => {
 		<>
 			<div className={styles.list__container}>
 				<ul className={styles.list}>
-					{topBooks.map((book) => (
+					{visibleBooks.map((book) => (
 						<li
 							key={book.id}
 							className={`${styles.list__item} ${
