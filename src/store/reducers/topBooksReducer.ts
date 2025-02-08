@@ -8,6 +8,7 @@ import {
 // Определяем начальное (дефолтное) состояние для topBooksReducer
 const initialState: ITopBookState = {
 	topBooks: [], // Массив с топ-книгами
+	totalBooks: 0,
 	isTopBooksLoading: false, // Флаг загрузки (true - идет загрузка, false - завершена)
 	currentPage: 1, // Текущая страница списка топ-книг
 	pagesCount: 5, // Общее количество страниц
@@ -32,7 +33,8 @@ export const topBooksReducer = (
 		case TopBooksActionTypes.FETCH_TOP_BOOKS_SUCCESS: {
 			return {
 				...state, // Копируем текущее состояние
-				topBooks: action.payload, // Записываем список полученных книг
+				topBooks: action.payload.books, // Записываем список полученных книг
+				totalBooks: action.payload.totalBooks, // Записываем количество книг
 			};
 		}
 		// Завершение загрузки топ-книг

@@ -4,6 +4,7 @@ import styles from "./LibraryPage.module.scss";
 import BookList from "../BookList/BookList";
 import FilterButton from "../Buttons/FilterButton/FilterButton";
 import { handlePagesCounts } from "../../utils/handlePagesCount";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const LibraryPage = () => {
 	// Состояние для текущей страницы
@@ -12,6 +13,12 @@ const LibraryPage = () => {
 	// Максимум 3 страницы (30 книг в API, по 10 на страницу)
 	const pages: number[] = [];
 	handlePagesCounts(pages, 3, currentPage);
+
+	// Получаем общее количество найденных книг из состояния Redux
+	const totalBooks = useTypedSelector((state) => state.topBooks.totalBooks);
+
+	// Максимальное количество книг, которое возвращает API
+	const maxResults = 30;
 
 	return (
 		<>
@@ -35,7 +42,10 @@ const LibraryPage = () => {
 						<span className={styles.footer__text_total}>
 							Total books:{" "}
 						</span>
-						<span className={styles.footer__counter}>1</span>
+						<span className={styles.footer__counter}>{totalBooks}</span>
+						<span className={styles.footer__note}>
+							{`(Showing the first ${maxResults} results)`}
+						</span>
 					</div>
 					<ul className={styles.pagination__list}>
 						{pages.map((page) => (

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+import { RootState } from "../store/reducers";
 import {
 	searchBookAction,
 	searchBookErrorAction,
@@ -37,7 +38,10 @@ const apiClient = axios.create({
 
 //Получение списка топовых книг
 const fetchTopBooks = (page = 1) => {
-	return async (dispatch: Dispatch<TopBookActions>) => {
+	return async (
+		dispatch: Dispatch<TopBookActions>,
+		getState: () => RootState
+	) => {
 		try {
 			dispatch(fetchTopBooksDataAction());
 
@@ -50,7 +54,15 @@ const fetchTopBooks = (page = 1) => {
 				},
 			});
 
-			dispatch(fetchTopBooksSuccessAction(response.data.items || []));
+			// Получаем сохраненное totalBooks (текущее значение totalBooks из состояния Redux))
+			const prevTotalBooks = getState().topBooks.totalBooks;
+
+			dispatch(
+				fetchTopBooksSuccessAction({
+					books: response.data.items || [],
+					totalBooks: prevTotalBooks || response.data.totalItems || 0,
+				})
+			);
 		} catch (error) {
 			console.log("Error fetching top books:", error);
 			dispatch(fetchTopBooksErrorAction(FETCH_ERROR_MESSAGE));

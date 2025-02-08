@@ -2,6 +2,7 @@ import { IBook } from "./booksTypes";
 
 export interface ITopBookState {
 	topBooks: IBook[];
+	totalBooks: number;
 	isTopBooksLoading: boolean;
 	currentPage: number;
 	pagesCount: number;
@@ -22,7 +23,10 @@ export interface IFetchTopBooksDataAction {
 
 export interface IFetchTopBooksSuccessAction {
 	type: TopBooksActionTypes.FETCH_TOP_BOOKS_SUCCESS;
-	payload: IBook[];
+	payload: {
+		books: IBook[]; // Массив книг
+		totalBooks: number; // Общее количество книг
+	};
 }
 
 export interface IFetchTopBooksFinishedAction {

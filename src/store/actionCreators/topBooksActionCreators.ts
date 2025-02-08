@@ -19,12 +19,13 @@ export const fetchTopBooksDataAction = (): IFetchTopBooksDataAction => {
 };
 
 // Экшен для успешного получения списка топ-книг
-export const fetchTopBooksSuccessAction = (
-	booksList: IBook[] // В качестве параметра передаем массив объектов книг
-): IFetchTopBooksSuccessAction => {
+export const fetchTopBooksSuccessAction = (payload: {
+	books: IBook[]; // В качестве параметра передаем массив объектов книг
+	totalBooks: number;
+}): IFetchTopBooksSuccessAction => {
 	return {
 		type: TopBooksActionTypes.FETCH_TOP_BOOKS_SUCCESS, // Указываем тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
-		payload: booksList, // Передаем полученный список книг в payload
+		payload, // Теперь это объект с полями books и totalBooks
 	};
 };
 
