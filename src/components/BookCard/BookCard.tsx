@@ -16,6 +16,11 @@ const BookCard: React.FC<BookCardProps> = ({ book, onHover, onLeave }) => {
 	const { imageLinks, title, authors } = book.volumeInfo;
 	const imageUrl = imageLinks?.thumbnail || poster;
 
+	// Функция для обрезки длинных строк
+	const truncateText = (text: string, maxLength: number) => {
+		return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+	};
+
 	return (
 		<>
 			<div
@@ -27,9 +32,9 @@ const BookCard: React.FC<BookCardProps> = ({ book, onHover, onLeave }) => {
 					<img className={styles.image} src={imageUrl} alt="poster" />
 				</div>
 				<div className={styles.content}>
-					<h1 className={styles.title}>{title}</h1>
+					<h1 className={styles.title}>{truncateText(title, 13)}</h1>
 					<h2 className={styles.subtitle}>
-						{authors?.join(", ") || "Unknown Author"}
+						{truncateText(authors?.join(", ") || "Unknown Author", 20)}
 					</h2>
 				</div>
 				<div className={styles.button__container}>
