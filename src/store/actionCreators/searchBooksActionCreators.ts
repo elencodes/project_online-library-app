@@ -1,3 +1,6 @@
+import { fetchTopBooks } from "../../utils/api";
+import { AppDispatch } from "../store";
+
 // Импортируем интерфейс IBook, который описывает структуру книги
 import { IBook } from "../../types/booksTypes";
 
@@ -22,11 +25,12 @@ export const searchBookAction = (): ISearchBookAction => {
 
 // Экшен для успешного получения списка книг после запроса
 export const searchBookSuccessAction = (
-	books: IBook[] // В качестве параметра передаем массив объектов типа IBook (найденные книги)
+	books: IBook[], // В качестве параметра передаем массив объектов типа IBook (найденные книги)
+	totalBooks: number
 ): ISearchBookSuccessAction => {
 	return {
 		type: SearchBookActionTypes.SEARCH_BOOK_SUCCESS, // Тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
-		payload: books, // Передаем массив книг в поле payload
+		payload: { books, totalBooks }, // Передаем массив книг в поле payload
 	};
 };
 
@@ -68,5 +72,18 @@ export const searchBookErrorAction = (message: string): ISearchBookError => {
 	return {
 		type: SearchBookActionTypes.SEARCH_BOOK_ERROR, // Тип экшена
 		payload: message, // Передаем сообщение об ошибке в payload
+	};
+};
+
+export const clearSearchResultsAction = () => {
+	return async (dispatch: AppDispatch) => {
+		// Очищаем результаты поиска
+		dispatch({
+			type: SearchBookActionTypes.CLEAR_SEARCH_RESULTS,
+			payload: { totalBooks: 0 },
+		});
+
+		// Загружаем топ-книги после очистки поиск
+		await dispatch(fetchTopBooks());
 	};
 };

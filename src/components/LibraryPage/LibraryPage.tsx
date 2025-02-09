@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SearchForm } from "../SearchForm/SearchForm";
+import SearchForm from "../SearchForm/SearchForm";
 import styles from "./LibraryPage.module.scss";
 import BookList from "../BookList/BookList";
 import FilterButton from "../Buttons/FilterButton/FilterButton";

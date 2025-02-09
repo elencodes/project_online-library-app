@@ -18,6 +18,12 @@ const BookList: React.FC<BookListProps> = ({ currentPage }) => {
 		(state) => state.topBooks
 	);
 
+	const { searchResults, isSearching } = useTypedSelector(
+		(state) => state.searchResults
+	);
+
+	const booksToShow = isSearching ? searchResults : topBooks;
+
 	// Состояние для хранения ID активной карточки
 	const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
@@ -29,7 +35,10 @@ const BookList: React.FC<BookListProps> = ({ currentPage }) => {
 	// Определяем, какие книги отображать на текущей странице
 	const booksPerPage = 10;
 	const startIndex = (currentPage - 1) * booksPerPage;
-	const visibleBooks = topBooks.slice(startIndex, startIndex + booksPerPage);
+	const visibleBooks = booksToShow.slice(
+		startIndex,
+		startIndex + booksPerPage
+	);
 
 	if (isTopBooksLoading) return <p>Загрузка...</p>;
 	if (fetchTopBooksError) return <p>{fetchTopBooksError}</p>;

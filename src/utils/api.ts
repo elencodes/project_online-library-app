@@ -109,7 +109,12 @@ const searchBooks = (keyword = "", page = 1) => {
 
 			const searchResults = response.data.items || [];
 
-			dispatch(searchBookSuccessAction(searchResults));
+			dispatch(
+				searchBookSuccessAction(
+					searchResults,
+					response.data.totalItems || 0
+				)
+			);
 			dispatch(
 				setSearchPagesCountAction(Math.ceil(response.data.totalItems / 10))
 			);

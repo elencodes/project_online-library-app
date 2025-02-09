@@ -3,6 +3,8 @@ import { IBook } from "./booksTypes";
 export interface ISearchBookState {
 	keyword: string;
 	searchResults: IBook[];
+	totalSearchBooks: number;
+	isSearching: boolean;
 	isSearchResultsLoading: boolean;
 	searchResultsCurrentPage: number;
 	searchResultsPagesCount: number;
@@ -17,11 +19,15 @@ export enum SearchBookActionTypes {
 	SET_SEARCH_BOOK_PAGE = "SET_SEARCH_BOOK_PAGE",
 	SET_SEARCH_KEYWORD = "SET_SEARCH_KEYWORD",
 	SET_SEARCH_PAGES_COUNT = "SET_SEARCH_PAGES_COUNT",
+	CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS",
 }
 
 export interface ISearchBookSuccessAction {
 	type: SearchBookActionTypes.SEARCH_BOOK_SUCCESS;
-	payload: IBook[];
+	payload: {
+		books: IBook[]; // Найденные книги
+		totalBooks: number; // Общее количество найденных книг
+	};
 }
 
 export interface ISearchBookError {
@@ -52,6 +58,11 @@ export interface ISetSearchPagesCount {
 	payload: number;
 }
 
+export interface IClearSearchResultsAction {
+	type: SearchBookActionTypes.CLEAR_SEARCH_RESULTS;
+	payload: { totalBooks: number };
+}
+
 export type SearchBookActions =
 	| ISearchBookAction
 	| ISearchBookFinishedAction
@@ -59,4 +70,5 @@ export type SearchBookActions =
 	| ISetSearchKeyword
 	| ISetSearchPagesCount
 	| ISearchBookError
-	| ISearchBookSuccessAction;
+	| ISearchBookSuccessAction
+	| IClearSearchResultsAction;

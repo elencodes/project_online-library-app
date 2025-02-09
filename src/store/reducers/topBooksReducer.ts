@@ -58,6 +58,13 @@ export const topBooksReducer = (
 				fetchTopBooksError: action.payload, // Записываем ошибку
 			};
 		}
+		case TopBooksActionTypes.CLEAR_TOP_BOOKS: {
+			return {
+				...state,
+				topBooks: [],
+				totalBooks: 0,
+			};
+		}
 
 		// Если экшен не найден, возвращаем текущее состояние без изменений
 		default:

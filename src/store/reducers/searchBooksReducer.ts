@@ -9,6 +9,8 @@ import {
 const initialState: ISearchBookState = {
 	keyword: "", // Строка запроса, по которой ищем книги
 	searchResults: [], // Массив с найденными книгами
+	totalSearchBooks: 0,
+	isSearching: false, // Флаг очистки поиска
 	isSearchResultsLoading: false, // Флаг загрузки (true - идет загрузка, false - завершена)
 	searchResultsCurrentPage: 1, // Текущая страница результатов поиска
 	searchResultsPagesCount: 0, // Общее количество страниц с результатами
@@ -34,7 +36,9 @@ export const searchBooksReducer = (
 		case SearchBookActionTypes.SEARCH_BOOK_SUCCESS: {
 			return {
 				...state, // Копируем текущее состояние
-				searchResults: action.payload, // Записываем найденные книги в состояние
+				searchResults: action.payload.books, // Записываем найденные книги в состояние
+				totalSearchBooks: action.payload.totalBooks,
+				isSearching: true, // При успешном поиске включаем флаг
 			};
 		}
 		// Завершение загрузки результатов поиска
@@ -70,6 +74,16 @@ export const searchBooksReducer = (
 			return {
 				...state, // Копируем текущее состояние
 				searchBookError: action.payload, // Записываем ошибку поиска
+			};
+		}
+
+		case SearchBookActionTypes.CLEAR_SEARCH_RESULTS: {
+			return {
+				...state,
+				searchResults: [], // Очищаем найденные книги
+				totalSearchBooks: action.payload.totalBooks,
+				keyword: "", // Сбрасываем ключевое слово
+				isSearching: false, // Сбрасываем флаг поиска
 			};
 		}
 

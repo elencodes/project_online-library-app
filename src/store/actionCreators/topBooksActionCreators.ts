@@ -9,6 +9,7 @@ import {
 	ISetTopBooksPage, // Экшен для установки текущей страницы списка книг
 	IFetchTopBooksError, // Экшен для обработки ошибки при получении топ-книг
 	TopBooksActionTypes, // Перечисление типов экшенов
+	IClearTopBooksAction, // Очистка списка топ-книг перед поиском
 } from "../../types/topBooksTypes";
 
 // Экшен для начала загрузки списка топ-книг (например, показываем индикатор загрузки)
@@ -53,5 +54,11 @@ export const fetchTopBooksErrorAction = (
 	return {
 		type: TopBooksActionTypes.FETCH_TOP_BOOKS_ERROR, // Указываем тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 		payload: message, // Сохраняем текст ошибки в payload
+	};
+};
+
+export const clearTopBooksAction = (): IClearTopBooksAction => {
+	return {
+		type: TopBooksActionTypes.CLEAR_TOP_BOOKS, // Указываем тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
 	};
 };
