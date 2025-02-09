@@ -6,11 +6,18 @@ import { clearTopBooksAction } from "../../store/actionCreators/topBooksActionCr
 import styles from "./SearchForm.module.scss";
 
 const SearchForm: React.FC = () => {
+	// Состояние для хранения введенного пользователем запроса
 	const [keyword, setKeyword] = useState<string>("");
+	// Флаг, указывающий, есть ли текст в поле (нужен для отображения кнопки очистки)
+	const [hasText, setHasText] = useState<boolean>(false);
+	// Получаем `dispatch` для отправки экшенов в Redux
 	const dispatch = useTypedDispatch();
+	// Динамический плейсхолдер (убирается при фокусе, возвращается при потере фокуса)
 	const [placeholder, setPlaceholder] = useState("Search a book...");
+	// Реф для хранения ссылки на таймер (чтобы управлять задержкой поиска)
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+	// useEffect для запуска поиска с задержкой 1 секунда
 	useEffect(() => {
 		// Очищаем предыдущий таймер, если он был
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -18,7 +25,7 @@ const SearchForm: React.FC = () => {
 		// Запускаем новый таймер
 		timeoutRef.current = setTimeout(() => {
 			if (keyword.trim()) {
-				dispatch(searchBooks(keyword));
+				dispatch(searchBooks(keyword)); // Отправляем запрос на поиск книг
 			}
 		}, 1000);
 
@@ -26,13 +33,15 @@ const SearchForm: React.FC = () => {
 		return () => {
 			if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		};
-	}, [keyword, dispatch]);
+	}, [keyword, dispatch]); // Запускается при изменении `keyword`
 
+	// Обработчик изменения ввода
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
 		e
 	): void => {
 		const value = e.target.value;
 		setKeyword(value);
+		setHasText(value.trim().length > 0); // Обновляем флаг наличия текста
 
 		// Если поле очистилось — показываем топовые книги
 		if (value.trim() === "") {
@@ -40,16 +49,26 @@ const SearchForm: React.FC = () => {
 		}
 	};
 
+	// Обработчик отправки формы (по нажатию Enter)
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		// Предотвращаем перезагрузку страницы при нажатии Enter
-		e.preventDefault();
+		e.preventDefault(); // Предотвращаем перезагрузку страницы при нажатии Enter
+
 		if (keyword.trim()) {
 			dispatch(clearTopBooksAction()); // Очистка topBooks перед поиском
 			dispatch(searchBooks(keyword)); // Запуск поиска
 		}
 	};
 
+	// Очищаем поле ввода и скрываем кнопку очистки
+	const clearInput = () => {
+		setKeyword(""); // Очищаем введенный текст
+		setHasText(false); // Скрываем кнопку очистки
+		dispatch(clearSearchResultsAction()); // Убираем найденные книги
+	};
+
+	// Убираем плейсхолдер при фокусе на поле ввода
 	const handleFocus = () => setPlaceholder("");
+	// Возвращаем плейсхолдер при потере фокуса
 	const handleBlur = () => setPlaceholder("Search a book...");
 
 	return (
@@ -65,6 +84,15 @@ const SearchForm: React.FC = () => {
 					onBlur={handleBlur}
 					placeholder={placeholder}
 				/>
+				{hasText && (
+					<button
+						type="button"
+						className={styles.clear__button}
+						onClick={clearInput}
+					>
+						<span className={styles.clear__icon}></span>
+					</button>
+				)}
 			</form>
 		</>
 	);

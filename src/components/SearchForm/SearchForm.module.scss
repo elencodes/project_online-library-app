@@ -8,6 +8,7 @@
 	border: 2px solid variables.$placeholder-color;
 	border-radius: 1.375rem;
 	background-color: variables.$input-color;
+	position: relative;
 }
 
 .search__item {
@@ -15,6 +16,7 @@
 	flex: 1;
 	font-size: .875rem;
 	color: variables.$font-color;
+	padding-right: 3rem; // Отступ справа для кнопки очистки
 
 	&::placeholder {
 		font-family: variables.$accentFont;
@@ -30,4 +32,26 @@
 	margin-right: 0.875rem;
 	transition: transform 0.2s linear;
 	content: url("../../assets/icons/search/search.svg");
+}
+
+.clear__button {
+	width: 1.5rem;
+	height: 1.5rem;
+	position: absolute;
+	right: 0.875rem;
+	background-color: transparent;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.search__container:has(.search__item:not(:placeholder-shown)) .clear__button {
+	display: flex;
+}
+
+.clear__icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	content: url("../../assets/icons/buttons/clear.svg");
 }
