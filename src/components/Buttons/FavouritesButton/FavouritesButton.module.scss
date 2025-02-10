@@ -6,6 +6,7 @@
 	border: none;
 	cursor: pointer;
 	transition: transform 0.2s ease-in-out;
+	touch-action: manipulation; // Отключает "залипание" hover на iPhone
 
 	// Анимация нажатия (немного увеличивается)
 	&:active {
@@ -50,5 +51,9 @@
 			text-shadow: none;
 			transform: scale(1.1);
 		}
+	}
+
+	@media (hover: none) {
+		pointer-events: none; // 🔥 Отключает hover вообще
 	}
 }
