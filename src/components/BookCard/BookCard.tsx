@@ -18,8 +18,11 @@ const BookCard: React.FC<IBookCardProps> = ({ book, onHover, onLeave }) => {
 
 	// Достаем нужные данные из объекта book
 	const { imageLinks, title, authors } = book.volumeInfo;
-	const imageUrl =
-		imageLinks?.thumbnail.replace("http://", "https://") || poster;
+	const imageUrl = imageLinks?.thumbnail
+		? `https://images.weserv.nl/?url=${encodeURIComponent(
+				imageLinks.thumbnail
+		  )}`
+		: poster;
 
 	// Функция для обрезки длинных строк
 	const truncateText = (text: string, maxLength: number) => {
