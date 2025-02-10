@@ -11,7 +11,6 @@ import styles from "./Header.module.scss";
 export function Header() {
 	const [isHoveredLibraryButton, setHoveredLibraryButton] = useState(false); // Состояние hover
 	const [isHoveredBookButton, setHoveredBookButton] = useState(false); // Состояние hover
-	const [isHoveredBookButton2, setHoveredBookButton2] = useState(false); // Состояние hover
 
 	return (
 		<>
@@ -59,23 +58,6 @@ export function Header() {
 									alt="addBook"
 								/>
 								<p className={styles.nav__text}>Add book</p>
-							</Link>
-							<Link
-								className={styles.nav__button}
-								to="/bookpage"
-								onMouseEnter={() => setHoveredBookButton2(true)}
-								onMouseLeave={() => setHoveredBookButton2(false)}
-							>
-								<img
-									className={styles.nav__icon}
-									src={
-										isHoveredBookButton2
-											? addBookActiveIcon
-											: addBookIcon
-									}
-									alt="bookpage"
-								/>
-								<p className={styles.nav__text}>Book Page</p>
 							</Link>
 						</nav>
 						<Settings />
