@@ -51,10 +51,13 @@
 	}
 }
 
-.blurred {
-	animation: smoothBlur 0.5s forwards;
-}
+// Размытие применяется ТОЛЬКО на десктопах
+@media (hover: hover) {
+	.blurred {
+		animation: smoothBlur 0.5s forwards;
+	}
 
-.list__item:not(.blurred) {
-	animation: smoothUnblur 0.5s forwards;
+	.list__item:not(.blurred) {
+		animation: smoothUnblur 0.5s forwards;
+	}
 }
