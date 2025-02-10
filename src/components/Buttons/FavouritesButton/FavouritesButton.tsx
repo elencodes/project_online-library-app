@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./FavouritesButton.module.scss";
 
 const FavouritesButton = () => {
@@ -8,12 +8,21 @@ const FavouritesButton = () => {
 	const toggleFavourite = () => {
 		setIsFavourite((prev) => !prev);
 
-		// Если лайк убрали — отключаем `hover` на 1000 мс
+		// Если лайк убрали — отключаем `hover` для FavouritesButton
 		if (isFavourite) {
 			setDisableHover(true);
-			setTimeout(() => setDisableHover(false), 1000);
+			// Включаем hover снова через 0.5 сек
+			setTimeout(() => setDisableHover(false), 500);
 		}
 	};
+
+	useEffect(() => {
+		// Отключаем hover на тач-устройствах
+		const handleTouchStart = () => setDisableHover(true);
+		window.addEventListener("touchstart", handleTouchStart);
+
+		return () => window.removeEventListener("touchstart", handleTouchStart);
+	}, []);
 
 	return (
 		<button

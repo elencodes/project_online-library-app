@@ -66,3 +66,9 @@
 		}
 	}
 }
+
+// Отключаем hover при disableHover
+.noHover:hover .heart::before {
+	color: inherit !important;
+	text-shadow: inherit !important;
+}
