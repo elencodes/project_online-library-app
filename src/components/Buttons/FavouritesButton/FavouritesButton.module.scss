@@ -8,11 +8,6 @@
 	transition: transform 0.2s ease-in-out;
 	touch-action: manipulation; // Отключает "залипание" hover на iPhone
 
-	// Анимация нажатия (немного увеличивается)
-	&:active {
-		transform: scale(1.1);
-	}
-
 	// Сердце создаем через `::before`
 	.heart {
 		position: relative;
@@ -50,13 +45,6 @@
 			color: variables.$font-color;
 			text-shadow: none;
 			transform: scale(1.1);
-		}
-	}
-
-	// Фикс для iOS — убираем hover только на тач-устройства
-	@media (hover: none) {
-		&:hover .heart {
-			color: inherit; // Отключает hover, но НЕ ломает active
 		}
 	}
 }
