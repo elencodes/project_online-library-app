@@ -32,7 +32,8 @@ const BookPage: React.FC = () => {
 	// Достаем нужные данные из объекта book
 	const { imageLinks, title, authors, categories, description } =
 		book.volumeInfo;
-	const imageUrl = imageLinks?.thumbnail || poster;
+	const imageUrl =
+		imageLinks?.thumbnail.replace("http://", "https://") || poster;
 
 	// Функция переключения
 	const toggleDescription = () => {
