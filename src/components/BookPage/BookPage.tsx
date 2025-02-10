@@ -72,7 +72,9 @@ const BookPage: React.FC = () => {
 						</div>
 						<div className={styles.description__box}>
 							<h4 className={styles.description__title}>About book</h4>
-							<p className={styles.description}>{displayedText}</p>
+							<p className={styles.description}>
+								{displayedText || "No description available."}
+							</p>
 							{shouldTruncate && (
 								<button
 									className={styles.description__toggle}
