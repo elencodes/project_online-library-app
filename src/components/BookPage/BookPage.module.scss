@@ -48,6 +48,7 @@
 .image {
 	width: 100%;
 	height: 100%;
+	border-radius: .8125rem;
 	object-fit: cover;
 }
 
@@ -118,6 +119,7 @@
 }
 
 .description__box {
+	align-self: flex-start;
 	margin-top: .75rem;
 	margin-bottom: 1.5rem;
 }
@@ -147,8 +149,9 @@
 }
 
 .description__toggle {
+	margin-top: 1rem;
+	background-color: transparent;
 	font-family: variables.$descriptionFont;
 	color: variables.$title-cards-color;
 	font-weight: 700;
-	text-decoration: underline;
 }

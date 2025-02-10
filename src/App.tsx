@@ -16,7 +16,7 @@ const App: React.FC = () => {
 						<Header />
 						<Routes>
 							<Route path="/" element={<LibraryPage />} />
-							<Route path="/bookpage" element={<BookPage />} />
+							<Route path="/book/:id" element={<BookPage />} />
 							<Route path="/addbook" element={<AddBookForm />} />
 							{/* <Route path="/addbook" element={<AddBook />} />
 					<Route path="*" element={<MissingPage />} /> */}
