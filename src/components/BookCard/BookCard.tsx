@@ -25,7 +25,11 @@ const BookCard: React.FC<IBookCardProps> = ({ book, onHover, onLeave }) => {
 		return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 	};
 
-	const handleClick = () => {
+	const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+		// Проверяем, был ли клик по кнопке (чтобы не переходить на страницу книги)
+		const isButtonClick = (event.target as HTMLElement).closest("button");
+		if (isButtonClick) return;
+
 		navigate(`/book/${book.id}`); // Переход на страницу книги
 	};
 
