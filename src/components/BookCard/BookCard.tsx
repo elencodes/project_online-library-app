@@ -56,7 +56,7 @@ const BookCard: React.FC<IBookCardProps> = ({ book, onHover, onLeave }) => {
 				</div>
 				<div className={styles.button__container}>
 					<DeleteButton />
-					<FavouritesButton />
+					<FavouritesButton id={book.id} />
 				</div>
 			</div>
 		</>

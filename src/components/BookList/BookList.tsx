@@ -7,9 +7,10 @@ import styles from "./BookList.module.scss";
 
 interface BookListProps {
 	currentPage: number;
+	activeFilter: string;
 }
 
-const BookList: React.FC<BookListProps> = ({ currentPage }) => {
+const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 	// Получаем функцию dispatch для отправки экшенов в Redux
 	const dispatch = useTypedDispatch();
 
@@ -22,7 +23,13 @@ const BookList: React.FC<BookListProps> = ({ currentPage }) => {
 		(state) => state.searchResults
 	);
 
-	const booksToShow = isSearching ? searchResults : topBooks;
+	const favourites = useTypedSelector((state) => state.favourites.favourites);
+
+	let booksToShow = isSearching ? searchResults : topBooks;
+
+	if (activeFilter === "Favourites") {
+		booksToShow = booksToShow.filter((book) => favourites.includes(book.id));
+	}
 
 	// Состояние для хранения ID активной карточки
 	const [activeCardId, setActiveCardId] = useState<string | null>(null);

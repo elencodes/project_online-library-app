@@ -1,14 +1,16 @@
 import { useState } from "react";
-import SearchForm from "../SearchForm/SearchForm";
-import styles from "./LibraryPage.module.scss";
-import BookList from "../BookList/BookList";
-import FilterButton from "../Buttons/FilterButton/FilterButton";
-import { handlePagesCounts } from "../../utils/handlePagesCount";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { handlePagesCounts } from "../../utils/handlePagesCount";
+import SearchForm from "../SearchForm/SearchForm";
+import FilterButton from "../Buttons/FilterButton/FilterButton";
+import BookList from "../BookList/BookList";
+import styles from "./LibraryPage.module.scss";
 
 const LibraryPage = () => {
 	// Состояние для текущей страницы
 	const [currentPage, setCurrentPage] = useState(1);
+
+	const [activeFilter, setActiveFilter] = useState<string>("All books");
 
 	// Максимум 3 страницы (30 книг в API, по 10 на страницу)
 	const pages: number[] = [];
@@ -29,13 +31,22 @@ const LibraryPage = () => {
 						<SearchForm />
 					</div>
 					<div className={styles.filters__box}>
-						<FilterButton text={"All books"} />
-						<FilterButton text={"Favourites"} />
-						<FilterButton text={"Fantasy"} />
-						<FilterButton text={"Classic"} />
+						<FilterButton
+							text={"All books"}
+							active={activeFilter === "All books"}
+							onClick={() => setActiveFilter("All books")}
+						/>
+						<FilterButton
+							text={"Favourites"}
+							active={activeFilter === "Favourites"}
+							onClick={() => setActiveFilter("Favourites")}
+						/>
 					</div>
 					<h2 className={styles.subtitle}>Book List</h2>
-					<BookList currentPage={currentPage} />
+					<BookList
+						currentPage={currentPage}
+						activeFilter={activeFilter}
+					/>
 				</main>
 				<footer className={styles.footer}>
 					<div className={styles.footer__text}>

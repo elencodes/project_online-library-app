@@ -72,7 +72,7 @@ const BookPage: React.FC = () => {
 						</h3>
 						<div className={styles.button__container}>
 							<DeleteButton />
-							<FavouritesButton />
+							<FavouritesButton id={book.id} />
 						</div>
 						<div className={styles.description__box}>
 							<h4 className={styles.description__title}>About book</h4>

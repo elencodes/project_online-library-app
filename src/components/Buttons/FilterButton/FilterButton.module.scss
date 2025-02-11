@@ -22,6 +22,12 @@
 	}
 }
 
+.active {
+	background-color: variables.$button-color;
+	color: variables.$dark-font-color;
+	transition: background-color .3s linear, color .3s linear;
+}
+
 .filter__button_text {
 	font-family: variables.$accentFont;
 	font-size: 1.125rem;

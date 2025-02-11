@@ -1,11 +1,28 @@
-import { useState } from "react";
+import { useTypedDispatch } from "../../../hooks/useTypedDispatch";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import { RootState } from "../../../store/reducers";
+import {
+	addToFavouritesAction,
+	removeFromFavouritesAction,
+} from "../../../store/actionCreators/favouritesActionCreators";
 import styles from "./FavouritesButton.module.scss";
 
-const FavouritesButton = () => {
-	const [isFavourite, setIsFavourite] = useState(false);
+interface IFavouritesButtonProps {
+	id: string;
+}
 
-	const toggleFavourite = () => {
-		setIsFavourite((prev) => !prev);
+const FavouritesButton: React.FC<IFavouritesButtonProps> = ({ id }) => {
+	const dispatch = useTypedDispatch();
+	const isFavourite = useTypedSelector((state: RootState) =>
+		state.favourites.favourites.includes(id)
+	);
+
+	const handleClick = () => {
+		if (isFavourite) {
+			dispatch(removeFromFavouritesAction(id));
+		} else {
+			dispatch(addToFavouritesAction(id));
+		}
 	};
 
 	return (
@@ -14,7 +31,7 @@ const FavouritesButton = () => {
 			className={`${styles.button__favourites} ${
 				isFavourite ? styles.active : styles.inactive
 			}`}
-			onClick={toggleFavourite}
+			onClick={handleClick}
 		>
 			<span className={styles.heart}></span>
 		</button>
