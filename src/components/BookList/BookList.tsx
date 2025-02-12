@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { fetchTopBooks } from "../../utils/api";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -25,19 +25,29 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
 
-	let booksToShow = isSearching ? searchResults : topBooks;
+	// Формируем общий список избранных книг
+	const favouriteBooks = useMemo(() => {
+		const allBooks = [...topBooks, ...searchResults]; // Объединяем топовые книги и результаты поиска
+		const uniqueBooks = allBooks.reduce((acc, book) => {
+			if (!acc.some((b) => b.id === book.id)) {
+				acc.push(book);
+			}
+			return acc;
+		}, [] as typeof allBooks);
+		return uniqueBooks.filter((book) => favourites.includes(book.id)); // Фильтруем по id из избранного
+	}, [topBooks, searchResults, favourites]);
 
+	console.log(favouriteBooks);
+
+	// Определяем, какие книги показывать
+	let booksToShow = isSearching ? searchResults : topBooks;
+	// Показываем весь список избранного, если фильтр активный
 	if (activeFilter === "Favourites") {
-		booksToShow = booksToShow.filter((book) => favourites.includes(book.id));
+		booksToShow = favouriteBooks;
 	}
 
 	// Состояние для хранения ID активной карточки
 	const [activeCardId, setActiveCardId] = useState<string | null>(null);
-
-	// Загружаем список топовых книг при монтировании компонента (передаем currentPage в API-запрос)
-	useEffect(() => {
-		dispatch(fetchTopBooks(currentPage));
-	}, [dispatch, currentPage]); // Добавили зависимость currentPage
 
 	// Определяем, какие книги отображать на текущей странице
 	const booksPerPage = 10;
@@ -46,6 +56,13 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 		startIndex,
 		startIndex + booksPerPage
 	);
+
+	// Загружаем список топовых книг при монтировании компонента
+	useEffect(() => {
+		if (activeFilter === "All books") {
+			dispatch(fetchTopBooks(currentPage));
+		}
+	}, [dispatch, currentPage, activeFilter]); // Добавили зависимость currentPage
 
 	if (isTopBooksLoading) return <p>Загрузка...</p>;
 	if (fetchTopBooksError) return <p>{fetchTopBooksError}</p>;

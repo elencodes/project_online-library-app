@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { handlePagesCounts } from "../../utils/handlePagesCount";
+import { calculatePagesCount } from "../../utils/calculatePagesCount";
+import { TopBooksActionTypes } from "../../types/topBooksTypes";
 import SearchForm from "../SearchForm/SearchForm";
 import FilterButton from "../Buttons/FilterButton/FilterButton";
 import BookList from "../BookList/BookList";
@@ -10,17 +12,33 @@ const LibraryPage = () => {
 	// Состояние для текущей страницы
 	const [currentPage, setCurrentPage] = useState(1);
 
+	// Состояние для активного фильтра (All books или Favourites)
 	const [activeFilter, setActiveFilter] = useState<string>("All books");
 
-	// Максимум 3 страницы (30 книг в API, по 10 на страницу)
-	const pages: number[] = [];
-	handlePagesCounts(pages, 3, currentPage);
-
-	// Получаем общее количество найденных книг из состояния Redux
+	// Получаем данные из Redux
 	const totalBooks = useTypedSelector((state) => state.topBooks.totalBooks);
+	const favourites = useTypedSelector((state) => state.favourites.favourites);
+	const searchResults = useTypedSelector(
+		(state) => state.searchResults.searchResults
+	);
 
 	// Максимальное количество книг, которое возвращает API
 	const maxResults = 30;
+	const booksPerPage = 10;
+
+	// Определяем общее количество книг для пагинации (в зависимости от фильтра)
+	const totalItems =
+		activeFilter === "Favourites" ? favourites.length : totalBooks;
+
+	// Определяем максимальное  количество страниц
+	const totalPages =
+		activeFilter === "Favourites"
+			? Math.ceil(totalItems / booksPerPage) // Пагинация для избранного
+			: calculatePagesCount(totalItems, booksPerPage, 3); // Макс. 3 страницы для API
+
+	// Создаем массив страниц для пагинации
+	const pages: number[] = [];
+	handlePagesCounts(pages, totalPages, currentPage);
 
 	return (
 		<>
@@ -34,12 +52,18 @@ const LibraryPage = () => {
 						<FilterButton
 							text={"All books"}
 							active={activeFilter === "All books"}
-							onClick={() => setActiveFilter("All books")}
+							onClick={() => {
+								setActiveFilter("All books");
+								setCurrentPage(1); // Сбросить страницу
+							}}
 						/>
 						<FilterButton
 							text={"Favourites"}
 							active={activeFilter === "Favourites"}
-							onClick={() => setActiveFilter("Favourites")}
+							onClick={() => {
+								setTimeout(() => setActiveFilter("Favourites"), 100);
+								setCurrentPage(1); // Сбросить страницу
+							}}
 						/>
 					</div>
 					<h2 className={styles.subtitle}>Book List</h2>

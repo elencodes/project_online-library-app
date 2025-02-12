@@ -19,44 +19,9 @@
 	transition: transform 0.3s ease-in-out;
 }
 
-// Анимация плавного размытия
-@keyframes smoothBlur {
-	from {
-		filter: blur(0px);
-		opacity: 1;
-	}
-
-	to {
-		filter: blur(5px);
-		opacity: 0.4;
-	}
-}
-
-// Анимация плавного снятия размытия
-@keyframes smoothUnblur {
-	from {
-		filter: blur(5px);
-		opacity: 0.4;
-	}
-
-	to {
-		filter: blur(0px);
-		opacity: 1;
-	}
-}
-
-// Размытие применяется ТОЛЬКО на десктопах
 @media (hover: hover) {
-	.blurred {
-		animation: smoothBlur 0.5s forwards;
-	}
-
-	.list__item:not(.blurred) {
-		animation: smoothUnblur 0.5s forwards;
-	}
-
 	.list__item:hover {
-		transform: scale(1.1);
+		transform: scale(1.07);
 		z-index: 10;
 		cursor: pointer;
 	}
