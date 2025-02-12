@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { handlePagesCounts } from "../../utils/handlePagesCount";
 import { calculatePagesCount } from "../../utils/calculatePagesCount";
-import { TopBooksActionTypes } from "../../types/topBooksTypes";
 import SearchForm from "../SearchForm/SearchForm";
 import FilterButton from "../Buttons/FilterButton/FilterButton";
 import BookList from "../BookList/BookList";
@@ -18,9 +17,6 @@ const LibraryPage = () => {
 	// Получаем данные из Redux
 	const totalBooks = useTypedSelector((state) => state.topBooks.totalBooks);
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
-	const searchResults = useTypedSelector(
-		(state) => state.searchResults.searchResults
-	);
 
 	// Максимальное количество книг, которое возвращает API
 	const maxResults = 30;
@@ -46,7 +42,7 @@ const LibraryPage = () => {
 				<main>
 					<div className={styles.search__container}>
 						<h1 className={styles.title}>Library</h1>
-						<SearchForm />
+						<SearchForm activeFilter={activeFilter} />
 					</div>
 					<div className={styles.filters__box}>
 						<FilterButton

@@ -5,7 +5,7 @@ import { clearSearchResultsAction } from "../../store/actionCreators/searchBooks
 import { clearTopBooksAction } from "../../store/actionCreators/topBooksActionCreators";
 import styles from "./SearchForm.module.scss";
 
-const SearchForm: React.FC = () => {
+const SearchForm: React.FC<{ activeFilter: string }> = ({ activeFilter }) => {
 	// Состояние для хранения введенного пользователем запроса
 	const [keyword, setKeyword] = useState<string>("");
 	// Флаг, указывающий, есть ли текст в поле (нужен для отображения кнопки очистки)
@@ -63,7 +63,10 @@ const SearchForm: React.FC = () => {
 	const clearInput = () => {
 		setKeyword(""); // Очищаем введенный текст
 		setHasText(false); // Скрываем кнопку очистки
-		dispatch(clearSearchResultsAction()); // Убираем найденные книги
+
+		if (activeFilter === "All books") {
+			dispatch(clearSearchResultsAction()); // Убираем найденные книги только для All books
+		}
 	};
 
 	// Убираем плейсхолдер при фокусе на поле ввода
