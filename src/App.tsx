@@ -5,6 +5,7 @@ import { Header } from "./components/Header/Header";
 import LibraryPage from "./components/LibraryPage/LibraryPage";
 import BookPage from "./components/BookPage/BookPage";
 import AddBookForm from "./components/AddBookForm/AddBookForm";
+import StartPage from "./components/StartPage/StartPage";
 import "./App.scss";
 
 const App: React.FC = () => {
@@ -13,13 +14,36 @@ const App: React.FC = () => {
 			<Provider store={store}>
 				<Router basename="/project_online-library-app">
 					<div className="app">
-						<Header />
 						<Routes>
-							<Route path="/" element={<LibraryPage />} />
-							<Route path="/book/:id" element={<BookPage />} />
-							<Route path="/addbook" element={<AddBookForm />} />
-							{/* <Route path="/addbook" element={<AddBook />} />
-					<Route path="*" element={<MissingPage />} /> */}
+							<Route path="/" element={<StartPage />} />
+							<Route
+								path="/library"
+								element={
+									<>
+										{" "}
+										<Header /> <LibraryPage />
+									</>
+								}
+							/>
+							<Route
+								path="/book/:id"
+								element={
+									<>
+										{" "}
+										<Header /> <BookPage />
+									</>
+								}
+							/>
+							<Route
+								path="/addbook"
+								element={
+									<>
+										{" "}
+										<Header />
+										<AddBookForm />
+									</>
+								}
+							/>
 						</Routes>
 					</div>
 				</Router>

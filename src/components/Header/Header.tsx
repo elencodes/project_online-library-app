@@ -17,7 +17,10 @@ export function Header() {
 			<header className={styles.header}>
 				<div className="header__inner">
 					<div className={styles.header__navigation_box}>
-						<Link to="/" className={styles.header__navigation_logo}>
+						<Link
+							to="/library"
+							className={styles.header__navigation_logo}
+						>
 							<img
 								className={styles.header__logo}
 								src={logo}
@@ -27,7 +30,7 @@ export function Header() {
 						<nav className={styles.nav}>
 							<Link
 								className={styles.nav__button}
-								to="/"
+								to="/library"
 								onMouseEnter={() => setHoveredLibraryButton(true)}
 								onMouseLeave={() => setHoveredLibraryButton(false)}
 							>

@@ -1,0 +1,21 @@
+@use "../../styles/variables.scss"as variables;
+
+.about__container {
+	width: 100%;
+	min-height: 100vh;
+	background: url("../../assets/images/start.jpg") center center no-repeat fixed;
+	background-size: cover;
+}
+
+.content {
+	margin-top: 10rem;
+}
+
+.title {
+	font-size: 2.375rem;
+}
+
+.subtitle {
+	margin-bottom: 4.0625rem;
+	font-size: 1.625rem;
+}

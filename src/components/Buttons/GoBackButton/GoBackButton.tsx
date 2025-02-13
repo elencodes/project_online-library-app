@@ -8,7 +8,7 @@ interface IGoBackLinkProps {
 const GoBackButton: React.FC<IGoBackLinkProps> = ({ text }) => {
 	return (
 		<>
-			<Link className={styles.go_back__button} to="/">
+			<Link className={styles.go_back__button} to="/library">
 				<p className={styles.button__text}>{text}</p>
 			</Link>
 		</>
