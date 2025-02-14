@@ -5,7 +5,8 @@ import {
 } from "../../types/favouritesTypes";
 
 const initialState: IFavouritesState = {
-	favourites: [],
+	// Загружаем избранное из localStorage или используем пустой массив
+	favourites: JSON.parse(localStorage.getItem("favourites") || "[]"),
 };
 
 export const favouritesReducer = (
@@ -17,6 +18,12 @@ export const favouritesReducer = (
 			if (state.favourites.includes(action.payload)) {
 				return state; // Если id уже есть, ничего не меняем
 			}
+
+			const updatedFavourites = [...state.favourites, action.payload];
+
+			// Сохраняем в localStorage
+			localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+
 			return {
 				...state,
 				favourites: [...state.favourites, action.payload],
@@ -24,10 +31,14 @@ export const favouritesReducer = (
 		}
 
 		case FavouritesActionTypes.REMOVE_FROM_FAVOURITES: {
-			return {
-				...state,
-				favourites: state.favourites.filter((id) => id !== action.payload),
-			};
+			const updatedFavourites = state.favourites.filter(
+				(id) => id !== action.payload
+			);
+
+			// Обновляем localStorage
+			localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+
+			return { ...state, favourites: updatedFavourites };
 		}
 
 		default:
