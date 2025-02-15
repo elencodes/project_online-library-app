@@ -10,6 +10,7 @@ import {
 	IFetchTopBooksError, // Экшен для обработки ошибки при получении топ-книг
 	TopBooksActionTypes, // Перечисление типов экшенов
 	IClearTopBooksAction, // Очистка списка топ-книг перед поиском
+	IDeleteTopBooksAction, // Удаление книги из массива данных
 } from "../../types/topBooksTypes";
 
 // Экшен для начала загрузки списка топ-книг (например, показываем индикатор загрузки)
@@ -60,5 +61,14 @@ export const fetchTopBooksErrorAction = (
 export const clearTopBooksAction = (): IClearTopBooksAction => {
 	return {
 		type: TopBooksActionTypes.CLEAR_TOP_BOOKS, // Указываем тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
+	};
+};
+
+export const deleteTopBooksAction = (
+	id: string // Передаем id книги
+): IDeleteTopBooksAction => {
+	return {
+		type: TopBooksActionTypes.DELETE_TOP_BOOK, // Указываем тип экшена (помогает редьюсеру определить, какое действие нужно выполнить)
+		payload: id, // Сохраняем id книги в payload
 	};
 };

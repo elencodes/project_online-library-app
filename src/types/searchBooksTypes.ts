@@ -20,6 +20,7 @@ export enum SearchBookActionTypes {
 	SET_SEARCH_KEYWORD = "SET_SEARCH_KEYWORD",
 	SET_SEARCH_PAGES_COUNT = "SET_SEARCH_PAGES_COUNT",
 	CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS",
+	DELETE_BOOK_FROM_SEARCH = "DELETE_BOOK_FROM_SEARCH",
 }
 
 export interface ISearchBookSuccessAction {
@@ -62,6 +63,10 @@ export interface IClearSearchResultsAction {
 	type: SearchBookActionTypes.CLEAR_SEARCH_RESULTS;
 	payload: { totalBooks: number };
 }
+export interface IDeleteBookFromSearchAction {
+	type: SearchBookActionTypes.DELETE_BOOK_FROM_SEARCH;
+	payload: string;
+}
 
 export type SearchBookActions =
 	| ISearchBookAction
@@ -71,4 +76,5 @@ export type SearchBookActions =
 	| ISetSearchPagesCount
 	| ISearchBookError
 	| ISearchBookSuccessAction
-	| IClearSearchResultsAction;
+	| IClearSearchResultsAction
+	| IDeleteBookFromSearchAction;

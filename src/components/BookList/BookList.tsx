@@ -81,6 +81,7 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 							}`}
 						>
 							<BookCard
+								key={book.id}
 								book={book}
 								onHover={() => setActiveCardId(book.id)}
 								onLeave={() => setActiveCardId(null)}

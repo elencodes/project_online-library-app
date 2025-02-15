@@ -65,6 +65,16 @@ export const topBooksReducer = (
 				totalBooks: 0,
 			};
 		}
+		//Удаление книги
+		case TopBooksActionTypes.DELETE_TOP_BOOK: {
+			return {
+				...state,
+				topBooks: state.topBooks.filter(
+					(book) => book.id !== action.payload
+				),
+				totalBooks: state.totalBooks - 1, // Обновляем количество книг
+			};
+		}
 
 		// Если экшен не найден, возвращаем текущее состояние без изменений
 		default:

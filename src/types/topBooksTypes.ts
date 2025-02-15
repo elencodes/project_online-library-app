@@ -16,6 +16,7 @@ export enum TopBooksActionTypes {
 	FETCH_TOP_BOOKS_ERROR = "FETCH_TOP_BOOKS_ERROR",
 	SET_TOP_BOOK_PAGE = "SET_TOP_BOOK_PAGE",
 	CLEAR_TOP_BOOKS = "CLEAR_TOP_BOOKS",
+	DELETE_TOP_BOOK = "DELETE_TOP_BOOK",
 }
 
 export interface IFetchTopBooksDataAction {
@@ -47,6 +48,10 @@ export interface ISetTopBooksPage {
 export interface IClearTopBooksAction {
 	type: TopBooksActionTypes.CLEAR_TOP_BOOKS;
 }
+export interface IDeleteTopBooksAction {
+	type: TopBooksActionTypes.DELETE_TOP_BOOK;
+	payload: string;
+}
 
 export type TopBookActions =
 	| IFetchTopBooksDataAction
@@ -54,4 +59,5 @@ export type TopBookActions =
 	| ISetTopBooksPage
 	| IFetchTopBooksError
 	| IFetchTopBooksFinishedAction
-	| IClearTopBooksAction;
+	| IClearTopBooksAction
+	| IDeleteTopBooksAction;

@@ -71,7 +71,7 @@ const BookPage: React.FC = () => {
 							{categories?.join(", ") || "No Genre"}
 						</h3>
 						<div className={styles.button__container}>
-							<DeleteButton />
+							<DeleteButton id={book.id} />
 							<FavouritesButton id={book.id} />
 						</div>
 						<div className={styles.description__box}>

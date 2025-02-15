@@ -86,6 +86,16 @@ export const searchBooksReducer = (
 				isSearching: false, // Сбрасываем флаг поиска
 			};
 		}
+		// Удаление книги
+		case SearchBookActionTypes.DELETE_BOOK_FROM_SEARCH: {
+			return {
+				...state,
+				searchResults: state.searchResults.filter(
+					(book) => book.id !== action.payload
+				),
+				totalSearchBooks: state.totalSearchBooks - 1, // Обновляем количество книг
+			};
+		}
 
 		// Если экшен не найден, возвращаем текущее состояние без изменений
 		default:

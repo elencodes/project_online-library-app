@@ -13,7 +13,8 @@ import {
 	ISetSearchKeyword, // Экшен для установки ключевого слова поиска
 	ISetSearchBookPage, // Экшен для установки текущей страницы поиска
 	ISetSearchPagesCount, // Экшен для установки количества страниц поиска
-	SearchBookActionTypes, // Перечисление всех типов экшенов для поиска книг
+	SearchBookActionTypes,
+	IDeleteBookFromSearchAction, // Перечисление всех типов экшенов для поиска книг
 } from "../../types/searchBooksTypes";
 
 // Экшен для начала поиска книг
@@ -85,5 +86,15 @@ export const clearSearchResultsAction = () => {
 
 		// Загружаем топ-книги после очистки поиск
 		await dispatch(fetchTopBooks());
+	};
+};
+
+// Экшен для удаления книги
+export const deleteBookFromSearchAction = (
+	id: string
+): IDeleteBookFromSearchAction => {
+	return {
+		type: SearchBookActionTypes.DELETE_BOOK_FROM_SEARCH, // Тип экшена
+		payload: id, // Передаем id книги в payload
 	};
 };
