@@ -38,61 +38,65 @@ const LibraryPage = () => {
 
 	return (
 		<>
-			<div className="container">
-				<main>
-					<div className={styles.search__container}>
-						<h1 className={styles.title}>Library</h1>
-						<SearchForm activeFilter={activeFilter} />
-					</div>
-					<div className={styles.filters__box}>
-						<FilterButton
-							text={"All books"}
-							active={activeFilter === "All books"}
-							onClick={() => {
-								setActiveFilter("All books");
-								setCurrentPage(1); // Сбросить страницу
-							}}
+			<div className={styles.back}>
+				<div className="container">
+					<main className={styles.back}>
+						<div className={styles.search__container}>
+							<h1 className={styles.title}>Library</h1>
+							<SearchForm activeFilter={activeFilter} />
+						</div>
+						<div className={styles.filters__box}>
+							<FilterButton
+								text={"All books"}
+								active={activeFilter === "All books"}
+								onClick={() => {
+									setActiveFilter("All books");
+									setCurrentPage(1); // Сбросить страницу
+								}}
+							/>
+							<FilterButton
+								text={"Favourites"}
+								active={activeFilter === "Favourites"}
+								onClick={() => {
+									setTimeout(() => setActiveFilter("Favourites"), 100);
+									setCurrentPage(1); // Сбросить страницу
+								}}
+							/>
+						</div>
+						<h2 className={styles.subtitle}>Book List</h2>
+						<BookList
+							currentPage={currentPage}
+							activeFilter={activeFilter}
 						/>
-						<FilterButton
-							text={"Favourites"}
-							active={activeFilter === "Favourites"}
-							onClick={() => {
-								setTimeout(() => setActiveFilter("Favourites"), 100);
-								setCurrentPage(1); // Сбросить страницу
-							}}
-						/>
-					</div>
-					<h2 className={styles.subtitle}>Book List</h2>
-					<BookList
-						currentPage={currentPage}
-						activeFilter={activeFilter}
-					/>
-				</main>
-				<footer className={styles.footer}>
-					<div className={styles.footer__text}>
-						<span className={styles.footer__text_total}>
-							Total books:{" "}
-						</span>
-						<span className={styles.footer__counter}>{totalBooks}</span>
-						<span className={styles.footer__note}>
-							{`(Showing the first ${maxResults} results)`}
-						</span>
-					</div>
-					<ul className={styles.pagination__list}>
-						{pages.map((page) => (
-							<li key={page} className={styles.list__item}>
-								<button
-									className={`${styles.item__link_page} ${
-										currentPage === page ? styles.active : ""
-									}`}
-									onClick={() => setCurrentPage(page)}
-								>
-									{page}
-								</button>
-							</li>
-						))}
-					</ul>
-				</footer>
+					</main>
+					<footer className={styles.footer}>
+						<div className={styles.footer__text}>
+							<span className={styles.footer__text_total}>
+								Total books:{" "}
+							</span>
+							<span className={styles.footer__counter}>
+								{totalBooks}
+							</span>
+							<span className={styles.footer__note}>
+								{`(Showing the first ${maxResults} results)`}
+							</span>
+						</div>
+						<ul className={styles.pagination__list}>
+							{pages.map((page) => (
+								<li key={page} className={styles.list__item}>
+									<button
+										className={`${styles.item__link_page} ${
+											currentPage === page ? styles.active : ""
+										}`}
+										onClick={() => setCurrentPage(page)}
+									>
+										{page}
+									</button>
+								</li>
+							))}
+						</ul>
+					</footer>
+				</div>
 			</div>
 		</>
 	);
