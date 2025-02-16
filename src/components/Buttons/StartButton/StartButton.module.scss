@@ -11,9 +11,12 @@
 	background: transparent;
 	border-radius: .625rem;
 	border: .125rem solid variables.$placeholder-color;
+	opacity: 0;
+	animation: fadeIn 1.2s ease-out forwards;
+	animation-delay: 1.3s; // Задержка, чтобы появлялась после текста
+	cursor: pointer;
 
 	&:hover {
-		cursor: pointer;
 		background-color: variables.$button-color;
 		color: variables.$dark-font-color;
 		transition: background-color .3s linear, color .3s linear;
@@ -25,7 +28,34 @@
 	}
 }
 
+.pulse {
+	opacity: 1;
+	animation: shadow-pulse 1.5s infinite;
+}
+
 .button__text {
 	font-family: variables.$accentFont;
 	font-size: 1.375rem;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes shadow-pulse {
+	0% {
+		box-shadow: 0 0 0 0rem variables.$placeholder-color;
+	}
+
+	100% {
+		box-shadow: 0 0 0 1.875rem rgba(239, 227, 200, 0);
+	}
 }
