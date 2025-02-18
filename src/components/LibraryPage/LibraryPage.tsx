@@ -38,9 +38,9 @@ const LibraryPage = () => {
 
 	return (
 		<>
-			<div className={styles.back}>
+			<div className={styles.page__background}>
 				<div className="container">
-					<main className={styles.back}>
+					<main>
 						<div className={styles.search__container}>
 							<h1 className={styles.title}>Library</h1>
 							<SearchForm activeFilter={activeFilter} />
