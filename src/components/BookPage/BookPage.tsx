@@ -52,44 +52,48 @@ const BookPage: React.FC = () => {
 
 	return (
 		<>
-			<div className="container">
-				<section className={styles.section}>
-					<GoBackButton text={"Back to Library"} />
-					<div className={styles.content}>
-						<div className={styles.image__box}>
-							<img
-								className={styles.image}
-								src={imageUrl}
-								alt="poster"
-							/>
+			<div className="page__background">
+				<div className="container">
+					<section className={styles.section}>
+						<GoBackButton text={"Back to Library"} />
+						<div className={styles.content}>
+							<div className={styles.image__box}>
+								<img
+									className={styles.image}
+									src={imageUrl}
+									alt="poster"
+								/>
+							</div>
+							<h1 className={styles.title}>{title}</h1>
+							<h2 className={styles.subtitle}>
+								{authors?.join(", ") || "Unknown Author"}
+							</h2>
+							<h3 className={styles.genres}>
+								{categories?.join(", ") || "No Genre"}
+							</h3>
+							<div className={styles.button__container}>
+								<DeleteButton id={book.id} />
+								<FavouritesButton id={book.id} />
+							</div>
+							<div className={styles.description__box}>
+								<h4 className={styles.description__title}>
+									About book
+								</h4>
+								<p className={styles.description}>
+									{displayedText || "No description available."}
+								</p>
+								{shouldTruncate && (
+									<button
+										className={styles.description__toggle}
+										onClick={toggleDescription}
+									>
+										{isExpanded ? "Hide description" : "Read More"}
+									</button>
+								)}
+							</div>
 						</div>
-						<h1 className={styles.title}>{title}</h1>
-						<h2 className={styles.subtitle}>
-							{authors?.join(", ") || "Unknown Author"}
-						</h2>
-						<h3 className={styles.genres}>
-							{categories?.join(", ") || "No Genre"}
-						</h3>
-						<div className={styles.button__container}>
-							<DeleteButton id={book.id} />
-							<FavouritesButton id={book.id} />
-						</div>
-						<div className={styles.description__box}>
-							<h4 className={styles.description__title}>About book</h4>
-							<p className={styles.description}>
-								{displayedText || "No description available."}
-							</p>
-							{shouldTruncate && (
-								<button
-									className={styles.description__toggle}
-									onClick={toggleDescription}
-								>
-									{isExpanded ? "Hide description" : "Read More"}
-								</button>
-							)}
-						</div>
-					</div>
-				</section>
+					</section>
+				</div>
 			</div>
 		</>
 	);

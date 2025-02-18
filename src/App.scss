@@ -1,10 +1,3 @@
-// #root {
-// 	max-width: 1280px;
-// 	margin: 0 auto;
-// 	padding: 2rem;
-// 	text-align: center;
-// }
-
 .app {
 	display: flex;
 	margin: 0 auto;
@@ -20,4 +13,9 @@
 .header__inner {
 	max-width: 12.625rem;
 	margin: 0 auto;
+}
+
+.page__background {
+	background: url("/src/assets/images/library.jpg") center center no-repeat fixed;
+	background-size: cover;
 }

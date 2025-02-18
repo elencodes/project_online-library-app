@@ -1,10 +1,5 @@
 @use "../../styles/variables.scss"as variables;
 
-.page__background {
-	background: url("../../assets/images/start-4.jpg") center center no-repeat fixed;
-	background-size: cover;
-}
-
 .search__container {
 	display: flex;
 }

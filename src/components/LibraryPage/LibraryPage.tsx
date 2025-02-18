@@ -38,7 +38,7 @@ const LibraryPage = () => {
 
 	return (
 		<>
-			<div className={styles.page__background}>
+			<div className="page__background">
 				<div className="container">
 					<main>
 						<div className={styles.search__container}>
