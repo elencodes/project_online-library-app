@@ -5,6 +5,7 @@
 	min-height: 100vh;
 	background: linear-gradient(to bottom, rgba(110, 101, 112, 0.494) 0%, rgba(65, 55, 67, 0.494) 50%, rgba(51, 45, 52, 0.494) 100%);
 	box-shadow: 0.2rem 0 2rem variables.$shadow-menu-color;
+	z-index: 1;
 }
 
 .header__navigation_box {
