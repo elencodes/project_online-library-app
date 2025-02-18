@@ -64,10 +64,17 @@ const LibraryPage = () => {
 							/>
 						</div>
 						<h2 className={styles.subtitle}>Book List</h2>
-						<BookList
-							currentPage={currentPage}
-							activeFilter={activeFilter}
-						/>
+						{activeFilter === "Favourites" && favourites.length === 0 ? (
+							<>
+								<p>There is nothing in favorites</p>
+								<p>Add books using ❤️</p>
+							</>
+						) : (
+							<BookList
+								currentPage={currentPage}
+								activeFilter={activeFilter}
+							/>
+						)}
 					</main>
 					<footer className={styles.footer}>
 						<div className={styles.footer__text}>
