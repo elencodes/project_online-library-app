@@ -37,8 +37,6 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 		return uniqueBooks.filter((book) => favourites.includes(book.id)); // Фильтруем по id из избранного
 	}, [topBooks, searchResults, favourites]);
 
-	console.log(favouriteBooks);
-
 	// Определяем, какие книги показывать
 	let booksToShow = isSearching ? searchResults : topBooks;
 	// Показываем весь список избранного, если фильтр активный

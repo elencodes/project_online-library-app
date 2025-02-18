@@ -74,12 +74,22 @@ const LibraryPage = () => {
 							<span className={styles.footer__text_total}>
 								Total books:{" "}
 							</span>
-							<span className={styles.footer__counter}>
-								{totalBooks}
-							</span>
-							<span className={styles.footer__note}>
-								{`(Showing the first ${maxResults} results)`}
-							</span>
+							{activeFilter === "Favourites" ? (
+								<>
+									<span className={styles.footer__counter}>
+										{favourites.length}
+									</span>
+								</>
+							) : (
+								<>
+									<span className={styles.footer__counter}>
+										{totalBooks}
+									</span>
+									<span className={styles.footer__note}>
+										{`(Showing the first ${maxResults} results)`}
+									</span>
+								</>
+							)}
 						</div>
 						<ul className={styles.pagination__list}>
 							{pages.map((page) => (
