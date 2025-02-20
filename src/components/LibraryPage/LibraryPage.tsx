@@ -40,7 +40,7 @@ const LibraryPage = () => {
 		<>
 			<div className="page__background">
 				<div className="container">
-					<main>
+					<main className={styles.main}>
 						<div className={styles.search__container}>
 							<h1 className={styles.title}>Library</h1>
 							<SearchForm activeFilter={activeFilter} />
@@ -66,8 +66,14 @@ const LibraryPage = () => {
 						<h2 className={styles.subtitle}>Book List</h2>
 						{activeFilter === "Favourites" && favourites.length === 0 ? (
 							<>
-								<p>There is nothing in favorites</p>
-								<p>Add books using ❤️</p>
+								<div className={styles.notification__box}>
+									<p className={styles.notification}>
+										There is nothing in favorites
+									</p>
+									<p className={styles.notification__text}>
+										Add books using ❤️
+									</p>
+								</div>
 							</>
 						) : (
 							<BookList

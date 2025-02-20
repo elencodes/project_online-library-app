@@ -1,5 +1,9 @@
 @use "../../styles/variables.scss"as variables;
 
+.main {
+	flex-grow: 1;
+}
+
 .search__container {
 	display: flex;
 }
@@ -20,6 +24,25 @@
 .subtitle {
 	margin-top: 3.75rem;
 	font-size: 1.625rem;
+}
+
+.notification__box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 20rem;
+}
+
+.notification {
+	margin-top: 3.75rem;
+	font-size: 1.375rem;
+}
+
+.notification__text {
+	margin-top: 1.5rem;
+	font-size: 1.125rem;
 }
 
 .footer {

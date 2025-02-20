@@ -5,9 +5,12 @@
 }
 
 .container {
+	display: flex;
+	flex-direction: column;
 	width: 87.5rem;
 	max-width: 87.5rem;
 	padding: 1.875rem 3.125rem;
+	min-height: 100vh;
 }
 
 .header__inner {
