@@ -19,9 +19,8 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 		(state) => state.topBooks
 	);
 
-	const { searchResults, isSearching } = useTypedSelector(
-		(state) => state.searchResults
-	);
+	const { searchResults, isSearching, isSearchResultsLoading } =
+		useTypedSelector((state) => state.searchResults);
 
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
 
@@ -63,6 +62,7 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 	}, [dispatch, currentPage, activeFilter]); // Добавили зависимость currentPage
 
 	if (isTopBooksLoading) return <p>Загрузка...</p>;
+	if (isSearchResultsLoading) return <p>Загрузка...</p>;
 	if (fetchTopBooksError) return <p>{fetchTopBooksError}</p>;
 
 	return (

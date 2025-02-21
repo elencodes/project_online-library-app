@@ -17,9 +17,8 @@ const LibraryPage = () => {
 	// Получаем данные из Redux
 	const totalBooks = useTypedSelector((state) => state.topBooks.totalBooks);
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
-	const { searchResults, isSearching } = useTypedSelector(
-		(state) => state.searchResults
-	);
+	const { searchResults, isSearching, isSearchResultsLoading } =
+		useTypedSelector((state) => state.searchResults);
 
 	// Максимальное количество книг, которое возвращает API
 	const maxResults = 30;
@@ -72,27 +71,23 @@ const LibraryPage = () => {
 						</div>
 						<h2 className={styles.subtitle}>Book List</h2>
 						{activeFilter === "Favourites" && favourites.length === 0 ? (
-							<>
-								<div className={styles.notification__box}>
-									<p className={styles.notification}>
-										There is nothing in favorites
-									</p>
-									<p className={styles.notification__text}>
-										Add books using ❤️
-									</p>
-								</div>
-							</>
-						) : isSearching && searchResults.length === 0 ? (
-							<>
-								<div className={styles.notification__box}>
-									<p className={styles.notification}>
-										Nothing was found
-									</p>
-									<p className={styles.notification__text}>
-										Try changing the request 📚
-									</p>
-								</div>
-							</>
+							<div className={styles.notification__box}>
+								<p className={styles.notification}>
+									There is nothing in favorites
+								</p>
+								<p className={styles.notification__text}>
+									Add books using ❤️
+								</p>
+							</div>
+						) : isSearching &&
+						  !isSearchResultsLoading &&
+						  searchResults.length === 0 ? (
+							<div className={styles.notification__box}>
+								<p className={styles.notification}>Nothing was found</p>
+								<p className={styles.notification__text}>
+									Try changing the request 📚
+								</p>
+							</div>
 						) : (
 							<BookList
 								currentPage={currentPage}
@@ -105,16 +100,14 @@ const LibraryPage = () => {
 							<span className={styles.footer__text_total}>
 								Total books:{" "}
 							</span>
-							{isSearching ? (
+							{activeFilter === "Favourites" ? (
+								<span className={styles.footer__counter}>
+									{favourites.length}
+								</span>
+							) : isSearching ? (
 								<span className={styles.footer__counter}>
 									{searchResults.length}
 								</span>
-							) : activeFilter === "Favourites" ? (
-								<>
-									<span className={styles.footer__counter}>
-										{favourites.length}
-									</span>
-								</>
 							) : (
 								<>
 									<span className={styles.footer__counter}>
