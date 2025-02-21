@@ -65,6 +65,15 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 	if (isTopBooksLoading) return <p>Загрузка...</p>;
 	if (fetchTopBooksError) return <p>{fetchTopBooksError}</p>;
 
+	if (isSearching && searchResults.length === 0) {
+		return (
+			<div className={styles.notification__box}>
+				<p className={styles.notification}>No books found</p>
+				<p className={styles.notification__text}>Try another keyword 📚</p>
+			</div>
+		);
+	}
+
 	return (
 		<>
 			<div className={styles.list__container}>
