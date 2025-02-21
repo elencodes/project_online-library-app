@@ -17,6 +17,9 @@ const LibraryPage = () => {
 	// Получаем данные из Redux
 	const totalBooks = useTypedSelector((state) => state.topBooks.totalBooks);
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
+	const { searchResults, isSearching } = useTypedSelector(
+		(state) => state.searchResults
+	);
 
 	// Максимальное количество книг, которое возвращает API
 	const maxResults = 30;
@@ -24,7 +27,11 @@ const LibraryPage = () => {
 
 	// Определяем общее количество книг для пагинации (в зависимости от фильтра)
 	const totalItems =
-		activeFilter === "Favourites" ? favourites.length : totalBooks;
+		activeFilter === "Favourites"
+			? favourites.length
+			: isSearching
+			? searchResults.length
+			: totalBooks;
 
 	// Определяем максимальное  количество страниц
 	const totalPages =
@@ -75,6 +82,17 @@ const LibraryPage = () => {
 									</p>
 								</div>
 							</>
+						) : isSearching && searchResults.length === 0 ? (
+							<>
+								<div className={styles.notification__box}>
+									<p className={styles.notification}>
+										Nothing was found
+									</p>
+									<p className={styles.notification__text}>
+										Try changing the request 📚
+									</p>
+								</div>
+							</>
 						) : (
 							<BookList
 								currentPage={currentPage}
@@ -87,7 +105,11 @@ const LibraryPage = () => {
 							<span className={styles.footer__text_total}>
 								Total books:{" "}
 							</span>
-							{activeFilter === "Favourites" ? (
+							{isSearching ? (
+								<span className={styles.footer__counter}>
+									{searchResults.length}
+								</span>
+							) : activeFilter === "Favourites" ? (
 								<>
 									<span className={styles.footer__counter}>
 										{favourites.length}
