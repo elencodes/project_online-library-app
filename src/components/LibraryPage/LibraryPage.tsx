@@ -82,7 +82,8 @@ const LibraryPage = () => {
 									Add books using ❤️
 								</p>
 							</div>
-						) : isSearching &&
+						) : activeFilter === "All books" &&
+						  isSearching &&
 						  !isSearchResultsLoading &&
 						  searchResults.length === 0 ? (
 							<div className={styles.notification__box}>

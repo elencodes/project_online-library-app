@@ -80,6 +80,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
 		if (activeFilter === "All books") {
 			dispatch(clearSearchResultsAction()); // Убираем найденные книги только для All books
 		}
+
+		if (activeFilter !== "All books") {
+			setActiveFilter("All books");
+		}
 	};
 
 	// Убираем плейсхолдер при фокусе на поле ввода
