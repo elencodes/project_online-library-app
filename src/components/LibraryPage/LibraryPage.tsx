@@ -49,7 +49,10 @@ const LibraryPage = () => {
 					<main className={styles.main}>
 						<div className={styles.search__container}>
 							<h1 className={styles.title}>Library</h1>
-							<SearchForm activeFilter={activeFilter} />
+							<SearchForm
+								activeFilter={activeFilter}
+								setActiveFilter={setActiveFilter}
+							/>
 						</div>
 						<div className={styles.filters__box}>
 							<FilterButton

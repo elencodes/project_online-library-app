@@ -5,7 +5,15 @@ import { clearSearchResultsAction } from "../../store/actionCreators/searchBooks
 import { clearTopBooksAction } from "../../store/actionCreators/topBooksActionCreators";
 import styles from "./SearchForm.module.scss";
 
-const SearchForm: React.FC<{ activeFilter: string }> = ({ activeFilter }) => {
+interface SearchFormProps {
+	activeFilter: string;
+	setActiveFilter: (filter: string) => void;
+}
+
+const SearchForm: React.FC<SearchFormProps> = ({
+	activeFilter,
+	setActiveFilter,
+}) => {
 	// Состояние для хранения введенного пользователем запроса
 	const [keyword, setKeyword] = useState<string>("");
 	// Флаг, указывающий, есть ли текст в поле (нужен для отображения кнопки очистки)
@@ -42,6 +50,11 @@ const SearchForm: React.FC<{ activeFilter: string }> = ({ activeFilter }) => {
 		const value = e.target.value;
 		setKeyword(value);
 		setHasText(value.trim().length > 0); // Обновляем флаг наличия текста
+
+		// Переключаемся на "All books", если был активен "Favourites"
+		if (activeFilter === "Favourites" && value.trim() !== "") {
+			setActiveFilter("All books");
+		}
 
 		// Если поле очистилось — показываем топовые книги
 		if (value.trim() === "") {
