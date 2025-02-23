@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { fetchTopBooks } from "../../utils/api";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { restoreFavouritesAction } from "../../store/actionCreators/favouritesActionCreators";
+import { IBook } from "../../types/booksTypes";
 import BookCard from "../BookCard/BookCard";
 import styles from "./BookList.module.scss";
 
@@ -18,23 +20,28 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 	const { topBooks, isTopBooksLoading, fetchTopBooksError } = useTypedSelector(
 		(state) => state.topBooks
 	);
-
 	const { searchResults, isSearching, isSearchResultsLoading } =
 		useTypedSelector((state) => state.searchResults);
-
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
+
+	//Восстанавливаем избранные книги из localStorage при загрузке страницы
+	useEffect(() => {
+		dispatch(restoreFavouritesAction());
+	}, [dispatch]);
 
 	// Формируем общий список избранных книг
 	const favouriteBooks = useMemo(() => {
-		const allBooks = [...topBooks, ...searchResults]; // Объединяем топовые книги и результаты поиска
-		const uniqueBooks = allBooks.reduce((acc, book) => {
-			if (!acc.some((b) => b.id === book.id)) {
-				acc.push(book);
-			}
-			return acc;
-		}, [] as typeof allBooks);
-		return uniqueBooks.filter((book) => favourites.includes(book.id)); // Фильтруем по id из избранного
-	}, [topBooks, searchResults, favourites]);
+		return favourites
+			.map((favBook) => {
+				// Ищем книгу сначала в топах, потом в поиске, потом в localStorage
+				return (
+					topBooks.find((book) => book.id === favBook.id) ||
+					searchResults.find((book) => book.id === favBook.id) ||
+					favBook // Если не нашли в топах и поиске, берем из localStorage
+				);
+			})
+			.filter((book): book is IBook => Boolean(book));
+	}, [favourites, topBooks, searchResults]);
 
 	// Определяем, какие книги показывать
 	let booksToShow = isSearching ? searchResults : topBooks;
@@ -61,8 +68,7 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 		}
 	}, [dispatch, currentPage, activeFilter]); // Добавили зависимость currentPage
 
-	if (isTopBooksLoading) return <p>Загрузка...</p>;
-	if (isSearchResultsLoading) return <p>Загрузка...</p>;
+	if (isTopBooksLoading || isSearchResultsLoading) return <p>Загрузка...</p>;
 	if (fetchTopBooksError) return <p>{fetchTopBooksError}</p>;
 
 	return (

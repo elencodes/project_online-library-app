@@ -84,7 +84,7 @@ export const clearSearchResultsAction = () => {
 			payload: { totalBooks: 0 },
 		});
 
-		// Загружаем топ-книги после очистки поиск
+		// Загружаем топ-книги после очистки поиска
 		await dispatch(fetchTopBooks());
 	};
 };

@@ -11,7 +11,7 @@ import styles from "./BookPage.module.scss";
 
 const BookPage: React.FC = () => {
 	// Получаем id книги из URL
-	const { id } = useParams();
+	const { id } = useParams<{ id: string }>();
 	// Достаем из хранилища Redux список книг
 	const topBooksState = useTypedSelector((state) => state.topBooks);
 	const searchBooksState = useTypedSelector((state) => state.searchResults);
@@ -73,7 +73,7 @@ const BookPage: React.FC = () => {
 							</h3>
 							<div className={styles.button__container}>
 								<DeleteButton id={book.id} />
-								<FavouritesButton id={book.id} />
+								<FavouritesButton book={book} />
 							</div>
 							<div className={styles.description__box}>
 								<h4 className={styles.description__title}>

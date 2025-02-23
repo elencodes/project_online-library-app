@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { handlePagesCounts } from "../../utils/handlePagesCount";
 import { calculatePagesCount } from "../../utils/calculatePagesCount";
@@ -8,39 +8,63 @@ import BookList from "../BookList/BookList";
 import styles from "./LibraryPage.module.scss";
 
 const LibraryPage = () => {
-	// Состояние для текущей страницы
+	// Состояние для текущей страницы (нужно для пагинации)
 	const [currentPage, setCurrentPage] = useState(1);
 
 	// Состояние для активного фильтра (All books или Favourites)
 	const [activeFilter, setActiveFilter] = useState<string>("All books");
 
-	// Получаем данные из Redux
+	// Получаем данные из Redux store
 	const totalBooks = useTypedSelector((state) => state.topBooks.totalBooks);
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
 	const { searchResults, isSearching, isSearchResultsLoading } =
 		useTypedSelector((state) => state.searchResults);
 
-	// Максимальное количество книг, которое возвращает API
-	const maxResults = 30;
-	const booksPerPage = 10;
+	// Константы для работы с пагинацией
+	const maxResults = 30; // API ограничивает количество книг
+	const booksPerPage = 10; // Количество книг на одной странице
 
-	// Определяем общее количество книг для пагинации (в зависимости от фильтра)
+	// Определяем, сколько всего книг доступно для пагинации (учитываем активный фильтр)
 	const totalItems =
 		activeFilter === "Favourites"
-			? favourites.length
+			? favourites.length // Если фильтр "Favourites", берем количество избранных книг
 			: isSearching
-			? searchResults.length
-			: totalBooks;
+			? searchResults.length // Если идет поиск, берем количество найденных книг
+			: totalBooks; // В остальных случаях — общее количество книг
 
 	// Определяем максимальное  количество страниц
 	const totalPages =
 		activeFilter === "Favourites"
-			? Math.ceil(totalItems / booksPerPage) // Пагинация для избранного
+			? Math.ceil(totalItems / booksPerPage) // Для избранных книг считаем страницы по 10 книг (пагинация)
 			: calculatePagesCount(totalItems, booksPerPage, 3); // Макс. 3 страницы для API
 
 	// Создаем массив страниц для пагинации
 	const pages: number[] = [];
 	handlePagesCounts(pages, totalPages, currentPage);
+
+	// Эффект, который подписывается на кастомное событие "changeFilter"
+	useEffect(() => {
+		//Обработчик кастомного события "changeFilter"
+		//Когда событие срабатывает, переключаем фильтр и сбрасываем пагинацию
+		const handleChangeFilter = (e: CustomEvent<string>) => {
+			setActiveFilter(e.detail); // Переключаем фильтр на "All books"
+			setCurrentPage(1); // Сбрасываем текущую страницу на первую
+		};
+
+		// Подписываемся на кастомное событие
+		window.addEventListener(
+			"changeFilter",
+			handleChangeFilter as EventListener
+		);
+
+		// При размонтировании компонента отписываемся от события
+		return () => {
+			window.removeEventListener(
+				"changeFilter",
+				handleChangeFilter as EventListener
+			);
+		};
+	}, []);
 
 	return (
 		<>

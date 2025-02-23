@@ -77,12 +77,16 @@ const SearchForm: React.FC<SearchFormProps> = ({
 		setKeyword(""); // Очищаем введенный текст
 		setHasText(false); // Скрываем кнопку очистки
 
-		if (activeFilter === "All books") {
-			dispatch(clearSearchResultsAction()); // Убираем найденные книги только для All books
-		}
+		if (activeFilter === "Favourites") {
+			const event = new CustomEvent("changeFilter", { detail: "All books" });
+			window.dispatchEvent(event);
 
-		if (activeFilter !== "All books") {
-			setActiveFilter("All books");
+			// Добавляем небольшую задержку перед очисткой результатов
+			setTimeout(() => {
+				dispatch(clearSearchResultsAction());
+			}, 0);
+		} else {
+			dispatch(clearSearchResultsAction());
 		}
 	};
 

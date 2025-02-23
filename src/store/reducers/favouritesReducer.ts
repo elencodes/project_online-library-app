@@ -6,7 +6,7 @@ import {
 
 const initialState: IFavouritesState = {
 	// Загружаем избранное из localStorage или используем пустой массив
-	favourites: JSON.parse(localStorage.getItem("favourites") || "[]"),
+	favourites: JSON.parse(localStorage.getItem("favouritesData") || "[]"),
 };
 
 export const favouritesReducer = (
@@ -15,14 +15,18 @@ export const favouritesReducer = (
 ): IFavouritesState => {
 	switch (action.type) {
 		case FavouritesActionTypes.ADD_TO_FAVOURITES: {
-			if (state.favourites.includes(action.payload)) {
-				return state; // Если id уже есть, ничего не меняем
+			// Если книга уже в избранном, ничего не меняем
+			if (state.favourites.some((book) => book.id === action.payload.id)) {
+				return state;
 			}
 
 			const updatedFavourites = [...state.favourites, action.payload];
 
 			// Сохраняем в localStorage
-			localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+			localStorage.setItem(
+				"favouritesData",
+				JSON.stringify(updatedFavourites)
+			);
 
 			return {
 				...state,
@@ -31,14 +35,24 @@ export const favouritesReducer = (
 		}
 
 		case FavouritesActionTypes.REMOVE_FROM_FAVOURITES: {
-			const updatedFavourites = state.favourites.filter(
-				(id) => id !== action.payload
+			const filteredFavourites = state.favourites.filter(
+				(book) => book.id !== action.payload
 			);
 
 			// Обновляем localStorage
-			localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+			localStorage.setItem(
+				"favouritesData",
+				JSON.stringify(filteredFavourites)
+			);
 
-			return { ...state, favourites: updatedFavourites };
+			return { ...state, favourites: filteredFavourites };
+		}
+
+		case FavouritesActionTypes.RESTORE_FAVOURITES: {
+			return {
+				...state,
+				favourites: action.payload,
+			};
 		}
 
 		default:
