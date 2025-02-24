@@ -5,6 +5,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { restoreFavouritesAction } from "../../store/actionCreators/favouritesActionCreators";
 import { IBook } from "../../types/booksTypes";
 import BookCard from "../BookCard/BookCard";
+import SkeletonCard from "../Skeletons/SkeletonCard/SkeletonCard";
 import styles from "./BookList.module.scss";
 
 interface BookListProps {
@@ -68,7 +69,22 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 		}
 	}, [dispatch, currentPage, activeFilter]); // Добавили зависимость currentPage
 
-	if (isTopBooksLoading || isSearchResultsLoading) return <p>Загрузка...</p>;
+	if (isTopBooksLoading || isSearchResultsLoading) {
+		return (
+			<>
+				<div className={styles.list__container}>
+					<ul className={styles.list}>
+						{Array.from({ length: booksPerPage }).map((_, index) => (
+							<li key={index} className={styles.list__item}>
+								<SkeletonCard />
+							</li>
+						))}
+					</ul>
+				</div>
+			</>
+		);
+	}
+
 	if (fetchTopBooksError) return <p>{fetchTopBooksError}</p>;
 
 	return (

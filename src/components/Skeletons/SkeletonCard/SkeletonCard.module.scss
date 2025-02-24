@@ -1,0 +1,9 @@
+@use "../../../styles/variables.scss"as variables;
+
+.card {
+	width: 11.625rem;
+	height: 17rem;
+	background-color: variables.$card-background-color;
+	border-radius: .625rem;
+	box-shadow: 0 0 0.5rem variables.$shadow-menu-color;
+}

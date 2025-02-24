@@ -1,0 +1,20 @@
+@use "../../../styles/variables.scss"as variables;
+
+@keyframes shimmer {
+	0% {
+		background-position: -120% 0;
+	}
+
+	100% {
+		background-position: 120% 0;
+	}
+}
+
+.shimmer {
+	background: linear-gradient(120deg,
+			rgba(255, 255, 255, 0.1) 25%,
+			rgba(255, 255, 255, 0.3) 50%,
+			rgba(255, 255, 255, 0.1) 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite linear;
+}
