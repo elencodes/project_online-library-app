@@ -58,16 +58,20 @@
 	color: variables.$placeholder-color;
 }
 
-.placeholder__upload_icon {
-	margin-right: 0.5rem;
-}
-
 .preview {
 	margin-top: 0.5rem;
+	padding-left: 1rem;
+	width: 30.5rem;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	align-self: flex-start;
+}
+
+.preview__box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .preview__image_box {

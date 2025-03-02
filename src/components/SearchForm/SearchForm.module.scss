@@ -33,25 +33,3 @@
 	transition: transform 0.2s linear;
 	content: url("../../assets/icons/search/search.svg");
 }
-
-.clear__button {
-	width: 1.5rem;
-	height: 1.5rem;
-	position: absolute;
-	right: 0.875rem;
-	background-color: transparent;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-}
-
-.search__container:has(.search__item:not(:placeholder-shown)) .clear__button {
-	display: flex;
-}
-
-.clear__icon {
-	width: 1.5rem;
-	height: 1.5rem;
-	content: url("../../assets/icons/buttons/clear.svg");
-}

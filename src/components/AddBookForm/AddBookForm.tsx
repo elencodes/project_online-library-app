@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import useTypedValidation from "../../hooks/useTypedValidation";
+import { IFormValid } from "../../hooks/useTypedValidation";
 import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
+import ClearButton from "../Buttons/ClearButton/ClearButton";
 import uploadIcon from "../../assets/icons/buttons/upload.svg";
+import doneIcon from "../../assets/icons/buttons/done.svg";
 import styles from "./AddBookForm.module.scss";
 
 const AddBookForm = () => {
@@ -21,25 +24,27 @@ const AddBookForm = () => {
 	const [fileName, setFileName] = useState<string | null>(null);
 
 	// Используем кастомный хук валидации
-	const { formErrors, formValid, isDisabled, validateField } =
-		useTypedValidation();
+	const { formErrors, isDisabled, validateField } = useTypedValidation();
 
 	// Обработчик загрузки файла
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0] || null;
+
+		// Освобождаем память от созданного URL
+		if (preview) {
+			URL.revokeObjectURL(preview);
+		}
 		// Обновляем состояние формы
 		setFormData((prev) => ({ ...prev, cover: file }));
 		// Валидация загружаемого файла
 		validateField("cover", file);
-
 		// Если файл загружен, создаем URL для предпросмотра
 		if (file) {
 			const objectUrl = URL.createObjectURL(file);
 			setPreview(objectUrl);
-
 			// Сохраняем имя файла и его тип
 			setFileName(
-				file.name.length > 45 ? file.name.slice(0, 42) + "..." : file.name
+				file.name.length > 50 ? file.name.slice(0, 47) + "..." : file.name
 			);
 		} else {
 			setPreview(null);
@@ -55,7 +60,7 @@ const AddBookForm = () => {
 		// Обновляем состояние формы
 		setFormData((prev) => ({ ...prev, [name]: value }));
 		// Запускаем валидацию для текущего поля
-		validateField(name as keyof typeof formValid, value);
+		validateField(name as keyof IFormValid, value);
 	};
 
 	// Обработчик отправки формы
@@ -73,6 +78,19 @@ const AddBookForm = () => {
 			genre: "",
 			description: "",
 		});
+	};
+
+	const handleClearFile = () => {
+		// Освобождаем память от созданного URL
+		if (preview) {
+			URL.revokeObjectURL(preview);
+			setPreview(null);
+		}
+		// Сбрасываем состояние файла
+		setFormData((prev) => ({ ...prev, cover: null }));
+		setFileName(null);
+		// Перезапускаем валидацию, чтобы убрать ошибку
+		validateField("cover", null);
 	};
 
 	useEffect(() => {
@@ -101,11 +119,17 @@ const AddBookForm = () => {
 									} ${formErrors.cover ? styles.invalid : ""}`}
 								>
 									<p className={styles.input__file_placeholder}>
-										Choose a file
+										{preview
+											? "The file is uploaded"
+											: "Choose a file"}
 										<img
-											className={styles.placeholder__upload_icon}
-											src={uploadIcon}
-											alt="upload"
+											className={
+												preview
+													? styles.file_placeholder__icon
+													: styles.placeholder__upload_icon
+											}
+											src={preview ? doneIcon : uploadIcon}
+											alt={preview ? "done" : "upload"}
 										/>
 									</p>
 									<input
@@ -117,67 +141,66 @@ const AddBookForm = () => {
 								</div>
 								{preview && (
 									<div className={styles.preview}>
-										<div className={styles.preview__image_box}>
-											<img
-												className={styles.preview__image}
-												src={preview}
-												alt="Book cover preview"
-											/>
+										<div className={styles.preview__box}>
+											<div className={styles.preview__image_box}>
+												<img
+													className={styles.preview__image}
+													src={preview}
+													alt=""
+												/>
+											</div>
+											<p className={styles.preview__image_title}>
+												{fileName}
+											</p>
 										</div>
-										<p className={styles.preview__image_title}>
-											{fileName}
-										</p>
+										<ClearButton
+											onClick={handleClearFile}
+											isVisible={!!preview || !!formErrors.cover}
+										/>
 									</div>
 								)}
-								{formValid.cover && formErrors.cover && (
+								{formErrors.cover && (
 									<p className={styles.error}>{formErrors.cover}</p>
 								)}
 							</div>
-							<div className={styles.input__container}>
-								<label className={styles.input__label}>Title</label>
-								<input
-									className={`${styles.input__item} ${
-										formErrors.title ? styles.invalid : ""
-									}`}
-									type="text"
-									name="title"
-									value={formData.title}
-									onChange={handleInputChange}
-								/>
-								{formValid.title && formErrors.title && (
-									<p className={styles.error}>{formErrors.title}</p>
-								)}
-							</div>
-							<div className={styles.input__container}>
-								<label className={styles.input__label}>Author</label>
-								<input
-									className={`${styles.input__item} ${
-										formErrors.author ? styles.invalid : ""
-									}`}
-									type="text"
-									name="author"
-									value={formData.author}
-									onChange={handleInputChange}
-								/>
-								{formValid.author && formErrors.author && (
-									<p className={styles.error}>{formErrors.author}</p>
-								)}
-							</div>
-							<div className={styles.input__container}>
-								<label className={styles.input__label}>Genre</label>
-								<input
-									className={`${styles.input__item} ${
-										formErrors.genre ? styles.invalid : ""
-									}`}
-									type="text"
-									name="genre"
-									value={formData.genre}
-									onChange={handleInputChange}
-								/>
-								{formValid.genre && formErrors.genre && (
-									<p className={styles.error}>{formErrors.genre}</p>
-								)}
-							</div>
+							{[
+								{
+									label: "Title",
+									name: "title",
+									type: "text",
+									value: formData.title,
+								},
+								{
+									label: "Author",
+									name: "author",
+									type: "text",
+									value: formData.author,
+								},
+								{
+									label: "Genre",
+									name: "genre",
+									type: "text",
+									value: formData.genre,
+								},
+							].map(({ label, name, type, value }) => (
+								<div key={name} className={styles.input__container}>
+									<label className={styles.input__label}>
+										{label}
+									</label>
+									<input
+										className={`${styles.input__item} ${
+											formErrors[name] ? styles.invalid : ""
+										}`}
+										type={type}
+										name={name}
+										value={value}
+										onChange={handleInputChange}
+									/>
+									{formErrors[name] && (
+										<p className={styles.error}>{formErrors[name]}</p>
+									)}
+								</div>
+							))}
 							<div className={styles.input__container}>
 								<label className={styles.description__label}>
 									About book
@@ -191,7 +214,7 @@ const AddBookForm = () => {
 									value={formData.description}
 									onChange={handleInputChange}
 								></textarea>
-								{formValid.description && formErrors.description && (
+								{formErrors.description && (
 									<p className={styles.error}>
 										{formErrors.description}
 									</p>

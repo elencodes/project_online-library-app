@@ -3,6 +3,7 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { searchBooks } from "../../utils/api";
 import { clearSearchResultsAction } from "../../store/actionCreators/searchBooksActionCreators";
 import { clearTopBooksAction } from "../../store/actionCreators/topBooksActionCreators";
+import ClearButton from "../Buttons/ClearButton/ClearButton";
 import styles from "./SearchForm.module.scss";
 
 interface SearchFormProps {
@@ -20,13 +21,16 @@ const SearchForm: React.FC<SearchFormProps> = ({
 	const [hasText, setHasText] = useState<boolean>(false);
 	// Получаем `dispatch` для отправки экшенов в Redux
 	const dispatch = useTypedDispatch();
-	// Динамический плейсхолдер (убирается при фокусе, возвращается при потере фокуса)
-	const [placeholder, setPlaceholder] = useState("Search a book...");
 	// Реф для хранения ссылки на таймер (чтобы управлять задержкой поиска)
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	// useEffect для запуска поиска с задержкой 1 секунда
 	useEffect(() => {
+		if (!keyword.trim()) {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+			return;
+		}
+
 		// Очищаем предыдущий таймер, если он был
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -90,11 +94,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
 		}
 	};
 
-	// Убираем плейсхолдер при фокусе на поле ввода
-	const handleFocus = () => setPlaceholder("");
-	// Возвращаем плейсхолдер при потере фокуса
-	const handleBlur = () => setPlaceholder("Search a book...");
-
 	return (
 		<>
 			<form className={styles.search__container} onSubmit={handleSubmit}>
@@ -104,19 +103,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
 					type="text"
 					onChange={handleChange}
 					value={keyword}
-					onFocus={handleFocus}
-					onBlur={handleBlur}
-					placeholder={placeholder}
+					placeholder="Search a book..."
 				/>
-				{hasText && (
-					<button
-						type="button"
-						className={styles.clear__button}
-						onClick={clearInput}
-					>
-						<span className={styles.clear__icon}></span>
-					</button>
-				)}
+				<ClearButton onClick={clearInput} isVisible={hasText} />
 			</form>
 		</>
 	);

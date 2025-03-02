@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 
 // Тип для ошибок формы
-interface IFormErrors {
+export interface IFormErrors {
 	cover: string;
 	title: string;
 	author: string;
 	genre: string;
 	description: string;
+	[key: string]: string;
 }
 
 // Тип для валидации полей (true - ошибка, false - поле валидно)
-interface IFormValid {
+export interface IFormValid {
 	cover: boolean;
 	title: boolean;
 	author: boolean;
@@ -77,34 +78,42 @@ const useTypedValidation = () => {
 		// Максимальный размер загружаемой обложки книги = 5MB
 		const maxSize = 5 * 1024 * 1024;
 
+		//Универсальная валидация полей
+		const textValidation = (
+			name: keyof IFormValid,
+			value: string,
+			regex: RegExp,
+			errorMessage: string
+		) => {
+			if (regex.test(value)) {
+				setFormValid((prev) => ({ ...prev, [name]: false })); // Поле валидно
+				setFormErrors((prev) => ({ ...prev, [name]: "" })); // Ошибка отсутствует
+			} else {
+				setFormValid((prev) => ({ ...prev, [name]: true })); // Поле невалидно
+				setFormErrors((prev) => ({ ...prev, [name]: errorMessage })); // Сообщение об ошибке
+			}
+		};
+
 		switch (name) {
 			// Валидация текстовых полей (title, author, genre, description)
 			case "title":
 			case "description":
-				if (textRegex.test(value as string)) {
-					setFormValid((prev) => ({ ...prev, [name]: false })); // Поле валидно
-					setFormErrors((prev) => ({ ...prev, [name]: "" })); // Ошибка отсутствует
-				} else {
-					setFormValid((prev) => ({ ...prev, [name]: true })); // Поле невалидно
-					setFormErrors((prev) => ({
-						...prev,
-						[name]: "Only Latin, Cyrillic, and symbols -'<>:?! allowed", // Сообщение об ошибке
-					}));
-				}
+				textValidation(
+					name,
+					value as string,
+					textRegex,
+					"Only Latin, Cyrillic, and symbols -'<>:?! allowed"
+				);
 				break;
 
 			case "author":
 			case "genre":
-				if (authorGenreRegex.test(value as string)) {
-					setFormValid((prev) => ({ ...prev, [name]: false })); // Поле валидно
-					setFormErrors((prev) => ({ ...prev, [name]: "" })); // Ошибка отсутствует
-				} else {
-					setFormValid((prev) => ({ ...prev, [name]: true })); // Поле невалидно
-					setFormErrors((prev) => ({
-						...prev,
-						[name]: "Only Latin, Cyrillic, and symbols -' allowed", // Сообщение об ошибке
-					}));
-				}
+				textValidation(
+					name,
+					value as string,
+					authorGenreRegex,
+					"Only Latin, Cyrillic, and symbols -' allowed"
+				);
 				break;
 
 			// Валидация поля "cover" (загрузка обложки книги)

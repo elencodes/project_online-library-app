@@ -1,0 +1,22 @@
+@use "../../../styles/variables.scss"as variables;
+
+.clear__button {
+	width: 1.5rem;
+	height: 1.5rem;
+	right: 0.875rem;
+	background-color: transparent;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.visible {
+	display: flex;
+}
+
+.clear__icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	content: url("../../../assets/icons/buttons/clear.svg");
+}
