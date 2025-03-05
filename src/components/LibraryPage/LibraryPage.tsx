@@ -95,6 +95,14 @@ const LibraryPage = () => {
 									setCurrentPage(1); // Сбросить страницу
 								}}
 							/>
+							<FilterButton
+								text={"New books"}
+								active={activeFilter === "New books"}
+								onClick={() => {
+									setTimeout(() => setActiveFilter("New books"), 100);
+									setCurrentPage(1); // Сбросить страницу
+								}}
+							/>
 						</div>
 						<h2 className={styles.subtitle}>Book List</h2>
 						{activeFilter === "Favourites" && favourites.length === 0 ? (
