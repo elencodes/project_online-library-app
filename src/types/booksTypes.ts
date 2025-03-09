@@ -4,7 +4,6 @@ export interface IBook {
 		title: string;
 		authors: string[];
 		categories: string[];
-		pageCount: number;
 		description: string;
 		imageLinks: {
 			thumbnail: string;

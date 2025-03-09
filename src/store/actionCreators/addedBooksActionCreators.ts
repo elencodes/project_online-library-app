@@ -1,11 +1,11 @@
-import { IBook } from "../../types/booksTypes";
 import {
+	IAddedBook,
 	AddedBooksActionTypes,
 	IAddBookAction,
 	IRemoveBookAction,
 } from "../../types/addedBooksTypes";
 
-export const addBookAction = (book: IBook): IAddBookAction => {
+export const addBookAction = (book: IAddedBook): IAddBookAction => {
 	return {
 		type: AddedBooksActionTypes.ADD_BOOK,
 		payload: book,

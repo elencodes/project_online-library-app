@@ -14,7 +14,6 @@ const initialState: IBookState = {
 			title: "", // Название книги
 			authors: [], // Авторы книги (может быть массивом)
 			categories: [], // Категории, к которым относится книга
-			pageCount: 0, // Количество страниц
 			description: "", // Описание книги
 			imageLinks: {
 				thumbnail: "", // Ссылка на изображение обложки книги

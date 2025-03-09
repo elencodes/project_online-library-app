@@ -19,6 +19,7 @@ const LibraryPage = () => {
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
 	const { searchResults, isSearching, isSearchResultsLoading } =
 		useTypedSelector((state) => state.searchResults);
+	const addedBooks = useTypedSelector((state) => state.addedBooks.addedBooks);
 
 	// Константы для работы с пагинацией
 	const maxResults = 30; // API ограничивает количество книг
@@ -28,13 +29,15 @@ const LibraryPage = () => {
 	const totalItems =
 		activeFilter === "Favourites"
 			? favourites.length // Если фильтр "Favourites", берем количество избранных книг
+			: activeFilter === "New books"
+			? addedBooks.length // Если фильтр "New books", берем количество избранных книг
 			: isSearching
 			? searchResults.length // Если идет поиск, берем количество найденных книг
 			: totalBooks; // В остальных случаях — общее количество книг
 
 	// Определяем максимальное  количество страниц
 	const totalPages =
-		activeFilter === "Favourites"
+		activeFilter === "Favourites" || activeFilter === "New books"
 			? Math.ceil(totalItems / booksPerPage) // Для избранных книг считаем страницы по 10 книг (пагинация)
 			: calculatePagesCount(totalItems, booksPerPage, 3); // Макс. 3 страницы для API
 
@@ -124,6 +127,16 @@ const LibraryPage = () => {
 									Try changing the request 📚
 								</p>
 							</div>
+						) : activeFilter === "New books" &&
+						  addedBooks.length === 0 ? (
+							<div className={styles.notification__box}>
+								<p className={styles.notification}>
+									No new books added
+								</p>
+								<p className={styles.notification__text}>
+									Add a book to see it here 📚
+								</p>
+							</div>
 						) : (
 							<BookList
 								currentPage={currentPage}
@@ -139,6 +152,10 @@ const LibraryPage = () => {
 							{activeFilter === "Favourites" ? (
 								<span className={styles.footer__counter}>
 									{favourites.length}
+								</span>
+							) : activeFilter === "New books" ? (
+								<span className={styles.footer__counter}>
+									{addedBooks.length}
 								</span>
 							) : isSearching ? (
 								<span className={styles.footer__counter}>

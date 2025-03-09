@@ -1,7 +1,14 @@
-import { IBook } from "./booksTypes";
+export interface IAddedBook {
+	id: string;
+	cover: File | null;
+	title: string;
+	author: string[];
+	genre: string[];
+	description: string;
+}
 
 export interface IAddedBookState {
-	addedBooks: IBook[];
+	addedBooks: IAddedBook[];
 }
 
 export enum AddedBooksActionTypes {
@@ -11,7 +18,7 @@ export enum AddedBooksActionTypes {
 
 export interface IAddBookAction {
 	type: AddedBooksActionTypes.ADD_BOOK;
-	payload: IBook;
+	payload: IAddedBook;
 }
 
 export interface IRemoveBookAction {

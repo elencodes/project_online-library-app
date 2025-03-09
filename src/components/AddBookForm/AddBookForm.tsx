@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import useTypedValidation from "../../hooks/useTypedValidation";
 import { IFormValid } from "../../hooks/useTypedValidation";
+import { IAddedBook } from "../../types/addedBooksTypes";
+import { addBookAction } from "../../store/actionCreators/addedBooksActionCreators";
 import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import ClearButton from "../Buttons/ClearButton/ClearButton";
@@ -9,8 +12,12 @@ import doneIcon from "../../assets/icons/buttons/done.svg";
 import styles from "./AddBookForm.module.scss";
 
 const AddBookForm = () => {
+	// Используем типизированный useDispatch
+	const dispatch = useTypedDispatch();
+
 	// Локальное состояние формы
 	const [formData, setFormData] = useState({
+		id: "",
 		cover: null as File | null,
 		title: "",
 		author: "",
@@ -68,16 +75,31 @@ const AddBookForm = () => {
 		e.preventDefault();
 		// Проверяем, есть ли ошибки
 		if (isDisabled) return;
+		// Создаем объект книги
+		const newBook: IAddedBook = {
+			id: Date.now().toString(), // Генерируем уникальный id
+			cover: formData.cover,
+			title: formData.title,
+			author: [formData.author],
+			genre: [formData.genre],
+			description: formData.description,
+		};
+		// Отправляем новую книгу в Redux
+		dispatch(addBookAction(newBook));
 		// Логика отправки данных (например, в API или локальное состояние)
 		console.log("New book added:", formData);
 		// Очистка формы после успешного добавления книги
 		setFormData({
+			id: "",
 			cover: null,
 			title: "",
 			author: "",
 			genre: "",
 			description: "",
 		});
+
+		setPreview(null);
+		setFileName(null);
 	};
 
 	const handleClearFile = () => {

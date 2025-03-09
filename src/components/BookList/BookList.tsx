@@ -4,6 +4,7 @@ import { fetchTopBooks } from "../../utils/api";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { restoreFavouritesAction } from "../../store/actionCreators/favouritesActionCreators";
 import { IBook } from "../../types/booksTypes";
+import { IAddedBook } from "../../types/addedBooksTypes";
 import BookCard from "../BookCard/BookCard";
 import SkeletonCard from "../Skeletons/SkeletonCard/SkeletonCard";
 import styles from "./BookList.module.scss";
@@ -24,6 +25,7 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 	const { searchResults, isSearching, isSearchResultsLoading } =
 		useTypedSelector((state) => state.searchResults);
 	const favourites = useTypedSelector((state) => state.favourites.favourites);
+	const addedBooks = useTypedSelector((state) => state.addedBooks.addedBooks);
 
 	//Восстанавливаем избранные книги из localStorage при загрузке страницы
 	useEffect(() => {
@@ -46,9 +48,27 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 
 	// Определяем, какие книги показывать
 	let booksToShow = isSearching ? searchResults : topBooks;
+
+	const mapAddedBookToIBook = (addedBook: IAddedBook): IBook => ({
+		id: addedBook.id,
+		volumeInfo: {
+			title: addedBook.title,
+			authors: addedBook.author,
+			categories: addedBook.genre,
+			description: addedBook.description,
+			imageLinks: {
+				thumbnail: addedBook.cover
+					? URL.createObjectURL(addedBook.cover)
+					: "",
+			},
+		},
+	});
+
 	// Показываем весь список избранного, если фильтр активный
 	if (activeFilter === "Favourites") {
 		booksToShow = favouriteBooks;
+	} else if (activeFilter === "New books") {
+		booksToShow = addedBooks.map(mapAddedBookToIBook);
 	}
 
 	// Состояние для хранения ID активной карточки
