@@ -25,6 +25,13 @@
 		color: variables.$font-color;
 		transition: background-color .3s linear, color .3s linear;
 	}
+
+	&:disabled {
+		background: transparent;
+		color: variables.$font-color;
+		cursor: not-allowed;
+		opacity: 0.3;
+	}
 }
 
 .button__text {

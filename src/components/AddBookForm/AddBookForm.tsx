@@ -31,7 +31,16 @@ const AddBookForm = () => {
 	const [fileName, setFileName] = useState<string | null>(null);
 
 	// Используем кастомный хук валидации
-	const { formErrors, isDisabled, validateField } = useTypedValidation();
+	const {
+		formErrors,
+		setFormErrors,
+		formValid,
+		setFormValid,
+		setFormTouched,
+		isDisabled,
+		setIsDisabled,
+		validateField,
+	} = useTypedValidation();
 
 	// Обработчик загрузки файла
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,33 +82,53 @@ const AddBookForm = () => {
 	// Обработчик отправки формы
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// Проверяем, есть ли ошибки
-		if (isDisabled) return;
-		// Создаем объект книги
-		const newBook: IAddedBook = {
-			id: Date.now().toString(), // Генерируем уникальный id
-			cover: formData.cover,
-			title: formData.title,
-			author: [formData.author],
-			genre: [formData.genre],
-			description: formData.description,
-		};
-		// Отправляем новую книгу в Redux
-		dispatch(addBookAction(newBook));
-		// Логика отправки данных (например, в API или локальное состояние)
-		console.log("New book added:", formData);
-		// Очистка формы после успешного добавления книги
-		setFormData({
-			id: "",
-			cover: null,
-			title: "",
-			author: "",
-			genre: "",
-			description: "",
+		// Запускаем валидацию для всех полей перед отправкой
+		Object.entries(formData).forEach(([key, value]) => {
+			validateField(key as keyof IFormValid, value);
 		});
 
-		setPreview(null);
-		setFileName(null);
+		// Используем setTimeout, чтобы дождаться обновления состояния валидации
+		setTimeout(() => {
+			// Проверяем, есть ли ошибки после валидации
+			if (!Object.values(formValid).every((valid) => valid)) {
+				console.log("Форма не прошла валидацию", formErrors);
+				return;
+			}
+			// Создаем объект книги
+			const newBook: IAddedBook = {
+				id: Date.now().toString(), // Генерируем уникальный id
+				cover: formData.cover,
+				title: formData.title,
+				author: [formData.author],
+				genre: [formData.genre],
+				description: formData.description,
+			};
+			// Отправляем новую книгу в Redux
+			dispatch(addBookAction(newBook));
+			// Логика отправки данных (например, в API или локальное состояние)
+			console.log("New book added:", formData);
+			// Очистка формы после успешного добавления книги
+			setFormData({
+				id: "",
+				cover: null,
+				title: "",
+				author: "",
+				genre: "",
+				description: "",
+			});
+
+			setPreview(null);
+			setFileName(null);
+			// Очистка состояния touched, чтобы после очистки кнопка снова была заблокирована
+			setFormTouched({
+				cover: false,
+				title: false,
+				author: false,
+				genre: false,
+				description: false,
+			});
+			setIsDisabled(false);
+		}, 200); // Небольшая задержка, чтобы React успел обновить состояние
 	};
 
 	const handleClearFile = () => {
@@ -111,8 +140,12 @@ const AddBookForm = () => {
 		// Сбрасываем состояние файла
 		setFormData((prev) => ({ ...prev, cover: null }));
 		setFileName(null);
-		// Перезапускаем валидацию, чтобы убрать ошибку
-		validateField("cover", null);
+		// Явно устанавливаем ошибку, так как обложка обязательна
+		setFormValid((prev) => ({ ...prev, cover: true }));
+		setFormErrors((prev) => ({
+			...prev,
+			cover: "Cover image is required!",
+		}));
 	};
 
 	useEffect(() => {
