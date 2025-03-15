@@ -36,11 +36,17 @@ const AddBookForm = () => {
 		setFormErrors,
 		formValid,
 		setFormValid,
-		setFormTouched,
 		isDisabled,
 		setIsDisabled,
 		validateField,
 	} = useTypedValidation();
+
+	const isValid =
+		formValid.cover &&
+		formValid.title &&
+		formValid.author &&
+		formValid.genre &&
+		formValid.description;
 
 	// Обработчик загрузки файла
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,18 +88,13 @@ const AddBookForm = () => {
 	// Обработчик отправки формы
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		// Запускаем валидацию для всех полей перед отправкой
 		Object.entries(formData).forEach(([key, value]) => {
 			validateField(key as keyof IFormValid, value);
 		});
 
-		// Используем setTimeout, чтобы дождаться обновления состояния валидации
-		setTimeout(() => {
-			// Проверяем, есть ли ошибки после валидации
-			if (!Object.values(formValid).every((valid) => valid)) {
-				console.log("Форма не прошла валидацию", formErrors);
-				return;
-			}
+		if (isValid) {
 			// Создаем объект книги
 			const newBook: IAddedBook = {
 				id: Date.now().toString(), // Генерируем уникальный id
@@ -103,10 +104,12 @@ const AddBookForm = () => {
 				genre: [formData.genre],
 				description: formData.description,
 			};
-			// Отправляем новую книгу в Redux
+
 			dispatch(addBookAction(newBook));
+
 			// Логика отправки данных (например, в API или локальное состояние)
 			console.log("New book added:", formData);
+
 			// Очистка формы после успешного добавления книги
 			setFormData({
 				id: "",
@@ -119,16 +122,10 @@ const AddBookForm = () => {
 
 			setPreview(null);
 			setFileName(null);
-			// Очистка состояния touched, чтобы после очистки кнопка снова была заблокирована
-			setFormTouched({
-				cover: false,
-				title: false,
-				author: false,
-				genre: false,
-				description: false,
-			});
 			setIsDisabled(false);
-		}, 200); // Небольшая задержка, чтобы React успел обновить состояние
+		} else {
+			console.log("Форма не прошла валидацию", formErrors);
+		}
 	};
 
 	const handleClearFile = () => {
@@ -155,6 +152,16 @@ const AddBookForm = () => {
 			}
 		};
 	}, [preview]);
+
+	// Cледим за изменениями в formValid и блокируем кнопку при ошибках валидации
+	useEffect(() => {
+		// Если хотя бы одно поле невалидно, кнопка должна быть заблокирована
+		if (!isValid) {
+			setIsDisabled(true); // Блокируем кнопку
+		} else {
+			setIsDisabled(false); // Разблокируем кнопку, если все поля валидны
+		}
+	}, [isValid, setIsDisabled]);
 
 	return (
 		<>

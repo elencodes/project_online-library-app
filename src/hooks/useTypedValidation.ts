@@ -21,14 +21,6 @@ export interface IFormValid {
 
 // Хук useTypedValidation для валидации полей формы
 const useTypedValidation = () => {
-	// Добавляем состояние для отслеживания заполненных полей
-	const [formTouched, setFormTouched] = useState<Record<string, boolean>>({
-		cover: false,
-		title: false,
-		author: false,
-		genre: false,
-		description: false,
-	});
 
 	// Состояние для хранения сообщений об ошибках валидации
 	const [formErrors, setFormErrors] = useState<IFormErrors>({
@@ -54,25 +46,23 @@ const useTypedValidation = () => {
 	//useEffect отслеживает изменения в `formValid` и обновляет состояние `isDisabled`.
 	//Если хотя бы одно поле содержит ошибку (`true`), кнопка отправки остается заблокированной.
 	useEffect(() => {
-		const hasErrors = Object.values(formValid).some((valid) => valid);
+		const hasErrors = Object.values(formErrors).some((error) => error);
 		// Если поля не тронуты, не блокируем кнопку
 		setIsDisabled(hasErrors);
-	}, [formValid]);
+	}, [formErrors]);
 
 	// Функция validateField для проверки конкретного поля на соответствие правилам валидации
 	const validateField = (
 		name: keyof IFormValid,
 		value: string | File | null
 	) => {
-		// Помечаем поле как затронутое
-		setFormTouched((prev) => ({ ...prev, [name]: true }));
 		// Если поле с типом "строка" состоит только из пробелов, устанавливаем ошибку и отмечаем его как невалидное
 		if (!value || (typeof value === "string" && /^\s*$/.test(value))) {
 			setFormValid((prev) => {
-				const updatedFormValid = { ...prev, [name]: true };
+				const updatedFormValid = { ...prev, [name]: false }; // `true`, если поле заполнено
 				setIsDisabled(
-					Object.values(updatedFormValid).some((valid) => valid)
-				);
+					Object.values(updatedFormValid).some((valid) => !valid)
+				); // Проверяем, есть ли невалидные поля
 				return updatedFormValid;
 			}); // Обновляем статус валидности для текущего поля
 			setFormErrors((prev) => ({
@@ -106,7 +96,7 @@ const useTypedValidation = () => {
 		) => {
 			if (regex.test(value)) {
 				setFormValid((prev) => {
-					const updatedFormValid = { ...prev, [name]: false };
+					const updatedFormValid = { ...prev, [name]: true };
 					setIsDisabled(
 						Object.values(updatedFormValid).some((valid) => valid)
 					);
@@ -115,9 +105,9 @@ const useTypedValidation = () => {
 				setFormErrors((prev) => ({ ...prev, [name]: "" })); // Ошибка отсутствует
 			} else {
 				setFormValid((prev) => {
-					const updatedFormValid = { ...prev, [name]: true };
+					const updatedFormValid = { ...prev, [name]: false };
 					setIsDisabled(
-						Object.values(updatedFormValid).some((valid) => valid)
+						Object.values(updatedFormValid).some((valid) => !valid)
 					);
 					return updatedFormValid;
 				}); // Поле невалидно
@@ -152,9 +142,9 @@ const useTypedValidation = () => {
 				if (!value) {
 					// Если файл отсутствует - ошибка
 					setFormValid((prev) => {
-						const updatedFormValid = { ...prev, cover: true };
+						const updatedFormValid = { ...prev, cover: false };
 						setIsDisabled(
-							Object.values(updatedFormValid).some((valid) => valid)
+							Object.values(updatedFormValid).some((valid) => !valid)
 						);
 						return updatedFormValid;
 					});
@@ -166,9 +156,9 @@ const useTypedValidation = () => {
 					// Если загружается файл, проверяем его MIME-тип
 					if (!allowedTypes.includes(value.type)) {
 						setFormValid((prev) => {
-							const updatedFormValid = { ...prev, cover: true };
+							const updatedFormValid = { ...prev, cover: false };
 							setIsDisabled(
-								Object.values(updatedFormValid).some((valid) => valid)
+								Object.values(updatedFormValid).some((valid) => !valid)
 							);
 							return updatedFormValid;
 						}); // Поле невалидно
@@ -178,9 +168,9 @@ const useTypedValidation = () => {
 						})); // Сообщение об ошибке
 					} else if (value.size > maxSize) {
 						setFormValid((prev) => {
-							const updatedFormValid = { ...prev, cover: true };
+							const updatedFormValid = { ...prev, cover: false };
 							setIsDisabled(
-								Object.values(updatedFormValid).some((valid) => valid)
+								Object.values(updatedFormValid).some((valid) => !valid)
 							);
 							return updatedFormValid;
 						}); // Поле невалидно
@@ -190,9 +180,9 @@ const useTypedValidation = () => {
 						})); // Сообщение об ошибке
 					} else {
 						setFormValid((prev) => {
-							const updatedFormValid = { ...prev, cover: false };
+							const updatedFormValid = { ...prev, cover: true };
 							setIsDisabled(
-								Object.values(updatedFormValid).some((valid) => valid)
+								Object.values(updatedFormValid).some((valid) => !valid)
 							);
 							return updatedFormValid;
 						}); // Поле валидно
@@ -212,8 +202,6 @@ const useTypedValidation = () => {
 		setFormErrors, // Функция для обновления состояния `formErrors`. Используется для установки конкретных сообщений об ошибках для полей.
 		formValid, // Объект, отслеживающий, являются ли отдельные поля формы валидными (true - если есть ошибка, false - если нет ошибки).
 		setFormValid, // Функция для обновления состояния `formValid`. Позволяет установить, является ли поле формы валидным.
-		formTouched,
-		setFormTouched,
 		isDisabled, // Логическое значение, которое контролирует, должна ли кнопка отправки быть заблокирована (true - заблокирована, false - разблокирована).
 		setIsDisabled, // Функция для изменения значения `isDisabled`. Используется для блокировки или разблокировки кнопки отправки.
 		validateField, // Функция, которая выполняет проверку конкретного поля формы, проверяя его значение на соответствие правилам валидации.
