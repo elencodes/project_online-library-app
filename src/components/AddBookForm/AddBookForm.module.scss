@@ -147,3 +147,61 @@
 		border: 2px solid variables.$error-color;
 	}
 }
+
+.notification {
+	background-color: variables.$app-color;
+	border: 1px solid variables.$button-color;
+	padding: 5rem;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+	box-shadow: 0 0.625rem 6.25rem rgba(0, 0, 0, 0.3);
+	border-radius: 1.25rem;
+	animation: fadeIn 0.3s ease-out;
+
+	&__text {
+		font-size: 1.5rem;
+		text-align: center;
+		font-family: variables.$accentFont;
+		color: variables.$font-color;
+	}
+}
+
+.text__success {
+	color: variables.$success-color;
+}
+
+.closeButton {
+	background: none;
+	border: none;
+	font-size: 1.875rem;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	color: variables.$font-color;
+	cursor: pointer;
+
+	&:hover {
+		color: variables.$error-color;
+		transition: color 0.2s linear;
+	}
+
+	&:active {
+		color: variables.$description-color;
+		transition: color 0.1s linear;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -55%);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%);
+	}
+}

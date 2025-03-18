@@ -48,6 +48,9 @@ const AddBookForm = () => {
 		formValid.genre &&
 		formValid.description;
 
+	// Управление состоянием всплывающего уведомления
+	const [showNotification, setShowNotification] = useState<boolean>(false);
+
 	// Обработчик загрузки файла
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0] || null;
@@ -120,6 +123,8 @@ const AddBookForm = () => {
 				description: "",
 			});
 
+			setShowNotification(true); // Показываем уведомление
+
 			setPreview(null);
 			setFileName(null);
 			setIsDisabled(false);
@@ -137,12 +142,17 @@ const AddBookForm = () => {
 		// Сбрасываем состояние файла
 		setFormData((prev) => ({ ...prev, cover: null }));
 		setFileName(null);
-		// Явно устанавливаем ошибку, так как обложка обязательна
 		setFormValid((prev) => ({ ...prev, cover: true }));
+		// Явно устанавливаем ошибку, так как обложка обязательна
 		setFormErrors((prev) => ({
 			...prev,
 			cover: "Cover image is required!",
 		}));
+	};
+
+	// Функция для закрытия уведомления
+	const closeNotification = () => {
+		setShowNotification(false);
 	};
 
 	useEffect(() => {
@@ -285,6 +295,23 @@ const AddBookForm = () => {
 							<SubmitButton text={"Add book"} isDisabled={isDisabled} />
 						</form>
 					</section>
+					{showNotification && (
+						<div className={styles.notification}>
+							<p className={styles.notification__text}>
+								Your book was{" "}
+								<span className={styles.text__success}>
+									successfully added!
+								</span>{" "}
+								🎉
+							</p>
+							<button
+								className={styles.closeButton}
+								onClick={closeNotification}
+							>
+								&times;
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 		</>
