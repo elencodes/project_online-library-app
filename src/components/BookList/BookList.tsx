@@ -3,6 +3,7 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { fetchTopBooks } from "../../utils/api";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { restoreFavouritesAction } from "../../store/actionCreators/favouritesActionCreators";
+import { loadBooksAction } from "../../store/actionCreators/addedBooksActionCreators";
 import { IBook } from "../../types/booksTypes";
 import { IAddedBook } from "../../types/addedBooksTypes";
 import BookCard from "../BookCard/BookCard";
@@ -57,9 +58,7 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 			categories: addedBook.genre,
 			description: addedBook.description,
 			imageLinks: {
-				thumbnail: addedBook.cover
-					? URL.createObjectURL(addedBook.cover)
-					: "",
+				thumbnail: addedBook.cover || "",
 			},
 		},
 	});
@@ -88,6 +87,10 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 			dispatch(fetchTopBooks(currentPage));
 		}
 	}, [dispatch, currentPage, activeFilter]); // Добавили зависимость currentPage
+
+	useEffect(() => {
+		dispatch(loadBooksAction()); // Загружаем книги из IndexedDB при старте
+	}, [dispatch]);
 
 	if (isTopBooksLoading || isSearchResultsLoading) {
 		return (

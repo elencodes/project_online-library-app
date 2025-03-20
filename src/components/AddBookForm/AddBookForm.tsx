@@ -4,6 +4,7 @@ import useTypedValidation from "../../hooks/useTypedValidation";
 import { IFormValid } from "../../hooks/useTypedValidation";
 import { IAddedBook } from "../../types/addedBooksTypes";
 import { addBookAction } from "../../store/actionCreators/addedBooksActionCreators";
+import { fileToBase64 } from "../../utils/fileToBase64";
 import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import ClearButton from "../Buttons/ClearButton/ClearButton";
@@ -89,7 +90,7 @@ const AddBookForm = () => {
 	};
 
 	// Обработчик отправки формы
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		// Запускаем валидацию для всех полей перед отправкой
@@ -98,14 +99,18 @@ const AddBookForm = () => {
 		});
 
 		if (isValid) {
+			const coverBase64 = formData.cover
+				? await fileToBase64(formData.cover)
+				: "";
 			// Создаем объект книги
 			const newBook: IAddedBook = {
 				id: Date.now().toString(), // Генерируем уникальный id
-				cover: formData.cover,
+				cover: coverBase64,
 				title: formData.title,
 				author: [formData.author],
 				genre: [formData.genre],
 				description: formData.description,
+				originalFile: formData.cover,
 			};
 
 			dispatch(addBookAction(newBook));

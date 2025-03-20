@@ -18,7 +18,10 @@ const BookCard: React.FC<IBookCardProps> = ({ book, onHover, onLeave }) => {
 
 	// Достаем нужные данные из объекта book
 	const { imageLinks, title, authors } = book.volumeInfo;
-	const imageUrl = imageLinks?.thumbnail
+
+	const imageUrl = imageLinks?.thumbnail?.startsWith("data:image")
+		? imageLinks.thumbnail // Если base64, используем как есть
+		: imageLinks?.thumbnail
 		? `https://images.weserv.nl/?url=${encodeURIComponent(
 				imageLinks.thumbnail
 		  )}`
