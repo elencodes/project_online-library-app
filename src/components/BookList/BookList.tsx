@@ -5,7 +5,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { restoreFavouritesAction } from "../../store/actionCreators/favouritesActionCreators";
 import { loadBooksAction } from "../../store/actionCreators/addedBooksActionCreators";
 import { IBook } from "../../types/booksTypes";
-import { IAddedBook } from "../../types/addedBooksTypes";
+import { mapAddedBookToIBook } from "../../utils/mapAddedBookToIBook";
 import BookCard from "../BookCard/BookCard";
 import SkeletonCard from "../Skeletons/SkeletonCard/SkeletonCard";
 import styles from "./BookList.module.scss";
@@ -49,19 +49,6 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 
 	// Определяем, какие книги показывать
 	let booksToShow = isSearching ? searchResults : topBooks;
-
-	const mapAddedBookToIBook = (addedBook: IAddedBook): IBook => ({
-		id: addedBook.id,
-		volumeInfo: {
-			title: addedBook.title,
-			authors: addedBook.author,
-			categories: addedBook.genre,
-			description: addedBook.description,
-			imageLinks: {
-				thumbnail: addedBook.cover || "",
-			},
-		},
-	});
 
 	// Показываем весь список избранного, если фильтр активный
 	if (activeFilter === "Favourites") {

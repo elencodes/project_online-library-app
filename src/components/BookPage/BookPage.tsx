@@ -5,6 +5,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { fetchBook } from "../../utils/api";
 import { MAX_LENGTH } from "../../utils/constants";
+import { mapAddedBookToIBook } from "../../utils/mapAddedBookToIBook";
 import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
 import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
 import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
@@ -27,6 +28,8 @@ const BookPage: React.FC = () => {
 	const { book: singleBook, isLoading: isSingleBookLoading } =
 		useTypedSelector((state) => state.singleBook);
 
+	const addedBooks = useTypedSelector((state) => state.addedBooks);
+
 	// Проверяем, загружаются ли книги
 	const isLoading =
 		isTopBooksLoading || isSearchResultsLoading || isSingleBookLoading;
@@ -35,6 +38,10 @@ const BookPage: React.FC = () => {
 	const book: IBook | undefined =
 		topBooks?.find((book: IBook) => book.id === id) ||
 		searchResults?.find((book) => book.id === id) ||
+		(addedBooks.addedBooks.find((addedBook) => addedBook.id === id) &&
+			mapAddedBookToIBook(
+				addedBooks.addedBooks.find((addedBook) => addedBook.id === id)!
+			)) ||
 		singleBook;
 
 	// Если книга не найдена в локальном Redux-хранилище, загружаем её по `id`
