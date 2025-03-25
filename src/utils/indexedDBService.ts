@@ -32,6 +32,7 @@ export const saveBookToIndexedDB = async (book: IAddedBook) => {
 	const db = await openDB();
 	const transaction = db.transaction(STORE_NAME, "readwrite");
 	const store = transaction.objectStore(STORE_NAME);
+	console.log("Сохраняем в IndexedDB:", book);
 	store.put(book);
 };
 

@@ -1,5 +1,5 @@
 import { IBook } from "../../types/booksTypes";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
@@ -28,28 +28,31 @@ const BookPage: React.FC = () => {
 	const { book: singleBook, isLoading: isSingleBookLoading } =
 		useTypedSelector((state) => state.singleBook);
 
-	const addedBooks = useTypedSelector((state) => state.addedBooks);
-
+	const addedBooks = useTypedSelector((state) => state.addedBooks.addedBooks);
+	console.log("Added books from Redux:", addedBooks);
 	// Проверяем, загружаются ли книги
 	const isLoading =
 		isTopBooksLoading || isSearchResultsLoading || isSingleBookLoading;
 
-	// Ищем книгу по id
-	const book: IBook | undefined =
-		topBooks?.find((book: IBook) => book.id === id) ||
-		searchResults?.find((book) => book.id === id) ||
-		(addedBooks.addedBooks.find((addedBook) => addedBook.id === id) &&
-			mapAddedBookToIBook(
-				addedBooks.addedBooks.find((addedBook) => addedBook.id === id)!
-			)) ||
-		singleBook;
+	// Ищем книгу в Redux-хранилище
+	const book: IBook | undefined = useMemo(() => {
+		return (
+			topBooks?.find((book) => book.id === id) ||
+			searchResults?.find((book) => book.id === id) ||
+			(addedBooks.find((addedBook) => addedBook.id === id) &&
+				mapAddedBookToIBook(
+					addedBooks.find((addedBook) => addedBook.id === id)!
+				)) ||
+			singleBook
+		);
+	}, [topBooks, searchResults, addedBooks, singleBook, id]);
 
-	// Если книга не найдена в локальном Redux-хранилище, загружаем её по `id`
+	// Если книги нет в Redux, запрашиваем её с сервера
 	useEffect(() => {
-		if (book?.id) {
-			dispatch(fetchBook(book.id));
+		if (!book && id) {
+			dispatch(fetchBook(id));
 		}
-	}, [book?.id, dispatch]);
+	}, [book, id, dispatch]);
 
 	// Состояние для переключения показа полного текста
 	const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -62,7 +65,9 @@ const BookPage: React.FC = () => {
 	// Достаем нужные данные из объекта book
 	const { imageLinks, title, authors, categories, description } =
 		book.volumeInfo;
-	const imageUrl = imageLinks?.thumbnail
+	const imageUrl = imageLinks?.thumbnail?.startsWith("data:image")
+		? imageLinks.thumbnail // Если base64, используем как есть
+		: imageLinks?.thumbnail
 		? `https://images.weserv.nl/?url=${encodeURIComponent(
 				imageLinks.thumbnail
 		  )}`

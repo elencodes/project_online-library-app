@@ -113,6 +113,7 @@ const AddBookForm = () => {
 				originalFile: formData.cover,
 			};
 
+			console.log("Dispatching addBookAction:", newBook);
 			dispatch(addBookAction(newBook));
 
 			// Логика отправки данных (например, в API или локальное состояние)

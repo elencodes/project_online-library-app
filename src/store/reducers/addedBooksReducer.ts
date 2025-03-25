@@ -13,11 +13,20 @@ export const addedBooksReducer = (
 	action: AddedBooksActions
 ): IAddedBookState => {
 	switch (action.type) {
-		case AddedBooksActionTypes.ADD_BOOK:
-			return {
+		case AddedBooksActionTypes.ADD_BOOK: {
+			console.log(
+				"Reducer received ADD_BOOK action with payload:",
+				action.payload
+			);
+			console.log("State before return:", state);
+			const newState = {
 				...state,
 				addedBooks: [...state.addedBooks, action.payload],
 			};
+
+			console.log("State after return:", newState);
+			return newState;
+		}
 		case AddedBooksActionTypes.LOAD_BOOKS:
 			return {
 				...state,
