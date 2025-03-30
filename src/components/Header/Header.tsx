@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Settings } from "../Settings/Settings";
 import logo from "../../assets/icons/navigation/logo.svg";
 import libraryIcon from "../../assets/icons/navigation/library.svg";
 import libraryActiveIcon from "../../assets/icons/navigation/library-active.svg";
@@ -63,7 +62,6 @@ export function Header() {
 								<p className={styles.nav__text}>Add book</p>
 							</Link>
 						</nav>
-						<Settings />
 					</div>
 				</div>
 			</header>
