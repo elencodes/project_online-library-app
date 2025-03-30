@@ -1,7 +1,5 @@
-import { IBook } from "./booksTypes";
-
 export interface IFavouritesState {
-	favourites: IBook[];
+	favourites: string[];
 }
 
 export enum FavouritesActionTypes {
@@ -13,7 +11,7 @@ export enum FavouritesActionTypes {
 
 export interface IAddToFavouritesAction {
 	type: FavouritesActionTypes.ADD_TO_FAVOURITES;
-	payload: IBook;
+	payload: string;
 }
 
 export interface IRemoveFromFavouritesAction {
@@ -23,7 +21,7 @@ export interface IRemoveFromFavouritesAction {
 
 export interface IRestoreFavouritesAction {
 	type: FavouritesActionTypes.RESTORE_FAVOURITES;
-	payload: IBook[];
+	payload: string[];
 }
 
 export interface INoAction {

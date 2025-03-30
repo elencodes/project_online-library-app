@@ -36,16 +36,17 @@ const BookList: React.FC<BookListProps> = ({ currentPage, activeFilter }) => {
 	// Формируем общий список избранных книг
 	const favouriteBooks = useMemo(() => {
 		return favourites
-			.map((favBook) => {
+			.map((favId) => {
 				// Ищем книгу сначала в топах, потом в поиске, потом в localStorage
-				return (
-					topBooks.find((book) => book.id === favBook.id) ||
-					searchResults.find((book) => book.id === favBook.id) ||
-					favBook // Если не нашли в топах и поиске, берем из localStorage
-				);
+				// Ищем книгу сначала в топах, потом в поиске
+				const foundBook =
+					topBooks.find((book) => book.id === favId) ||
+					searchResults.find((book) => book.id === favId) ||
+					addedBooks.find((book) => book.id === favId); // Добавляем поиск в addedBooks
+				return foundBook ?? null; // Если не нашли, возвращаем null
 			})
-			.filter((book): book is IBook => Boolean(book));
-	}, [favourites, topBooks, searchResults]);
+			.filter((book): book is IBook => book !== null); // Отфильтровываем null-значения
+	}, [favourites, topBooks, searchResults, addedBooks]);
 
 	// Определяем, какие книги показывать
 	let booksToShow = isSearching ? searchResults : topBooks;

@@ -15,14 +15,12 @@ export const favouritesReducer = (
 ): IFavouritesState => {
 	switch (action.type) {
 		case FavouritesActionTypes.ADD_TO_FAVOURITES: {
-			// Если книга уже в избранном, ничего не меняем
-			if (state.favourites.some((book) => book.id === action.payload.id)) {
-				return state;
+			if (state.favourites.includes(action.payload)) {
+				return state; // Если id уже есть, ничего не делаем
 			}
 
 			const updatedFavourites = [...state.favourites, action.payload];
-
-			// Сохраняем в localStorage
+			// Обновляем localStorage
 			localStorage.setItem(
 				"favouritesData",
 				JSON.stringify(updatedFavourites)
@@ -30,15 +28,14 @@ export const favouritesReducer = (
 
 			return {
 				...state,
-				favourites: [...state.favourites, action.payload],
+				favourites: updatedFavourites,
 			};
 		}
 
 		case FavouritesActionTypes.REMOVE_FROM_FAVOURITES: {
 			const filteredFavourites = state.favourites.filter(
-				(book) => book.id !== action.payload
+				(favId) => favId !== action.payload
 			);
-
 			// Обновляем localStorage
 			localStorage.setItem(
 				"favouritesData",

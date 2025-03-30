@@ -5,30 +5,27 @@ import {
 	IRestoreFavouritesAction,
 	INoAction,
 } from "../../types/favouritesTypes";
-import { IBook } from "../../types/booksTypes";
 
 // Экшн для добавления книги в избранное (сохранение не только ID, но и данных книги)
 export const addToFavouritesAction = (
-	book: IBook
+	id: string
 ): IAddToFavouritesAction | INoAction => {
 	// Получаем текущие избранные книги из localStorage
-	const favouritesData: IBook[] = JSON.parse(
+	const favouritesData: string[] = JSON.parse(
 		localStorage.getItem("favouritesData") || "[]"
 	);
 
-	// Проверяем, нет ли уже книги в избранном
-	const isAlreadyInFavourites = favouritesData.some(
-		(favBook) => favBook.id === book.id
-	);
-	if (isAlreadyInFavourites) return { type: FavouritesActionTypes.NO_ACTION };
+	// Проверяем, нет ли уже ID в избранном
+	if (favouritesData.includes(id))
+		return { type: FavouritesActionTypes.NO_ACTION };
 
 	// Обновляем localStorage
-	const updatedFavourites = [...favouritesData, book];
+	const updatedFavourites = [...favouritesData, id];
 	localStorage.setItem("favouritesData", JSON.stringify(updatedFavourites));
 
 	return {
 		type: FavouritesActionTypes.ADD_TO_FAVOURITES,
-		payload: book,
+		payload: id,
 	};
 };
 
@@ -37,12 +34,12 @@ export const removeFromFavouritesAction = (
 	id: string
 ): IRemoveFromFavouritesAction => {
 	// Получаем избранные книги из localStorage
-	const favouritesData: IBook[] = JSON.parse(
+	const favouritesData: string[] = JSON.parse(
 		localStorage.getItem("favouritesData") || "[]"
 	);
 
 	// Фильтруем книги и обновляем localStorage
-	const updatedFavourites = favouritesData.filter((book) => book.id !== id);
+	const updatedFavourites = favouritesData.filter((favId) => favId !== id);
 	localStorage.setItem("favouritesData", JSON.stringify(updatedFavourites));
 
 	return {
@@ -53,7 +50,7 @@ export const removeFromFavouritesAction = (
 
 // Экшн для восстановления избранного при загрузке страницы
 export const restoreFavouritesAction = (): IRestoreFavouritesAction => {
-	const storedFavourites: IBook[] = JSON.parse(
+	const storedFavourites: string[] = JSON.parse(
 		localStorage.getItem("favouritesData") || "[]"
 	);
 

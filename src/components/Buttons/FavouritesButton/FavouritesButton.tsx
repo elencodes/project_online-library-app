@@ -5,27 +5,26 @@ import {
 	addToFavouritesAction,
 	removeFromFavouritesAction,
 } from "../../../store/actionCreators/favouritesActionCreators";
-import { IBook } from "../../../types/booksTypes";
 import styles from "./FavouritesButton.module.scss";
 
 interface IFavouritesButtonProps {
-	book: IBook;
+	id: string;
 }
 
-const FavouritesButton: React.FC<IFavouritesButtonProps> = ({ book }) => {
+const FavouritesButton: React.FC<IFavouritesButtonProps> = ({ id }) => {
 	const dispatch = useTypedDispatch();
 	const favourites = useTypedSelector(
 		(state: RootState) => state.favourites.favourites
 	);
 
 	// Проверяем, есть ли книга в избранном
-	const isFavourite = favourites.some((favBook) => favBook.id === book.id);
+	const isFavourite = favourites.some((favId) => favId=== id);
 
 	const handleClick = () => {
 		if (isFavourite) {
-			dispatch(removeFromFavouritesAction(book.id));
+			dispatch(removeFromFavouritesAction(id));
 		} else {
-			dispatch(addToFavouritesAction(book));
+			dispatch(addToFavouritesAction(id));
 		}
 	};
 
