@@ -22,3 +22,10 @@
 	background: url("/src/assets/images/library.jpg") center center no-repeat fixed;
 	background-size: cover;
 }
+
+@media (max-width: 380px) {
+	.container {
+		padding: 1.875rem 2.125rem;
+		width: 20rem;
+	}
+}

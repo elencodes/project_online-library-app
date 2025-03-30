@@ -59,3 +59,30 @@
 .hide {
 	animation: fadeOut 1s ease-in forwards;
 }
+
+@media (max-width: 1385px) {
+	.subtitle {
+		font-size: 1.375rem;
+	}
+}
+
+@media (max-width: 970px) {
+	.about__container {
+		width: 100%;
+		min-height: 100vh;
+		background: url("../../assets/images/start-mobile.jpg") center center no-repeat fixed;
+		background-size: cover;
+	}
+}
+
+@media (max-width: 530px) {
+	.content {
+		margin-top: 12rem;
+	}
+}
+
+@media (max-width: 380px) {
+	.subtitle {
+		font-size: 1.5rem;
+	}
+}

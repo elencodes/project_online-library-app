@@ -59,3 +59,9 @@
 		box-shadow: 0 0 0 1.875rem rgba(239, 227, 200, 0);
 	}
 }
+
+@media (max-width: 345px) {
+	.button {
+		width: 16rem;
+	}
+}
