@@ -23,6 +23,17 @@
 	background-size: cover;
 }
 
+@media (max-width: 925px) {
+	.app {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
+	.header__inner {
+		max-width: 90%;
+	}
+}
+
 @media (max-width: 380px) {
 	.container {
 		padding: 1.875rem 2.125rem;

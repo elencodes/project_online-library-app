@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/icons/navigation/logo.svg";
+import logoName from "../../assets/icons/navigation/logo.svg";
+import logoIcon from "../../assets/icons/navigation/logo-icon.svg";
 import libraryIcon from "../../assets/icons/navigation/library.svg";
 import libraryActiveIcon from "../../assets/icons/navigation/library-active.svg";
 import addBookIcon from "../../assets/icons/navigation/book.svg";
@@ -10,6 +11,8 @@ import styles from "./Header.module.scss";
 export function Header() {
 	const [isHoveredLibraryButton, setHoveredLibraryButton] = useState(false); // Состояние hover
 	const [isHoveredBookButton, setHoveredBookButton] = useState(false); // Состояние hover
+
+	const logo = window.innerWidth >= 925 ? logoName : logoIcon;
 
 	return (
 		<>
