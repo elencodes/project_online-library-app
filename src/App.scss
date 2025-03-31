@@ -13,6 +13,15 @@
 	min-height: 100vh;
 }
 
+.container__start-page {
+	display: flex;
+	flex-direction: column;
+	width: 87.5rem;
+	max-width: 87.5rem;
+	padding: 1.875rem 3.125rem;
+	min-height: 100vh;
+}
+
 .header__inner {
 	max-width: 12.625rem;
 	margin: 0 auto;
@@ -35,7 +44,7 @@
 }
 
 @media (max-width: 380px) {
-	.container {
+	.container__start-page {
 		padding: 1.875rem 2.125rem;
 		width: 20rem;
 	}

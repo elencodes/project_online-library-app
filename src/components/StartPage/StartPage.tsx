@@ -18,7 +18,7 @@ const StartPage = () => {
 					isVisible ? styles.show : styles.hide
 				}`}
 			>
-				<div className="container">
+				<div className="container__start-page">
 					<section>
 						<img className={styles.logo} src={logo} alt="logo" />
 						<div className={styles.content}>
