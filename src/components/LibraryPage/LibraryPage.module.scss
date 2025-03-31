@@ -113,3 +113,13 @@
 		color: variables.$dark-font-color;
 	}
 }
+
+@media (max-width: 925px) {
+	.main {
+		flex-grow: 0;
+	}
+
+	.notification__box {
+		height: 54.5vh;
+	}
+}

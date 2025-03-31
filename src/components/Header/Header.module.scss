@@ -63,9 +63,11 @@
 
 @media (max-width: 925px) {
 	.header {
+		position: fixed;
 		display: flex;
 		width: 100%;
 		min-height: auto;
+		background: linear-gradient(to bottom, rgba(110, 101, 112, 0.994) 0%, rgba(65, 55, 67, 0.894) 50%, rgba(51, 45, 52, 0.894) 100%);
 	}
 
 	.header__navigation_box {
