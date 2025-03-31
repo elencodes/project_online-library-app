@@ -43,6 +43,12 @@
 	}
 }
 
+@media (max-width: 540px) {
+	.container {
+		padding: 1.875rem 2.125rem;
+	}
+}
+
 @media (max-width: 380px) {
 	.container__start-page {
 		padding: 1.875rem 2.125rem;

@@ -123,3 +123,15 @@
 		height: 54.5vh;
 	}
 }
+
+@media (max-width: 600px) {
+	.title {
+		margin-right: 2.063rem;
+	}
+}
+
+@media (max-width: 515px) {
+	.title {
+		margin-right: 1.5rem;
+	}
+}

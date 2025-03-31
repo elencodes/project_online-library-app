@@ -33,3 +33,49 @@
 	transition: transform 0.2s linear;
 	content: url("../../assets/icons/search/search.svg");
 }
+
+@media (max-width: 675px) {
+	.search__container {
+		width: 28.25rem
+	}
+}
+
+@media (max-width: 625px) {
+	.search__container {
+		width: 26.25rem;
+	}
+}
+
+@media (max-width: 570px) {
+	.search__container {
+		width: 24.25rem;
+	}
+}
+
+@media (max-width: 540px) {
+	.search__container {
+		width: 22.25rem;
+	}
+}
+
+@media (max-width: 515px) {
+	.search__container {
+		width: 22.25rem;
+	}
+}
+
+@media (max-width: 500px) {
+	.search__container {
+		width: 20.25rem;
+	}
+}
+
+@media (max-width: 475px) {
+	.search__container {
+		width: 18.25rem;
+	}
+
+	.search__item {
+		padding-right: 0;
+	}
+}
