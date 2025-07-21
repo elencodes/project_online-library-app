@@ -28,7 +28,7 @@
 }
 
 .page__background {
-	background: url("/src/assets/images/library.jpg") center center no-repeat fixed;
+	background: url("/src/assets/images/library.webp") center center no-repeat fixed;
 	background-size: cover;
 }
 
@@ -46,6 +46,12 @@
 @media (max-width: 540px) {
 	.container {
 		padding: 1.875rem 2.125rem;
+	}
+}
+
+@media (max-width: 415px) {
+	.container {
+		padding: 1.875rem 1.5rem;
 	}
 }
 
