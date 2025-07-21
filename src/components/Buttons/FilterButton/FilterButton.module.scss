@@ -32,3 +32,21 @@
 	font-family: variables.$accentFont;
 	font-size: 1.125rem;
 }
+
+@media (max-width: 335px) {
+	.filter__button {
+		width: 6rem;
+	}
+}
+
+@media (max-width: 335px) {
+	.filter__button {
+		width: 5.75rem;
+	}
+}
+
+@media (max-width: 290px) {
+	.filter__button {
+		width: 5.375rem;
+	}
+}
