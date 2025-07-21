@@ -70,12 +70,81 @@
 	}
 }
 
-@media (max-width: 475px) {
+@media (max-width: 480px) {
 	.search__container {
-		width: 18.25rem;
+		width: 28.25rem;
+		margin-top: 1.5rem;
 	}
+}
 
-	.search__item {
-		padding-right: 0;
+@media (max-width: 445px) {
+	.search__container {
+		width: 27.25rem;
+	}
+}
+
+@media (max-width: 425px) {
+	.search__container {
+		width: 26.25rem;
+	}
+}
+
+@media (max-width: 410px) {
+	.search__container {
+		width: 25.25rem;
+	}
+}
+
+@media (max-width: 390px) {
+	.search__container {
+		width: 24.25rem;
+	}
+}
+
+@media (max-width: 376px) {
+	.search__container {
+		width: 23.25rem;
+	}
+}
+
+@media (max-width: 360px) {
+	.search__container {
+		width: 22.25rem;
+	}
+}
+
+@media (max-width: 350px) {
+	.search__container {
+		width: 21.5rem;
+	}
+}
+
+@media (max-width: 350px) {
+	.search__container {
+		width: 20.5rem;
+	}
+}
+
+@media (max-width: 325px) {
+	.search__container {
+		width: 19.5rem;
+	}
+}
+
+@media (max-width: 315px) {
+	.search__container {
+		width: 19rem;
+	}
+}
+
+@media (max-width: 305px) {
+	.search__container {
+		width: 18rem;
+	}
+}
+
+@media (max-width: 290px) {
+	.search__container {
+		width: 17rem;
 	}
 }
