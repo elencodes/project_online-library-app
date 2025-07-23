@@ -95,7 +95,7 @@
 
 .input__item {
 	width: 31.25rem;
-	padding: .625rem 0.875rem;
+	padding: .825rem 0.875rem;
 	margin-top: .75rem;
 	font-size: .875rem;
 	color: variables.$font-color;
@@ -112,7 +112,6 @@
 .description__label {
 	display: inline-block;
 	position: relative;
-	align-self: start;
 	font-family: variables.$accentFont;
 	font-size: 1.875rem;
 	color: variables.$description-color;
@@ -203,5 +202,239 @@
 	to {
 		opacity: 1;
 		transform: translate(-50%, -50%);
+	}
+}
+
+@media (max-width: 1375px) {
+	.textarea {
+		width: 78.25rem;
+	}
+}
+
+@media (max-width: 1330px) {
+	.textarea {
+		width: 75.25rem;
+	}
+}
+
+@media (max-width: 1290px) {
+	.textarea {
+		width: 72.25rem;
+	}
+}
+
+@media (max-width: 1250px) {
+	.textarea {
+		width: 70.25rem;
+	}
+}
+
+@media (max-width: 1220px) {
+	.textarea {
+		width: 68.25rem;
+	}
+}
+
+@media (max-width: 1195px) {
+	.textarea {
+		width: 65.25rem;
+	}
+}
+
+@media (max-width: 1160px) {
+	.textarea {
+		width: 62.25rem;
+	}
+}
+
+@media (max-width: 1125px) {
+	.textarea {
+		width: 59.25rem;
+	}
+}
+
+@media (max-width: 1065px) {
+	.textarea {
+		width: 56.25rem;
+	}
+}
+
+@media (max-width: 1025px) {
+	.textarea {
+		width: 53.25rem;
+	}
+}
+
+@media (max-width: 985px) {
+	.textarea {
+		width: 50.25rem;
+	}
+}
+
+@media (max-width: 945px) {
+	.textarea {
+		width: 47.25rem;
+	}
+}
+
+@media (max-width: 925px) {
+	.textarea {
+		width: 59.25rem;
+	}
+}
+
+@media (max-width: 890px) {
+	.textarea {
+		width: 56.25rem;
+	}
+}
+
+@media (max-width: 850px) {
+	.textarea {
+		width: 52.25rem;
+	}
+}
+
+@media (max-width: 795px) {
+	.textarea {
+		width: 48.25rem;
+	}
+}
+
+@media (max-width: 740px) {
+	.textarea {
+		width: 45.25rem;
+	}
+}
+
+@media (max-width: 695px) {
+	.textarea {
+		width: 42.25rem;
+	}
+}
+
+@media (max-width: 650px) {
+	.textarea {
+		width: 39.25rem;
+	}
+}
+
+@media (max-width: 610px) {
+	.textarea {
+		width: 36.25rem;
+	}
+}
+
+@media (max-width: 570px) {
+	.textarea {
+		width: 33.25rem;
+	}
+}
+
+@media (max-width: 515px) {
+	.textarea {
+		width: 31.25rem;
+	}
+
+	.input__container:last-of-type {
+		align-self: center;
+	}
+}
+
+@media (max-width: 465px) {
+	.textarea {
+		width: 29.25rem;
+	}
+
+	.preview {
+		width: 28.5rem;
+	}
+
+	.input__item {
+		width: 29.25rem;
+	}
+}
+
+@media (max-width: 435px) {
+	.textarea {
+		width: 27.25rem;
+	}
+
+	.preview {
+		width: 26.5rem;
+	}
+
+	.input__item {
+		width: 27.25rem;
+	}
+}
+
+@media (max-width: 405px) {
+	.textarea {
+		width: 25.25rem;
+	}
+
+	.preview {
+		width: 24.5rem;
+	}
+
+	.input__item {
+		width: 25.25rem;
+	}
+}
+
+@media (max-width: 380px) {
+	.textarea {
+		width: 23.25rem;
+	}
+
+	.preview {
+		width: 22.5rem;
+	}
+
+	.input__item {
+		width: 23.25rem;
+	}
+}
+
+@media (max-width: 350px) {
+	.textarea {
+		width: 21.25rem;
+	}
+
+	.preview {
+		width: 20.5rem;
+	}
+
+	.input__item {
+		width: 21.25rem;
+	}
+}
+
+@media (max-width: 320px) {
+	.textarea {
+		width: 19.25rem;
+	}
+
+	.preview {
+		width: 18.5rem;
+	}
+
+	.input__item {
+		width: 19.25rem;
+	}
+}
+
+@media (max-width: 295px) {
+	.textarea {
+		width: 17.25rem;
+	}
+
+	.preview {
+		width: 16.5rem;
+	}
+
+	.input__item {
+		width: 17.25rem;
 	}
 }
