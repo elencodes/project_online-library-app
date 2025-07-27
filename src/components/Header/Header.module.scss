@@ -61,7 +61,13 @@
 	margin-left: .625rem;
 }
 
-@media (max-width: 925px) {
+@media (max-width: 1120px) {
+	.header {
+		width: 14rem;
+	}
+}
+
+@media (max-width: 1080px) {
 	.header {
 		display: flex;
 		width: 100%;

@@ -12,7 +12,7 @@ export function Header() {
 	const [isHoveredLibraryButton, setHoveredLibraryButton] = useState(false); // Состояние hover
 	const [isHoveredBookButton, setHoveredBookButton] = useState(false); // Состояние hover
 
-	const logo = window.innerWidth >= 925 ? logoName : logoIcon;
+	const logo = window.innerWidth >= 1080 ? logoName : logoIcon;
 
 	return (
 		<>
