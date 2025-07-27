@@ -72,7 +72,7 @@ const LibraryPage = () => {
 	return (
 		<>
 			<div className="page__background">
-				<div className="container">
+				<div className="container library__container">
 					<main className={styles.main}>
 						<div className={styles.search__container}>
 							<h1 className={styles.title}>Library</h1>
@@ -167,7 +167,7 @@ const LibraryPage = () => {
 										{totalBooks}
 									</span>
 									<span className={styles.footer__note}>
-										{`(Showing the first ${maxResults} results)`}
+										{`(First ${maxResults} results)`}
 									</span>
 								</>
 							)}

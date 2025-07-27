@@ -49,6 +49,7 @@
 	align-items: center;
 	justify-content: space-between;
 	margin-top: 2.5rem;
+	width: 95%;
 }
 
 .footer__text {
@@ -114,7 +115,19 @@
 	}
 }
 
-@media (max-width: 925px) {
+@media (max-width: 1765px) {
+	.footer {
+		width: 98%;
+	}
+}
+
+@media (max-width: 1440px) {
+	.footer {
+		width: auto;
+	}
+}
+
+@media (max-width: 1080px) {
 	.main {
 		flex-grow: 0;
 	}
@@ -127,6 +140,12 @@
 @media (max-width: 600px) {
 	.title {
 		margin-right: 2.063rem;
+	}
+}
+
+@media (max-width: 575px) {
+	.footer__note {
+		display: block;
 	}
 }
 

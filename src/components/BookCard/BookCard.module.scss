@@ -44,3 +44,51 @@
 	align-items: center;
 	justify-content: space-between;
 }
+
+@media (max-width: 385px) {
+	.card {
+		width: 10.625rem;
+	}
+
+	.title {
+		font-size: 1rem;
+	}
+
+	.subtitle {
+		font-size: .875rem;
+	}
+}
+
+@media (max-width: 350px) {
+	.card {
+		width: 10rem;
+	}
+}
+
+@media (max-width: 335px) {
+	.card {
+		width: 9.5rem;
+	}
+
+	.title {
+		font-size: .875rem;
+	}
+
+	.subtitle {
+		font-size: .875rem;
+	}
+}
+
+@media (max-width: 320px) {
+	.card {
+		width: 10.625rem;
+	}
+
+	.title {
+		font-size: 1rem;
+	}
+
+	.subtitle {
+		font-size: .875rem;
+	}
+}
