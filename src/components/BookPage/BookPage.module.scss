@@ -145,6 +145,7 @@
 	margin-top: 1.375rem;
 	font-family: variables.$descriptionFont;
 	font-size: 1.25rem;
+	text-align: justify;
 	color: variables.$description-color;
 }
 
@@ -154,4 +155,14 @@
 	font-family: variables.$descriptionFont;
 	color: variables.$title-cards-color;
 	font-weight: 700;
+}
+
+@media (max-width: 1026px) {
+	.content {
+		margin-top: 2rem;
+	}
+
+	.description__box {
+		margin-top: 2rem;
+	}
 }
