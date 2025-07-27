@@ -20,10 +20,6 @@
 	margin-top: 0;
 }
 
-.input__container:last-of-type {
-	align-self: start;
-}
-
 .input__label {
 	font-family: variables.$mainFont;
 	font-size: 1.5rem;
@@ -130,7 +126,7 @@
 .textarea {
 	margin-top: 1.875rem;
 	height: 17.1875rem;
-	width: 81.25rem;
+	width: 78vw;
 }
 
 .error {
@@ -205,141 +201,18 @@
 	}
 }
 
-@media (max-width: 1375px) {
+@media (max-width: 1120px) {
 	.textarea {
-		width: 78.25rem;
+		width: 74vw;
 	}
 }
 
-@media (max-width: 1330px) {
-	.textarea {
-		width: 75.25rem;
-	}
-}
-
-@media (max-width: 1290px) {
-	.textarea {
-		width: 72.25rem;
-	}
-}
-
-@media (max-width: 1250px) {
-	.textarea {
-		width: 70.25rem;
-	}
-}
-
-@media (max-width: 1220px) {
-	.textarea {
-		width: 68.25rem;
-	}
-}
-
-@media (max-width: 1195px) {
-	.textarea {
-		width: 65.25rem;
-	}
-}
-
-@media (max-width: 1160px) {
-	.textarea {
-		width: 62.25rem;
-	}
-}
-
-@media (max-width: 1125px) {
-	.textarea {
-		width: 59.25rem;
-	}
-}
-
-@media (max-width: 1065px) {
-	.textarea {
-		width: 56.25rem;
-	}
-}
-
-@media (max-width: 1025px) {
-	.textarea {
-		width: 53.25rem;
-	}
-}
-
-@media (max-width: 985px) {
-	.textarea {
-		width: 50.25rem;
-	}
-}
-
-@media (max-width: 945px) {
-	.textarea {
-		width: 47.25rem;
-	}
-}
-
-@media (max-width: 925px) {
-	.textarea {
-		width: 59.25rem;
-	}
-}
-
-@media (max-width: 890px) {
-	.textarea {
-		width: 56.25rem;
-	}
-}
-
-@media (max-width: 850px) {
-	.textarea {
-		width: 52.25rem;
-	}
-}
-
-@media (max-width: 795px) {
-	.textarea {
-		width: 48.25rem;
-	}
-}
-
-@media (max-width: 740px) {
-	.textarea {
-		width: 45.25rem;
-	}
-}
-
-@media (max-width: 695px) {
-	.textarea {
-		width: 42.25rem;
-	}
-}
-
-@media (max-width: 650px) {
-	.textarea {
-		width: 39.25rem;
-	}
-}
-
-@media (max-width: 610px) {
-	.textarea {
-		width: 36.25rem;
-	}
-}
-
-@media (max-width: 570px) {
-	.textarea {
-		width: 33.25rem;
-	}
-}
-
-@media (max-width: 515px) {
+@media (max-width: 600px) {
 	.textarea {
 		width: 31.25rem;
 	}
-
-	.input__container:last-of-type {
-		align-self: center;
-	}
 }
+
 
 @media (max-width: 465px) {
 	.textarea {
