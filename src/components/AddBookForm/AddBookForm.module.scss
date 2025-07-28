@@ -207,6 +207,16 @@
 	}
 }
 
+@media (max-width: 900px) {
+	.notification {
+		padding: 4.5rem;
+	}
+
+	.notification__text {
+		font-size: 1.375rem;
+	}
+}
+
 @media (max-width: 600px) {
 	.textarea {
 		width: 31.25rem;
