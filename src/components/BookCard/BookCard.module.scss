@@ -63,12 +63,6 @@
 	.card {
 		width: 10rem;
 	}
-}
-
-@media (max-width: 335px) {
-	.card {
-		width: 9.5rem;
-	}
 
 	.title {
 		font-size: .875rem;
@@ -76,6 +70,12 @@
 
 	.subtitle {
 		font-size: .875rem;
+	}
+}
+
+@media (max-width: 335px) {
+	.card {
+		width: 9.5rem;
 	}
 }
 
