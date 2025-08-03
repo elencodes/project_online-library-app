@@ -2,7 +2,7 @@ import { IBook } from "../../types/booksTypes";
 import { IAddedBook } from "../../types/addedBooksTypes";
 import { useNavigate } from "react-router-dom";
 import styles from "./BookCard.module.scss";
-import poster from "../../assets/images/promo.svg";
+import poster from "../../assets/images/promo.png";
 import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
 import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
 

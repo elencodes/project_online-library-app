@@ -10,7 +10,7 @@ import GoBackButton from "../Buttons/GoBackButton/GoBackButton";
 import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
 import FavouritesButton from "../Buttons/FavouritesButton/FavouritesButton";
 import SkeletonBookPage from "../Skeletons/SkeletonBookPage/SkeletonBookPage";
-import poster from "../../assets/images/promo.svg";
+import poster from "../../assets/images/promo.png";
 import styles from "./BookPage.module.scss";
 
 const BookPage: React.FC = () => {
