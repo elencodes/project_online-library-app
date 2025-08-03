@@ -88,7 +88,7 @@ const BookPage: React.FC = () => {
 	return (
 		<>
 			<div className="page__background">
-				<div className="container">
+				<div className="container book-page__container">
 					<section className={styles.section}>
 						<GoBackButton text={"Back to Library"} />
 						{isLoading && <SkeletonBookPage />}

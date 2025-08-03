@@ -20,6 +20,10 @@
 	min-height: 100vh;
 }
 
+.book-page__container {
+	width: 90vw;
+}
+
 .library__container {
 	width: 90vw;
 }
@@ -70,6 +74,7 @@
 
 	.library__container {
 		padding: 1.875rem 3.125rem;
+		width: auto;
 	}
 
 	.book-page__container {
