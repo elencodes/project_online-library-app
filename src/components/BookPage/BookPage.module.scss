@@ -55,11 +55,13 @@
 .title {
 	margin-top: 1.875rem;
 	font-size: 2rem;
+	text-align: center;
 }
 
 .subtitle {
 	margin-top: .8125rem;
 	font-size: 1.375rem;
+	text-align: center;
 	color: variables.$description-color;
 }
 
@@ -67,6 +69,7 @@
 	margin-top: .8125rem;
 	font-family: variables.$accentFont;
 	font-size: 1.375rem;
+	text-align: center;
 	color: variables.$title-cards-color;
 }
 
