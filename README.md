@@ -1,6 +1,7 @@
 <div id="header">
 <h1>LIBRO D'ORO - online library for searching books</h1>
 	<p>A Single Page Application  (SPA) using the Google Books API allows you to find books based on various criteria (title, author, keyword) and get detailed information about them, including covers, genres and annotations. Built using Typescript, React and Redux.</p>
+<img src="https://github.com/elencodes/project_online-library-app/blob/main/public/gif/promo.gif">
 <h2>Application link:</h2>
 <a href="https://elencodes.github.io/project_online-library-app/">LIBRI D'ORO</a>
 <h2>Used technologies:</h2> 
@@ -21,6 +22,9 @@
   <li>When you click on the card, you go to the detailed page of the book, which shows its details: cover image, title, all genres, all authors, description.</li>
    <li>A form of adding a new book to the library has been implemented (with validation hints for correct data entry).</li>
 </ul>
+<img src="https://github.com/elencodes/project_online-library-app/blob/main/public/github/mobile-library-page.png" height="380">
+<img src="https://github.com/elencodes/project_online-library-app/blob/main/public/github/mobile-book-page.png" height="380">
+<img src="https://github.com/elencodes/project_online-library-app/blob/main/public/github/mobile-form-page.png" height="380">
 <h2>Developed by:</h2> 
 <div id=bages>
 	<p><a href="https://github.com/elencodes"><img src="https://img.shields.io/badge/ELENA-2E2844?style=for-the-badge&logo=github"></a></p>
