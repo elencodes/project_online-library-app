@@ -1,5 +1,5 @@
 <div id="header">
-<h1>LIBRO D'ORO - online library for searching books</h1>
+<h1>LIBRI D'ORO - online library for searching books</h1>
 	<p>A Single Page Application  (SPA) using the Google Books API allows you to find books based on various criteria (title, author, keyword) and get detailed information about them, including covers, genres and annotations. Built using Typescript, React and Redux.</p>
 <img src="https://github.com/elencodes/project_online-library-app/blob/main/public/gif/promo.gif">
 <h2>Application link:</h2>
@@ -18,9 +18,11 @@
 <ul>
   <li>Using MobX, you can send API requests and interact with the word store by changing, deleting, and adding new elements (all changes are saved on the server, and updated data is immediately displayed on the screen).</li>
   <li>The word can be found by its English meaning or Russian translation.</li>
-  <li>The "Library" page will display the top 100 books by default. Discovered books are cards derived from the book cover image, book title, author names, and buttons (add to favorites/delete).</li>
-  <li>When you click on the card, you go to the detailed page of the book, which shows its details: cover image, title, all genres, all authors, description.</li>
-   <li>A form of adding a new book to the library has been implemented (with validation hints for correct data entry).</li>
+  <li>The "Library" page will display the top 100 books by default. Using the search bar, you can find the books or authors you are interested in. Discovered books are cards derived from the book cover image, book title, author names, and buttons (add to favorites/delete). Максимальное количество возвращаемых результатов поиска - 30 книг</li>
+  <li>Для оптимизации загрузки данных с сервера и последовательного отображения контента используется постраничная пагинация (шаг пагинации - 10 карточек).</li>
+  <li>Реализована фильтрация: для просмотра всех карточек книг ("All books"), добавленных в избранное ("Favourites") и созданных карточек книг ("New books"). По-умолчанию установлен фильтр </li>
+  <li>When you click on the card, you go to the detailed page of the book, which shows its details: cover image, title, all genres, all authors, description. Функционал добавления в избранное и удаления также доступен.</li>
+  <li>A form of adding a new book to the library has been implemented (with validation hints for correct data entry).</li>
 </ul>
 <img src="https://github.com/elencodes/project_online-library-app/blob/main/public/github/mobile-library-page.png" height="380">
 <img src="https://github.com/elencodes/project_online-library-app/blob/main/public/github/mobile-book-page.png" height="380">
