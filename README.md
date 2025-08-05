@@ -16,13 +16,12 @@
 	</div>
 <h2>Application functionality:</h2>
 <ul>
-  <li>Using MobX, you can send API requests and interact with the word store by changing, deleting, and adding new elements (all changes are saved on the server, and updated data is immediately displayed on the screen).</li>
-  <li>The word can be found by its English meaning or Russian translation.</li>
-  <li>The "Library" page will display the top 100 books by default. Using the search bar, you can find the books or authors you are interested in. Discovered books are cards derived from the book cover image, book title, author names, and buttons (add to favorites/delete). Максимальное количество возвращаемых результатов поиска - 30 книг</li>
-  <li>Для оптимизации загрузки данных с сервера и последовательного отображения контента используется постраничная пагинация (шаг пагинации - 10 карточек).</li>
-  <li>Реализована фильтрация: для просмотра всех карточек книг ("All books"), добавленных в избранное ("Favourites") и созданных карточек книг ("New books"). По-умолчанию установлен фильтр </li>
-  <li>When you click on the card, you go to the detailed page of the book, which shows its details: cover image, title, all genres, all authors, description. Функционал добавления в избранное и удаления также доступен.</li>
-  <li>A form of adding a new book to the library has been implemented (with validation hints for correct data entry).</li>
+  <li>The "Library" page will display the top 100 books by default. Books are cards derived from the book cover image, book title and author name. A book card can be added to favorites or removed from the screen if it is not interesting.</li>
+  <li>Using the search bar, you can find the books or authors you are interested in. You can search in both English and Russian. The maximum number of search results returned is 30.</li>
+  <li>To optimize data loading from the server and sequential display of content, page-by-page pagination is used (step is 10 cards).</li>
+  <li>Filtering has been implemented: to view all book cards ("All books"), added to favorites ("Favorites") and created book cards ("New books"). The "All books" filter is set by default.</li>
+  <li>When you click on the card, the "Book Page" opens with its data: cover, title, all genres, all authors, description. The function of adding to favorites and deleting is also available.</li>
+  <li>On the "Add Book Page", a form of adding a new book to the library has been implemented (with validation hints for correct data entry). When a card is successfully added, a notification appears, and the card itself can be found on the "Library" page in the active filter "New books".</li>
 </ul>
 <img src="https://github.com/elencodes/project_online-library-app/blob/main/public/github/mobile-library-page.png" height="380">
 <img src="https://github.com/elencodes/project_online-library-app/blob/main/public/github/mobile-book-page.png" height="380">
