@@ -21,7 +21,7 @@
 }
 
 .book-page__container {
-	width: 90vw;
+	width: auto;
 }
 
 .library__container {
@@ -38,15 +38,16 @@
 	background-size: cover;
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1345px) {
 	.library__container {
-		width: auto;
+		width: 85vw;
 	}
 }
 
 @media (max-width: 1175px) {
 	.library__container {
 		padding: 1.875rem 2.125rem;
+		// width: 85vw;
 	}
 }
 
@@ -74,10 +75,6 @@
 
 	.library__container {
 		padding: 1.875rem 3.125rem;
-		width: auto;
-	}
-
-	.book-page__container {
 		width: auto;
 	}
 }
